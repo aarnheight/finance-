@@ -73,18 +73,24 @@ h2{font-size:16px;margin:0 0 10px;font-weight:800}
 .em{width:46px;height:46px;border-radius:50%;border:2px solid transparent;background:var(--bg);font-size:22px;cursor:pointer}.em.on{border-color:var(--lav)}
 .ems{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 16px}
 input[type=date]{min-width:0;-webkit-appearance:none;appearance:none}
+.day.custom{background:var(--lav)}
+.pal{position:fixed;left:0;right:0;bottom:calc(88px + env(safe-area-inset-bottom,0px));display:flex;gap:8px;justify-content:center;padding:0 12px;z-index:2;pointer-events:none}
+.pc{pointer-events:auto;border:0;border-radius:22px;padding:8px 12px;background:var(--card);cursor:pointer;font-size:13px;font-weight:800;line-height:1.25}
+.pc span{display:block}.pc small{display:block;font-size:10px;opacity:.75;font-weight:700}
+.pc.g{font-size:18px;padding:0 14px}
 </style>
 </head>
 <body>
 <div class="top"><button class="nav" onclick="mv(-1)">‹</button><h1 id="ttl"></h1><button class="nav" onclick="mv(1)">›</button></div>
 <div id="v"></div>
+<div class="pal" id="pal"></div>
 <div class="tabs"><button id="t1" onclick="tab('s')">📅 Смены</button><button id="t2" onclick="tab('m')">💰 Выручка</button><button id="t3" onclick="tab('e')">🧾 Расходы</button></div>
 <div class="sheetbg" id="bg" onclick="if(event.target===this)closeS()"><div class="sheet" id="sh"></div></div>
 <div class="toast" id="toast"></div>
 <script>
 var MN=['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
 var MG=['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
-var S={shifts:{},goals:{},deds:{},cfg:{fullH:12,mode:'fix',rate:3000},exp:[],cats:[{id:'rent',name:'Аренда',ico:'🏠',col:'lav',lim:0},{id:'food',name:'Продукты',ico:'🛒',col:'peach',lim:0},{id:'go',name:'Проезд',ico:'🚌',col:'sky',lim:0},{id:'subs',name:'Подписки',ico:'📱',col:'butter',lim:0},{id:'oops',name:'Непредвиденные',ico:'⚡',col:'rose',lim:0},{id:'save',name:'Накопления',ico:'🐷',col:'mint',sav:1,lim:0}]};
+var S={shifts:{},goals:{},deds:{},cfg:{fullH:12,mode:'fix',rate:3000},stamps:[{id:'full',name:'Полная',ico:'🌞',type:'full',col:'peach',hours:12,mode:'fix',rate:3000},{id:'part',name:'Неполная',ico:'🌙',type:'part',col:'mint',hours:6,mode:'fix',rate:1500},{id:'custom',name:'Кастомная',ico:'✨',type:'custom',col:'lav',hours:8,mode:'hour',rate:300}],exp:[],cats:[{id:'rent',name:'Аренда',ico:'🏠',col:'lav',lim:0},{id:'food',name:'Продукты',ico:'🛒',col:'peach',lim:0},{id:'go',name:'Проезд',ico:'🚌',col:'sky',lim:0},{id:'subs',name:'Подписки',ico:'📱',col:'butter',lim:0},{id:'oops',name:'Непредвиденные',ico:'⚡',col:'rose',lim:0},{id:'save',name:'Накопления',ico:'🐷',col:'mint',sav:1,lim:0}]};
 try{var r=localStorage.getItem('smeny_v1');if(r)S=Object.assign(S,JSON.parse(r))}catch(e){}
 function save(){try{localStorage.setItem('smeny_v1',JSON.stringify(S))}catch(e){}}
 var cur=new Date();cur.setDate(1);var TAB='s',ED=null;
@@ -101,6 +107,7 @@ function render(){
  document.getElementById('ttl').textContent=MN[cur.getMonth()]+' '+cur.getFullYear();
  ['s','m','e'].forEach(function(t,i){document.getElementById('t'+(i+1)).className=TAB==t?'on':''});
  document.getElementById('v').innerHTML=TAB=='s'?viewS():TAB=='m'?viewM():viewE();
+ pal();document.body.style.paddingBottom=TAB=='s'?'190px':'120px';
 }
 function viewS(){
  var y=cur.getFullYear(),m=cur.getMonth(),n=new Date(y,m+1,0).getDate(),off=(new Date(y,m,1).getDay()+6)%7,td=new Date(),h='';
@@ -109,11 +116,11 @@ function viewS(){
  h+='<div class="card"><div class="cal">'+['Пн','Вт','Ср','Чт','Пт','Сб','Вс'].map(function(w){return'<div class="wd">'+w+'</div>'}).join('');
  for(var i=0;i<off;i++)h+='<div class="day"></div>';
  for(var d=1;d<=n;d++){var k=y+'-'+p2(m+1)+'-'+p2(d),s=S.shifts[k],t=(td.getFullYear()==y&&td.getMonth()==m&&td.getDate()==d);
-  h+='<button class="day '+(s?s.type:'')+(t?' today':'')+'" onclick="openS(\''+k+'\')">'+d+(s?'<small>'+s.hours+' ч</small>':'')+'</button>'}
- h+='</div><div class="legend"><span><i class="dot" style="background:var(--peach)"></i>полная</span><span><i class="dot" style="background:var(--mint)"></i>неполная</span></div></div>';
+  h+='<button class="day '+(s?s.type:'')+(t?' today':'')+'" onclick="dayTap(\''+k+'\')">'+d+(s?'<small>'+s.hours+' ч</small>':'')+'</button>'}
+ h+='</div><div class="legend"><span><i class="dot" style="background:var(--peach)"></i>полная</span><span><i class="dot" style="background:var(--mint)"></i>неполная</span><span><i class="dot" style="background:var(--lav)"></i>кастомная</span></div><div class="empty" style="padding:10px 0 0;font-size:12px">'+(ST?'Режим штампа: тап по дню — поставить, ещё раз — убрать':'Выбери смену внизу и тапай по дням ✨')+'</div></div>';
  h+='<div class="card"><h2>Смены месяца</h2>';
  if(!ls.length)h+='<div class="empty">Пока пусто 🌱<br>Нажми на день в календаре</div>';
- ls.forEach(function(x){var s=x[1],dd=x[0].slice(8);h+='<div class="row" onclick="openS(\''+x[0]+'\')"><div class="ico" style="background:var(--'+(s.type=='full'?'peach':'mint')+')">'+(s.type=='full'?'🌞':'🌙')+'</div><div class="t"><div>'+parseInt(dd)+' '+MG[cur.getMonth()]+'</div><div>'+(s.type=='full'?'Полная':'Неполная')+' · '+s.hours+' ч · '+(s.mode=='fix'?'фикс':money(s.rate)+'/ч')+(s.note?' · '+s.note:'')+'</div></div><div class="s">'+money(val(s))+'</div></div>'});
+ ls.forEach(function(x){var s=x[1],dd=x[0].slice(8);h+='<div class="row" onclick="openS(\''+x[0]+'\')"><div class="ico" style="background:var(--'+TC[s.type]+')">'+TI[s.type]+'</div><div class="t"><div>'+parseInt(dd)+' '+MG[cur.getMonth()]+'</div><div>'+({full:'Полная',part:'Неполная',custom:'Кастомная'}[s.type])+' · '+s.hours+' ч · '+(s.mode=='fix'?'фикс':money(s.rate)+'/ч')+(s.note?' · '+s.note:'')+'</div></div><div class="s">'+money(val(s))+'</div></div>'});
  return h+'</div>';
 }
 function viewM(){
@@ -130,18 +137,17 @@ function viewM(){
  dl.forEach(function(d,i){h+='<div class="row" style="cursor:default"><div class="ico" style="background:var(--butter)">💸</div><div class="t"><div>'+esc(d.name)+'</div></div><div class="s">−'+money(d.amt)+'</div><button class="x" onclick="delDed('+i+')">✕</button></div>'});
  h+='<div class="flex" style="margin-top:12px"><input class="inp" id="dn" placeholder="Аванс" style="flex:1.2;min-width:0"><input class="inp" id="da" type="number" inputmode="numeric" placeholder="Сумма" style="flex:1;min-width:0"><button class="btn" onclick="addDed()" style="padding:13px 16px">＋</button></div></div>';
  h+='<div class="card net"><small>К получению за вычетом</small><div class="big">'+money(tot-ded)+'</div>'+(ded?'<small>выручка '+money(tot)+' − вычеты '+money(ded)+'</small>':'')+'</div>';
- h+='<div class="card"><h2>⚙️ Настройки</h2><div class="lbl">Часов в полной смене</div><input class="inp" type="number" inputmode="numeric" value="'+S.cfg.fullH+'" onchange="S.cfg.fullH=Math.max(1,+this.value||12);save();toast(\'Сохранено ✨\')"></div>';
  return h+backupCard();
 }
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
 function setGoal(v){S.goals[mk()]=Math.max(0,+v||0);save();render()}
 function addDed(){var n=document.getElementById('dn').value.trim()||'Аванс',a=+document.getElementById('da').value;if(!a)return toast('Введи сумму');(S.deds[mk()]=S.deds[mk()]||[]).push({name:n,amt:a});save();render();toast('Вычтено 💸')}
 function delDed(i){S.deds[mk()].splice(i,1);save();render()}
-function openS(k){var ex=S.shifts[k];ED={k:k,s:ex?JSON.parse(JSON.stringify(ex)):{type:'full',hours:S.cfg.fullH,mode:S.cfg.mode,rate:S.cfg.rate,note:''},isNew:!ex};drawS();document.getElementById('bg').classList.add('open')}
-function closeS(){document.getElementById('bg').classList.remove('open')}
+function openS(k){var ex=S.shifts[k];ED={k:k,s:ex?JSON.parse(JSON.stringify(ex)):{type:'full',hours:S.stamps[0].hours,mode:S.stamps[0].mode,rate:S.stamps[0].rate,note:''},isNew:!ex};drawS();document.getElementById('bg').classList.add('open')}
+function closeS(){document.getElementById('bg').classList.remove('open');pal()}
 function drawS(){
  var s=ED.s,d=ED.k.split('-'),h='<h2 style="font-size:19px">'+parseInt(d[2])+' '+MG[+d[1]-1]+(ED.isNew?' — новая смена':'')+'</h2>';
- h+='<div class="lbl">Тип смены</div><div class="seg"><button class="'+(s.type=='full'?'on':'')+'" onclick="ED.s.type=\'full\';ED.s.hours=S.cfg.fullH;drawS()">🌞 Полная</button><button class="'+(s.type=='part'?'on':'')+'" onclick="ED.s.type=\'part\';if(ED.s.hours==S.cfg.fullH)ED.s.hours=6;drawS()">🌙 Неполная</button></div>';
+ h+='<div class="lbl">Тип смены</div><div class="seg"><button class="'+(s.type=='full'?'on':'')+'" onclick="ED.s.type=\'full\';ED.s.hours=S.cfg.fullH;drawS()">🌞 Полная</button><button class="'+(s.type=='part'?'on':'')+'" onclick="ED.s.type=\'part\';if(ED.s.hours==S.cfg.fullH)ED.s.hours=6;drawS()">🌙 Неполная</button><button class="'+(s.type=='custom'?'on':'')+'" onclick="ED.s.type=\'custom\';drawS()">✨ Своя</button></div>';
  h+='<div class="lbl">Часов отработано</div><div class="flex"><button class="nav" onclick="hh(-1)">−</button><input class="inp" id="eh" type="number" inputmode="decimal" value="'+s.hours+'" oninput="ED.s.hours=+this.value||0;pv()" style="text-align:center"><button class="nav" onclick="hh(1)">＋</button></div>';
  h+='<div class="lbl">Ставка</div><div class="seg"><button class="'+(s.mode=='fix'?'on':'')+'" onclick="ED.s.mode=\'fix\';drawS()">Фикс за смену</button><button class="'+(s.mode=='hour'?'on':'')+'" onclick="ED.s.mode=\'hour\';drawS()">Почасовая</button></div>';
  h+='<input class="inp" id="er" type="number" inputmode="decimal" placeholder="'+(s.mode=='fix'?'Сумма за смену, ₽':'Ставка в час, ₽')+'" value="'+(s.rate||'')+'" oninput="ED.s.rate=+this.value||0;pv()">';
@@ -193,6 +199,21 @@ function backupCard(){return '<div class="card"><h2>💾 Резервная ко
 function bk(){var t=JSON.stringify(S);(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(function(){toast('Скопировано 📋')},function(){prompt('Скопируй:',t)})}
 function rs(){try{S=Object.assign(S,JSON.parse(document.getElementById('rsi').value));save();render();toast('Данные возвращены ✨')}catch(e){toast('Не получилось 😕')}}
 if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(function(){});
+var ST=null,TC={full:'peach',part:'mint',custom:'lav'},TI={full:'🌞',part:'🌙',custom:'✨'};
+function stamp(id){return S.stamps.filter(function(x){return x.id==id})[0]}
+function pal(){var e=document.getElementById('pal');if(TAB!='s'){e.style.display='none';return}e.style.display='flex';
+ e.innerHTML=S.stamps.map(function(x){var on=ST==x.id;return '<button class="pc" style="'+(on?'background:var(--'+x.col+');box-shadow:0 0 0 2px var(--ink),0 4px 16px #4a3f5533':'box-shadow:inset 0 -4px 0 var(--'+x.col+'),0 4px 16px #4a3f5533')+'" onclick="pick(\''+x.id+'\')"><span>'+x.ico+' '+esc(x.name)+'</span><small>'+x.hours+' ч · '+money(x.rate)+(x.mode=='fix'?'':'/ч')+'</small></button>'}).join('')+'<button class="pc g" style="box-shadow:0 4px 16px #4a3f5533" onclick="openT()">⚙️</button>'}
+function pick(id){ST=ST==id?null:id;render()}
+function dayTap(k){if(!ST)return openS(k);var x=stamp(ST),e=S.shifts[k];
+ if(e&&e.st==ST)delete S.shifts[k];else S.shifts[k]={type:x.type,hours:x.hours,mode:x.mode,rate:x.rate,note:'',st:ST};
+ save();render();if(navigator.vibrate)navigator.vibrate(8)}
+function openT(){drawT();document.getElementById('bg').classList.add('open')}
+function sv(){S.cfg.fullH=S.stamps[0].hours||12;save()}
+function drawT(){var h='<h2 style="font-size:19px">⚙️ Настройка смен</h2><div class="lbl" style="margin-bottom:10px">Эти значения подставляются, когда ставишь смену одним тапом</div>';
+ S.stamps.forEach(function(x,i){var p='S.stamps['+i+']';h+='<div class="card" style="background:var(--bg);margin-bottom:10px"><div class="flex"><div class="ico" style="background:var(--'+x.col+')">'+x.ico+'</div><input class="inp" style="background:var(--card)" value="'+esc(x.name)+'" oninput="'+p+'.name=this.value||\'Смена\';sv()"></div>'
+ +'<div class="seg" style="background:var(--card)"><button class="'+(x.mode=='fix'?'on':'')+'" onclick="'+p+'.mode=\'fix\';sv();drawT()">Фикс</button><button class="'+(x.mode=='hour'?'on':'')+'" onclick="'+p+'.mode=\'hour\';sv();drawT()">Почасовая</button></div>'
+ +'<div class="flex"><div style="flex:1;min-width:0"><div class="lbl">Часов</div><input class="inp" style="background:var(--card)" type="number" inputmode="decimal" value="'+x.hours+'" oninput="'+p+'.hours=+this.value||0;sv()"></div><div style="flex:1;min-width:0"><div class="lbl">'+(x.mode=='fix'?'Сумма, ₽':'Ставка, ₽/ч')+'</div><input class="inp" style="background:var(--card)" type="number" inputmode="decimal" value="'+x.rate+'" oninput="'+p+'.rate=+this.value||0;sv()"></div></div></div>'});
+ document.getElementById('sh').innerHTML=h+'<button class="btn" style="width:100%" onclick="closeS()">Готово</button>'}
 render();
 </script>
 </body>
