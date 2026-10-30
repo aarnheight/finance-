@@ -12,8 +12,8 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon.png">
 <style>
-:root{--bg:#e6dcee;--card:#f4eef7;--ink:#4a3f55;--mute:#8a7d97;--peach:#f2b5a7;--mint:#a9d9c4;--lav:#b9a8dc;--sky:#a8c8e8;--butter:#f0d9a0;--line:#d8cbe3;--rose:#e3a9c4;--bad:#e8908f;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#2b2635;--card:#383244;--ink:#f0e8f5;--mute:#a99dbb;--peach:#d99a8c;--mint:#7fb89f;--lav:#9484c0;--sky:#7fa3c9;--butter:#cdb87a;--line:#4a4258;--rose:#b8809b;--bad:#d37a79;color-scheme:dark}}
+:root{--bg:#e6dcee;--card:#f4eef7;--ink:#4a3f55;--mute:#8a7d97;--peach:#f2b5a7;--mint:#a9d9c4;--lav:#b9a8dc;--sky:#a8c8e8;--butter:#f0d9a0;--line:#d8cbe3;--rose:#e3a9c4;--bad:#e8908f;--lime:#c8dc9e;--aqua:#9ad6d8;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#2b2635;--card:#383244;--ink:#f0e8f5;--mute:#a99dbb;--peach:#d99a8c;--mint:#7fb89f;--lav:#9484c0;--sky:#7fa3c9;--butter:#cdb87a;--line:#4a4258;--rose:#b8809b;--bad:#d37a79;--lime:#9bb072;--aqua:#6aa6a9;color-scheme:dark}}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;background:var(--bg);color:var(--ink);font-family:ui-rounded,"SF Pro Rounded",Nunito,-apple-system,system-ui,sans-serif;font-weight:700}
 body{min-height:100%;padding:12px 16px 120px;max-width:560px;margin:0 auto}
@@ -74,7 +74,7 @@ h2{font-size:16px;margin:0 0 10px;font-weight:800}
 .ems{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 16px}
 input[type=date]{min-width:0;-webkit-appearance:none;appearance:none}
 .day.custom{background:var(--lav)}
-.pal{position:fixed;left:0;right:0;bottom:calc(88px + env(safe-area-inset-bottom,0px));display:flex;gap:8px;justify-content:center;padding:0 12px;z-index:2;pointer-events:none}
+.pal{position:fixed;left:0;right:0;bottom:calc(76px + env(safe-area-inset-bottom,0px));display:flex;gap:8px;padding:8px 12px 14px;z-index:2;pointer-events:none;overflow-x:auto;scrollbar-width:none}.pal::-webkit-scrollbar{display:none}.pal>:first-child{margin-left:auto}.pal>:last-child{margin-right:auto}.pc{flex:none}
 .pc{pointer-events:auto;border:0;border-radius:22px;padding:8px 12px;background:var(--card);cursor:pointer;font-size:13px;font-weight:800;line-height:1.25}
 .pc span{display:block}.pc small{display:block;font-size:10px;opacity:.75;font-weight:700}
 .pc.g{font-size:18px;padding:0 14px}
@@ -90,8 +90,9 @@ input[type=date]{min-width:0;-webkit-appearance:none;appearance:none}
 <script>
 var MN=['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
 var MG=['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
-var S={shifts:{},goals:{},deds:{},cfg:{fullH:12,mode:'fix',rate:3000},stamps:[{id:'full',name:'Полная',ico:'🌞',type:'full',col:'peach',hours:12,mode:'fix',rate:3000},{id:'part',name:'Неполная',ico:'🌙',type:'part',col:'mint',hours:6,mode:'fix',rate:1500},{id:'custom',name:'Кастомная',ico:'✨',type:'custom',col:'lav',hours:8,mode:'hour',rate:300}],exp:[],cats:[{id:'rent',name:'Аренда',ico:'🏠',col:'lav',lim:0},{id:'food',name:'Продукты',ico:'🛒',col:'peach',lim:0},{id:'go',name:'Проезд',ico:'🚌',col:'sky',lim:0},{id:'subs',name:'Подписки',ico:'📱',col:'butter',lim:0},{id:'oops',name:'Непредвиденные',ico:'⚡',col:'rose',lim:0},{id:'save',name:'Накопления',ico:'🐷',col:'mint',sav:1,lim:0}]};
+var S={shifts:{},goals:{},deds:{},cfg:{fullH:12,mode:'fix',rate:3000},stamps:[{id:'full',name:'Полная',ico:'🌞',type:'full',col:'peach',hours:12,mode:'fix',rate:3000},{id:'part',name:'Неполная',ico:'🌙',type:'part',col:'mint',hours:6,mode:'fix',rate:1500}],extra:{},exp:[],cats:[{id:'rent',name:'Аренда',ico:'🏠',col:'lav',lim:0},{id:'food',name:'Продукты',ico:'🛒',col:'peach',lim:0},{id:'go',name:'Проезд',ico:'🚌',col:'sky',lim:0},{id:'subs',name:'Подписки',ico:'📱',col:'butter',lim:0},{id:'oops',name:'Непредвиденные',ico:'⚡',col:'rose',lim:0},{id:'save',name:'Накопления',ico:'🐷',col:'mint',sav:1,lim:0}]};
 try{var r=localStorage.getItem('smeny_v1');if(r)S=Object.assign(S,JSON.parse(r))}catch(e){}
+norm();
 function save(){try{localStorage.setItem('smeny_v1',JSON.stringify(S))}catch(e){}}
 var cur=new Date();cur.setDate(1);var TAB='s',ED=null;
 var p2=function(n){return String(n).padStart(2,'0')};
@@ -99,7 +100,6 @@ var mk=function(){return cur.getFullYear()+'-'+p2(cur.getMonth()+1)};
 var money=function(n){return Math.round(n).toLocaleString('ru-RU')+' ₽'};
 var val=function(s){return s.mode==='fix'?s.rate:s.rate*s.hours};
 function pl(n,a){var m=n%10,h=n%100;return n+' '+(h>10&&h<15?a[2]:m==1?a[0]:m>1&&m<5?a[1]:a[2])}
-function mShifts(){var k=mk(),o=[];Object.keys(S.shifts).sort().forEach(function(d){if(d.indexOf(k)==0)o.push([d,S.shifts[d]])});return o}
 function mv(d){cur.setMonth(cur.getMonth()+d);render()}
 function tab(t){TAB=t;render()}
 function toast(t){var e=document.getElementById('toast');e.textContent=t;e.classList.add('show');setTimeout(function(){e.classList.remove('show')},1800)}
@@ -115,24 +115,22 @@ function viewS(){
  h+='<div class="chips"><div class="chip" style="background:var(--peach)"><b>'+ls.length+'</b><span>смен</span></div><div class="chip" style="background:var(--mint)"><b>'+hrs+'</b><span>часов</span></div><div class="chip" style="background:var(--sky)"><b>'+fl+'</b><span>полных</span></div></div>';
  h+='<div class="card"><div class="cal">'+['Пн','Вт','Ср','Чт','Пт','Сб','Вс'].map(function(w){return'<div class="wd">'+w+'</div>'}).join('');
  for(var i=0;i<off;i++)h+='<div class="day"></div>';
- for(var d=1;d<=n;d++){var k=y+'-'+p2(m+1)+'-'+p2(d),s=S.shifts[k],t=(td.getFullYear()==y&&td.getMonth()==m&&td.getDate()==d);
-  h+='<button class="day '+(s?s.type:'')+(t?' today':'')+'" onclick="dayTap(\''+k+'\')">'+d+(s?'<small>'+s.hours+' ч</small>':'')+'</button>'}
- h+='</div><div class="legend"><span><i class="dot" style="background:var(--peach)"></i>полная</span><span><i class="dot" style="background:var(--mint)"></i>неполная</span><span><i class="dot" style="background:var(--lav)"></i>кастомная</span></div><div class="empty" style="padding:10px 0 0;font-size:12px">'+(ST?'Режим штампа: тап по дню — поставить, ещё раз — убрать':'Выбери смену внизу и тапай по дням ✨')+'</div></div>';
- h+='<div class="card"><h2>Смены месяца</h2>';
- if(!ls.length)h+='<div class="empty">Пока пусто 🌱<br>Нажми на день в календаре</div>';
- ls.forEach(function(x){var s=x[1],dd=x[0].slice(8);h+='<div class="row" onclick="openS(\''+x[0]+'\')"><div class="ico" style="background:var(--'+TC[s.type]+')">'+TI[s.type]+'</div><div class="t"><div>'+parseInt(dd)+' '+MG[cur.getMonth()]+'</div><div>'+({full:'Полная',part:'Неполная',custom:'Кастомная'}[s.type])+' · '+s.hours+' ч · '+(s.mode=='fix'?'фикс':money(s.rate)+'/ч')+(s.note?' · '+s.note:'')+'</div></div><div class="s">'+money(val(s))+'</div></div>'});
- return h+'</div>';
+ for(var d=1;d<=n;d++){var k=y+'-'+p2(m+1)+'-'+p2(d),a=sl(k),t=(td.getFullYear()==y&&td.getMonth()==m&&td.getDate()==d),hh=0;a.forEach(function(z){hh+=z.hours});
+  h+='<button class="day'+(t?' today':'')+'" style="'+bg(a)+'" onclick="dayTap(\''+k+'\')">'+d+(a.length?'<small>'+hh+' ч'+(a.length>1?' ·'+a.length:'')+'</small>':'')+'</button>'}
+ h+='</div><div class="empty" style="padding:10px 0 0;font-size:12px">'+(ST?'Режим штампа: тап по дню — поставить, ещё раз — убрать':'Выбери смену внизу и тапай по дням ✨')+'</div></div>';
+ return h+extraCard();
 }
 function viewM(){
  var k=mk(),ls=mShifts(),tot=0,earned=0,hrs=0,now=new Date(),ts=now.getFullYear()+'-'+p2(now.getMonth()+1)+'-'+p2(now.getDate());
  ls.forEach(function(x){var v=val(x[1]);tot+=v;hrs+=x[1].hours;if(x[0]<=ts)earned+=v});
+ var xs=extraSum();tot+=xs;earned+=xs;
  var goal=S.goals[k]||0,dl=S.deds[k]||[],ded=0;dl.forEach(function(d){ded+=d.amt});
- var pct=goal?Math.min(100,Math.round(tot/goal*100)):0,left=Math.max(0,goal-tot),avg=ls.length?tot/ls.length:0;
- var h='<div class="card hero"><small>Потенциальная выручка</small><div class="big">'+money(tot)+'</div><small>'+pl(ls.length,['смена','смены','смен'])+' · '+hrs+' ч · уже заработано '+money(earned)+'</small></div>';
+ var pct=goal?Math.min(100,Math.round(tot/goal*100)):0,left=Math.max(0,goal-tot),avg=ls.length?(tot-xs)/ls.length:0;
+ var h='<div class="card hero"><small>Потенциальная выручка</small><div class="big">'+money(tot)+'</div><small>'+pl(ls.length,['смена','смены','смен'])+' · '+hrs+' ч'+(xs?' · доп. доход '+money(xs):'')+' · уже заработано '+money(earned)+'</small></div>';
  h+='<div class="card"><h2>🎯 Цель на месяц</h2><div class="flex"><input class="inp" type="number" inputmode="numeric" placeholder="Сколько хочу заработать" value="'+(goal||'')+'" onchange="setGoal(this.value)"><span class="pill">₽</span></div>';
  if(goal){h+='<div class="bar"><i style="width:'+pct+'%"></i></div><div class="flex" style="justify-content:space-between"><span class="pill">'+(pct>=100?'🎉 ':'')+'Выполнено '+pct+'%</span><span class="pill">'+(left?'Осталось '+money(left):'Цель достигнута!')+'</span></div>';
   if(left&&avg)h+='<div class="empty" style="padding-bottom:0">Чтобы дойти до цели, нужно ещё '+pl(Math.ceil(left/avg),['смена','смены','смен'])+' по средней ставке 💪</div>'}
- h+='</div><div class="card"><h2>➖ Вычеты</h2>';
+ h+='</div>'+extraCard()+'<div class="card"><h2>➖ Вычеты</h2>';
  if(!dl.length)h+='<div class="empty" style="padding-top:0">Аванс или другие выплаты — вычти их здесь</div>';
  dl.forEach(function(d,i){h+='<div class="row" style="cursor:default"><div class="ico" style="background:var(--butter)">💸</div><div class="t"><div>'+esc(d.name)+'</div></div><div class="s">−'+money(d.amt)+'</div><button class="x" onclick="delDed('+i+')">✕</button></div>'});
  h+='<div class="flex" style="margin-top:12px"><input class="inp" id="dn" placeholder="Аванс" style="flex:1.2;min-width:0"><input class="inp" id="da" type="number" inputmode="numeric" placeholder="Сумма" style="flex:1;min-width:0"><button class="btn" onclick="addDed()" style="padding:13px 16px">＋</button></div></div>';
@@ -143,7 +141,6 @@ function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;
 function setGoal(v){S.goals[mk()]=Math.max(0,+v||0);save();render()}
 function addDed(){var n=document.getElementById('dn').value.trim()||'Аванс',a=+document.getElementById('da').value;if(!a)return toast('Введи сумму');(S.deds[mk()]=S.deds[mk()]||[]).push({name:n,amt:a});save();render();toast('Вычтено 💸')}
 function delDed(i){S.deds[mk()].splice(i,1);save();render()}
-function openS(k){var ex=S.shifts[k];ED={k:k,s:ex?JSON.parse(JSON.stringify(ex)):{type:'full',hours:S.stamps[0].hours,mode:S.stamps[0].mode,rate:S.stamps[0].rate,note:''},isNew:!ex};drawS();document.getElementById('bg').classList.add('open')}
 function closeS(){document.getElementById('bg').classList.remove('open');pal()}
 function drawS(){
  var s=ED.s,d=ED.k.split('-'),h='<h2 style="font-size:19px">'+parseInt(d[2])+' '+MG[+d[1]-1]+(ED.isNew?' — новая смена':'')+'</h2>';
@@ -157,14 +154,12 @@ function drawS(){
 }
 function hh(d){ED.s.hours=Math.max(0,(+ED.s.hours||0)+d);document.getElementById('eh').value=ED.s.hours;pv()}
 function pv(){document.getElementById('pv').textContent='= '+money(val(ED.s))}
-function saveS(){if(!ED.s.hours)return toast('Укажи часы');if(!ED.s.rate)return toast('Укажи ставку');S.shifts[ED.k]=ED.s;S.cfg.mode=ED.s.mode;S.cfg.rate=ED.s.rate;save();closeS();render();toast('Смена сохранена ✨')}
-function delS(){delete S.shifts[ED.k];save();closeS();render();toast('Смена удалена')}
 var EM=['🍽️','🎮','💊','👕','🎁','🐱','✈️','🏋️','☕','🎓'],CC=['lav','peach','sky','butter','rose','mint'],EC='',NC={};
 function cat(id){return S.cats.filter(function(c){return c.id==id})[0]}
 function mExp(){var k=mk();return S.exp.filter(function(e){return e.d.indexOf(k)==0})}
 function viewE(){
  var tot=0,spent=0,sav=0,by={},ex=mExp();
- mShifts().forEach(function(x){tot+=val(x[1])});
+ mShifts().forEach(function(x){tot+=val(x[1])});tot+=extraSum();
  ex.forEach(function(e){by[e.c]=(by[e.c]||0)+e.a;var c=cat(e.c);if(c&&c.sav)sav+=e.a;else spent+=e.a});
  var base=Math.max(tot,spent+sav,1),free=tot-spent-sav;
  var h='<div class="card hero" style="background:var(--'+(free<0?'bad':'sky')+')"><small>Свободно после расходов</small><div class="big">'+money(free)+'</div><small>доход за месяц '+money(tot)+'</small></div>';
@@ -197,23 +192,48 @@ function pe(b){NC.ico=b.textContent;document.querySelectorAll('.em').forEach(fun
 function addC(){var n=document.getElementById('cn').value.trim();if(!n)return toast('Введи название');S.cats.push({id:'c'+Date.now(),name:n,ico:NC.ico,col:CC[S.cats.length%6],lim:0});save();closeS();render();toast('Категория создана ✨')}
 function backupCard(){return '<div class="card"><h2>💾 Резервная копия</h2><button class="btn" style="width:100%" onclick="bk()">Скопировать все данные</button><div class="flex" style="margin-top:10px"><input class="inp" id="rsi" placeholder="Вставь копию сюда" style="min-width:0"><button class="btn alt" onclick="rs()">Вернуть</button></div></div>'}
 function bk(){var t=JSON.stringify(S);(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(function(){toast('Скопировано 📋')},function(){prompt('Скопируй:',t)})}
-function rs(){try{S=Object.assign(S,JSON.parse(document.getElementById('rsi').value));save();render();toast('Данные возвращены ✨')}catch(e){toast('Не получилось 😕')}}
+function rs(){try{S=Object.assign(S,JSON.parse(document.getElementById('rsi').value));norm();save();render();toast('Данные возвращены ✨')}catch(e){toast('Не получилось 😕')}}
 if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(function(){});
 var ST=null,TC={full:'peach',part:'mint',custom:'lav'},TI={full:'🌞',part:'🌙',custom:'✨'};
 function stamp(id){return S.stamps.filter(function(x){return x.id==id})[0]}
-function pal(){var e=document.getElementById('pal');if(TAB!='s'){e.style.display='none';return}e.style.display='flex';
- e.innerHTML=S.stamps.map(function(x){var on=ST==x.id;return '<button class="pc" style="'+(on?'background:var(--'+x.col+');box-shadow:0 0 0 2px var(--ink),0 4px 16px #4a3f5533':'box-shadow:inset 0 -4px 0 var(--'+x.col+'),0 4px 16px #4a3f5533')+'" onclick="pick(\''+x.id+'\')"><span>'+x.ico+' '+esc(x.name)+'</span><small>'+x.hours+' ч · '+money(x.rate)+(x.mode=='fix'?'':'/ч')+'</small></button>'}).join('')+'<button class="pc g" style="box-shadow:0 4px 16px #4a3f5533" onclick="openT()">⚙️</button>'}
 function pick(id){ST=ST==id?null:id;render()}
-function dayTap(k){if(!ST)return openS(k);var x=stamp(ST),e=S.shifts[k];
- if(e&&e.st==ST)delete S.shifts[k];else S.shifts[k]={type:x.type,hours:x.hours,mode:x.mode,rate:x.rate,note:'',st:ST};
- save();render();if(navigator.vibrate)navigator.vibrate(8)}
 function openT(){drawT();document.getElementById('bg').classList.add('open')}
 function sv(){S.cfg.fullH=S.stamps[0].hours||12;save()}
-function drawT(){var h='<h2 style="font-size:19px">⚙️ Настройка смен</h2><div class="lbl" style="margin-bottom:10px">Эти значения подставляются, когда ставишь смену одним тапом</div>';
- S.stamps.forEach(function(x,i){var p='S.stamps['+i+']';h+='<div class="card" style="background:var(--bg);margin-bottom:10px"><div class="flex"><div class="ico" style="background:var(--'+x.col+')">'+x.ico+'</div><input class="inp" style="background:var(--card)" value="'+esc(x.name)+'" oninput="'+p+'.name=this.value||\'Смена\';sv()"></div>'
+var CL=['lav','sky','butter','rose','lime','aqua'],IC=['🌅','🌆','🍸','🎵','⭐','🔥'],NM={full:'Полная',part:'Неполная',custom:'Кастомная'};
+function norm(){Object.keys(S.shifts).forEach(function(d){var v=S.shifts[d];if(!Array.isArray(v))S.shifts[d]=[v]});S.stamps=S.stamps.filter(function(x){return !(x.id=='custom'&&x.name=='Кастомная'&&x.hours==8&&x.mode=='hour'&&x.rate==300)})}
+function sl(k){var v=S.shifts[k];return !v?[]:Array.isArray(v)?v:[v]}
+function mShifts(){var k=mk(),o=[];Object.keys(S.shifts).sort().forEach(function(d){if(d.indexOf(k)==0)sl(d).forEach(function(z,i){o.push([d,z,i])})});return o}
+function bg(a){var c=a.map(function(z){return 'var(--'+(z.col||TC[z.type])+')'});if(!c.length)return '';if(c.length==1)return 'background:'+c[0];if(c.length==2)return 'background:linear-gradient(135deg,'+c[0]+' 50%,'+c[1]+' 50%)';return 'background:linear-gradient(135deg,'+c[0]+' 33.3%,'+c[1]+' 33.3% 66.6%,'+c[2]+' 66.6%)'}
+function dayTap(k){if(!ST)return openS(k);var x=stamp(ST),a=sl(k).slice(),j=-1;a.forEach(function(z,i){if(z.st==ST)j=i});
+ if(j>=0)a.splice(j,1);else if(a.length>=3)return toast('Максимум 3 смены в день');else a.push({type:x.type,hours:x.hours,mode:x.mode,rate:x.rate,note:'',st:ST,col:x.col,nm:x.name});
+ if(a.length)S.shifts[k]=a;else delete S.shifts[k];save();render();if(navigator.vibrate)navigator.vibrate(8)}
+function openS(k){if(!sl(k).length)return editS(k,-1);ED={k:k};drawD();document.getElementById('bg').classList.add('open')}
+function drawD(){var a=sl(ED.k),d=ED.k.split('-'),h='<h2 style="font-size:19px">'+parseInt(d[2])+' '+MG[+d[1]-1]+'</h2>';
+ a.forEach(function(z,i){h+='<div class="row" onclick="editS(\''+ED.k+'\','+i+')"><div class="ico" style="background:var(--'+(z.col||TC[z.type])+')">'+TI[z.type]+'</div><div class="t"><div>'+esc(z.nm||NM[z.type])+'</div><div>'+z.hours+' ч · '+(z.mode=='fix'?'фикс':money(z.rate)+'/ч')+(z.note?' · '+esc(z.note):'')+'</div></div><div class="s">'+money(val(z))+'</div></div>'});
+ if(a.length<3)h+='<button class="btn" style="width:100%;margin-top:12px" onclick="editS(\''+ED.k+'\',-1)">＋ Добавить смену</button>';
+ document.getElementById('sh').innerHTML=h+'<button class="btn alt" style="width:100%;margin-top:8px" onclick="closeS()">Закрыть</button>'}
+function editS(k,i){var a=sl(k),ex=i>=0?a[i]:null,d=S.stamps[0];ED={k:k,i:i,t0:ex?ex.type:'full',s:ex?JSON.parse(JSON.stringify(ex)):{type:'full',hours:d.hours,mode:d.mode,rate:d.rate,note:''},isNew:!ex};drawS();document.getElementById('bg').classList.add('open')}
+function saveS(){var s=ED.s;if(!s.hours)return toast('Укажи часы');if(!s.rate)return toast('Укажи ставку');
+ if(!s.col||s.type!=ED.t0){s.col=TC[s.type];if(s.type!=ED.t0)delete s.st}
+ var a=sl(ED.k).slice();if(ED.isNew)a.push(s);else a[ED.i]=s;S.shifts[ED.k]=a;S.cfg.mode=s.mode;S.cfg.rate=s.rate;save();closeS();render();toast('Смена сохранена ✨')}
+function delS(){var a=sl(ED.k).slice();a.splice(ED.i,1);if(a.length)S.shifts[ED.k]=a;else delete S.shifts[ED.k];save();closeS();render();toast('Смена удалена')}
+function pal(){var e=document.getElementById('pal');if(TAB!='s'){e.style.display='none';return}e.style.display='flex';var sc=e.scrollLeft,nc=S.stamps.filter(function(x){return x.type=='custom'}).length,sh='box-shadow:0 4px 16px #4a3f5533';
+ e.innerHTML=S.stamps.map(function(x){var on=ST==x.id;return '<button class="pc" style="'+(on?'background:var(--'+x.col+');box-shadow:0 0 0 2px var(--ink),0 4px 16px #4a3f5533':'box-shadow:inset 0 -4px 0 var(--'+x.col+'),0 4px 16px #4a3f5533')+'" onclick="pick(\''+x.id+'\')"><span>'+x.ico+' '+esc(x.name)+'</span><small>'+x.hours+' ч · '+money(x.rate)+(x.mode=='fix'?'':'/ч')+'</small></button>'}).join('')+(nc<6?'<button class="pc g" style="'+sh+'" onclick="addStamp()">＋</button>':'')+'<button class="pc g" style="'+sh+'" onclick="openT()">⚙️</button>';e.scrollLeft=sc}
+function addStamp(){var n=S.stamps.filter(function(x){return x.type=='custom'}).length;if(n>=6)return;var u=S.stamps.map(function(x){return x.col}),c=CL.filter(function(z){return u.indexOf(z)<0})[0]||'lav';
+ S.stamps.push({id:'c'+Date.now(),name:'Смена '+(n+1),ico:IC[n],type:'custom',col:c,hours:8,mode:'hour',rate:300});save();render();openT();var e=document.getElementById('sh');e.scrollTop=e.scrollHeight}
+function delT(i){if(ST==S.stamps[i].id)ST=null;S.stamps.splice(i,1);save();render();drawT()}
+function drawT(){var h='<h2 style="font-size:19px">⚙️ Настройка смен</h2><div class="lbl" style="margin-bottom:10px">Эти значения подставляются, когда ставишь смену одним тапом. Новые смены создаются кнопкой ＋ (до 6)</div>';
+ S.stamps.forEach(function(x,i){var p='S.stamps['+i+']';h+='<div class="card" style="background:var(--bg);margin-bottom:10px"><div class="flex"><div class="ico" style="background:var(--'+x.col+')">'+x.ico+'</div><input class="inp" style="background:var(--card);min-width:0" value="'+esc(x.name)+'" oninput="'+p+'.name=this.value||\'Смена\';sv()">'+(x.type=='custom'?'<button class="x" onclick="delT('+i+')">✕</button>':'')+'</div>'
  +'<div class="seg" style="background:var(--card)"><button class="'+(x.mode=='fix'?'on':'')+'" onclick="'+p+'.mode=\'fix\';sv();drawT()">Фикс</button><button class="'+(x.mode=='hour'?'on':'')+'" onclick="'+p+'.mode=\'hour\';sv();drawT()">Почасовая</button></div>'
  +'<div class="flex"><div style="flex:1;min-width:0"><div class="lbl">Часов</div><input class="inp" style="background:var(--card)" type="number" inputmode="decimal" value="'+x.hours+'" oninput="'+p+'.hours=+this.value||0;sv()"></div><div style="flex:1;min-width:0"><div class="lbl">'+(x.mode=='fix'?'Сумма, ₽':'Ставка, ₽/ч')+'</div><input class="inp" style="background:var(--card)" type="number" inputmode="decimal" value="'+x.rate+'" oninput="'+p+'.rate=+this.value||0;sv()"></div></div></div>'});
  document.getElementById('sh').innerHTML=h+'<button class="btn" style="width:100%" onclick="closeS()">Готово</button>'}
+function extraSum(){var s=0;(S.extra[mk()]||[]).forEach(function(x){s+=x.amt});return s}
+function extraCard(){var l=S.extra[mk()]||[],h='<div class="card"><h2>➕ Дополнительный доход</h2>';
+ if(!l.length)h+='<div class="empty" style="padding-top:0">Процент с выручки, чаевые, подработка — всё, что добавляется к заработку</div>';
+ l.forEach(function(x,i){h+='<div class="row" style="cursor:default"><div class="ico" style="background:var(--mint)">💵</div><div class="t"><div>'+esc(x.name)+'</div></div><div class="s">+'+money(x.amt)+'</div><button class="x" onclick="delX('+i+')">✕</button></div>'});
+ return h+'<div class="flex" style="margin-top:12px"><input class="inp" id="xn" placeholder="Процент с выручки" style="flex:1.2;min-width:0"><input class="inp" id="xa" type="number" inputmode="numeric" placeholder="Сумма" style="flex:1;min-width:0"><button class="btn" onclick="addX()" style="padding:13px 16px">＋</button></div></div>'}
+function addX(){var n=document.getElementById('xn').value.trim()||'Доп. доход',a=+document.getElementById('xa').value;if(!a)return toast('Введи сумму');(S.extra[mk()]=S.extra[mk()]||[]).push({name:n,amt:a});save();render();toast('Добавлено 💵')}
+function delX(i){S.extra[mk()].splice(i,1);save();render()}
 render();
 </script>
 </body>
