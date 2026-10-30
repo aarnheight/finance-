@@ -74,7 +74,7 @@ h2{font-size:16px;margin:0 0 10px;font-weight:800}
 .ems{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 16px}
 input[type=date]{min-width:0;-webkit-appearance:none;appearance:none}
 .day.custom{background:var(--lav)}
-.pal{position:fixed;left:0;right:0;bottom:calc(76px + env(safe-area-inset-bottom,0px));display:flex;gap:8px;padding:8px 12px 14px;z-index:2;pointer-events:none;overflow-x:auto;scrollbar-width:none}.pal::-webkit-scrollbar{display:none}.pal>:first-child{margin-left:auto}.pal>:last-child{margin-right:auto}.pc{flex:none}
+.pal{position:fixed;left:0;right:0;bottom:calc(76px + env(safe-area-inset-bottom,0px));display:flex;gap:8px;padding:8px 12px 14px;z-index:2;pointer-events:auto;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;touch-action:pan-x;overscroll-behavior-x:contain;scrollbar-width:none}.pal::-webkit-scrollbar{display:none}.pal>:first-child{margin-left:auto}.pal>:last-child{margin-right:auto}.pc{flex:none}
 .pc{pointer-events:auto;border:0;border-radius:22px;padding:8px 12px;background:var(--card);cursor:pointer;font-size:13px;font-weight:800;line-height:1.25}
 .pc span{display:block}.pc small{display:block;font-size:10px;opacity:.75;font-weight:700}
 .pc.g{font-size:18px;padding:0 14px}
@@ -118,7 +118,7 @@ function viewS(){
  for(var d=1;d<=n;d++){var k=y+'-'+p2(m+1)+'-'+p2(d),a=sl(k),t=(td.getFullYear()==y&&td.getMonth()==m&&td.getDate()==d),hh=0;a.forEach(function(z){hh+=z.hours});
   h+='<button class="day'+(t?' today':'')+'" style="'+bg(a)+'" onclick="dayTap(\''+k+'\')">'+d+(a.length?'<small>'+hh+' ч'+(a.length>1?' ·'+a.length:'')+'</small>':'')+'</button>'}
  h+='</div><div class="empty" style="padding:10px 0 0;font-size:12px">'+(ST?'Режим штампа: тап по дню — поставить, ещё раз — убрать':'Выбери смену внизу и тапай по дням ✨')+'</div></div>';
- return h+extraCard();
+ return h;
 }
 function viewM(){
  var k=mk(),ls=mShifts(),tot=0,earned=0,hrs=0,now=new Date(),ts=now.getFullYear()+'-'+p2(now.getMonth()+1)+'-'+p2(now.getDate());
