@@ -135,7 +135,17 @@ function refreshProfileAvatar(){const b=document.getElementById('profileBtn');if
 function profileNote(t){const e=document.getElementById('profileMsg');if(e)e.textContent=t}
 async function openProfile(){if(!sbUser)return;document.getElementById('profileShade').style.display='flex';document.getElementById('profileName').value=sbUser.user_metadata?.display_name||'';document.getElementById('profileEmail').value=sbUser.email||'';profileNote('');await profileLoadOrgs()}
 function closeProfile(){const e=document.getElementById('profileShade');if(e)e.style.display='none'}
-async function saveProfile(){if(!sbUser)return;const name=document.getElementById('profileName').value.trim();profileNote('Сохраняю…');const u=await sb.auth.updateUser({data:{...sbUser.user_metadata,display_name:name}});if(u.error)return profileNote('Ошибка: '+u.error.message);const p=await sb.from('profiles').upsert({id:sbUser.id,display_name:name},{onConflict:'id'});if(p.error)return profileNote('Имя сохранено в аккаунте, но профиль не обновлён: '+p.error.message);sbUser=u.data.user||sbUser;refreshProfileAvatar();profileNote('Профиль сохранён')}
+async function saveProfile(){
+ if(!sbUser)return;
+ const name=document.getElementById('profileName').value.trim();
+ profileNote('Сохраняю…');
+ const p=await sb.from('profiles').update({display_name:name}).eq('id',sbUser.id).select('id').maybeSingle();
+ if(p.error)return profileNote('Ошибка сохранения профиля: '+p.error.message);
+ if(!p.data)return profileNote('Профиль не обновлён: запись не найдена или нет доступа.');
+ const u=await sb.auth.updateUser({data:{...(sbUser.user_metadata||{}),display_name:name}});
+ if(u.error){profileNote('Имя в профиле сохранено, но аккаунт не обновлён: '+u.error.message);return}
+ sbUser=u.data.user||sbUser;refreshProfileAvatar();profileNote('Имя обновлено');
+}
 async function profileLoadOrgs(){const sel=document.getElementById('profileOrg');sel.innerHTML='<option value="">Загрузка…</option>';let rows=[];try{const m=await sb.from('organization_members').select('organization_id').eq('user_id',sbUser.id);if(m.error)throw m.error;const ids=(m.data||[]).map(x=>x.organization_id);if(ids.length){const o=await sb.from('organizations').select('id,name,is_active').in('id',ids).order('name');if(o.error)throw o.error;rows=o.data||[]}if(REV.global){const o=await sb.from('organizations').select('id,name,is_active').order('name');if(!o.error)rows=o.data||[]}}catch(e){profileNote('Не удалось загрузить заведения: '+e.message)}REV.orgs=rows;const active=REV.org||sbUser.user_metadata?.active_org_id||'';sel.innerHTML='<option value="">Не выбрано</option>'+rows.map(o=>'<option value="'+o.id+'">'+revEsc(o.name)+(o.is_active?'':' (выключено)')+'</option>').join('');sel.value=rows.some(o=>o.id===active)?active:(rows[0]?.id||'')}
 async function profileChooseOrg(id){REV.org=id||null;REV.session=null;if(sbUser){await sb.auth.updateUser({data:{active_org_id:id||null}})}if(id){try{await revLoadInventory()}catch(e){profileNote('Ошибка заведения: '+e.message)}}profileNote(id?'Текущее заведение изменено.':'Заведение не выбрано.')}
 function profileGoRevision(){closeProfile();tab('r')}
@@ -332,6 +342,7 @@ function revDt(d){return d?new Date(d).toLocaleDateString('ru-RU'):''}
 function revUnsub(){if(REV.channel&&sb)sb.removeChannel(REV.channel);REV.channel=null;REV.chKey=''}
 function revRole(){if(REV.global)return'главный';var m=REV.mem.filter(function(x){return x.organization_id===REV.org})[0];return m?(m.role||'стажёр'):'стажёр'}
 function revCanManage(){return ['главный','владелец','управляющий','admin'].indexOf(REV.role)>=0}
+function revCanManageStaff(){return ['главный','владелец','управляющий'].indexOf(REV.role)>=0}
 function revCanCount(){return !!REV.org}
 function revRoleLabel(r){return ({owner:'Владелец',manager:'Управляющий',admin:'Администратор',senior_waiter:'Старший официант',waiter:'Официант',trainee:'Стажёр',главный:'Главный'})[r]||r}
 function revTot(it,e){return((e&&e.full_rows)||0)*it.bottles_per_row+((e&&e.loose_bottles)||0)}
@@ -378,7 +389,7 @@ function revHTML(){
  if(!sbUser)return'<div class="card empty">Войди в аккаунт, чтобы вести общую ревизию.</div>';
  if(REV.busy&&!REV.orgs.length)return'<div class="card empty">Загружаю заведения…</div>';
  if(REV.err)return'<div class="card">Ошибка: '+revEsc(REV.err)+'<button class="btn" style="width:100%;margin-top:10px" onclick="revEnter()">Повторить</button></div>';
- var adm=revCanManage(),h='<div class="card"><div class="rev-head"><h2 style="margin:0">📦 Ревизия</h2><select class="inp" onchange="revSelectOrg(this.value)">'+(REV.orgs.length?'':'<option value="">Нет заведений</option>')+REV.orgs.map(function(o){return'<option value="'+o.id+'"'+(o.id===REV.org?' selected':'')+'>'+revEsc(o.name)+(o.is_active?'':' (выключено)')+'</option>'}).join('')+'</select></div><div class="rev-actions">'+(REV.global?'<button class="btn" onclick="revCreateOrg()">＋ Заведение</button>':'')+'<button class="btn alt" onclick="revJoinOrg()">Ввести код</button>'+(REV.org&&adm?'<button class="btn alt" onclick="revMakeCode()">Код приглашения</button><button class="btn alt" onclick="revMembers()">Участники</button>':'')+'</div></div>';
+ var adm=revCanManage(),h='<div class="card"><div class="rev-head"><h2 style="margin:0">📦 Ревизия</h2><select class="inp" onchange="revSelectOrg(this.value)">'+(REV.orgs.length?'':'<option value="">Нет заведений</option>')+REV.orgs.map(function(o){return'<option value="'+o.id+'"'+(o.id===REV.org?' selected':'')+'>'+revEsc(o.name)+(o.is_active?'':' (выключено)')+'</option>'}).join('')+'</select></div><div class="rev-actions">'+(REV.global?'<button class="btn" onclick="revCreateOrg()">＋ Заведение</button>':'')+'<button class="btn alt" onclick="revJoinOrg()">Ввести код</button>'+(REV.org&&adm?'<button class="btn alt" onclick="revMakeCode()">Код приглашения</button>':'')+(REV.org&&revCanManageStaff()?'<button class="btn alt" onclick="revMembers()">Участники</button>':'')+'</div></div>';
  h+='<div class="rev-actions"><button class="btn '+(REV.section==='bar'?'':'alt')+'" onclick="revSection(\'bar\')">🍺 Бар</button><button class="btn '+(REV.section==='supplies'?'':'alt')+'" onclick="revSection(\'supplies\')">📦 Хозтовары / склад</button><button class="btn '+(REV.section==='kitchen'?'':'alt')+'" onclick="revSection(\'kitchen\')">🍳 Кухня</button></div>';
  if(!REV.org)return h+'<div class="card empty">Создай заведение или вступи по коду приглашения.</div>';
  if(!REV.session){return h+'<div class="card"><h2>Нет активной ревизии · '+({bar:'Бар',supplies:'Хозтовары / склад',kitchen:'Кухня'}[REV.section])+'</h2>'+(REV.last?'<div class="rev-muted" style="margin-bottom:10px">Последняя: '+revEsc(REV.last.title)+' · '+revDt(REV.last.completed_at||REV.last.created_at)+'</div>':'')+'<button class="btn" style="width:100%" onclick="revNewSession()">＋ Начать новую ревизию</button>'+(adm?'<div class="rev-actions"><button class="btn alt" onclick="revItem()">＋ Позиция</button><button class="btn alt" onclick="revBulk()">📋 Списком</button></div>':'')+'</div>'}
@@ -405,8 +416,25 @@ async function revMakeCode(){if(!REV.org||!revCanManage())return revMsg('Соз�
  try{await navigator.clipboard.writeText(code)}catch(e){}prompt('Код скопирован. Отправь его коллеге, он показывается только сейчас:',code);revAudit('invite_code_created','invite_code',r.data.id,{})}
 
 async function revSection(section){REV.section=section;REV.session=null;REV.last=null;REV.entries={};REV.prev={};try{await revLoadInventory()}catch(e){revMsg(e.message)}render()}
-async function revSetMemberRole(userId,role){if(!['главный','владелец','управляющий'].includes(REV.role))return revMsg('Недостаточно прав');const r=await sb.rpc('set_organization_member_role',{p_organization_id:REV.org,p_user_id:userId,p_role:role});if(r.error)return revMsg(r.error.message);await revLoadOrgs();render();revMsg('Роль обновлена')}
-async function revMembers(){const r=await sb.from('organization_members').select('user_id,role').eq('organization_id',REV.org);if(r.error)return revMsg(r.error.message);var ids=(r.data||[]).map(function(x){return x.user_id}),p=ids.length?await sb.from('profiles').select('id,display_name').in('id',ids):{data:[]},n={};(p.data||[]).forEach(function(x){n[x.id]=x.display_name});var rows=r.data||[];if(['главный','владелец','управляющий'].includes(REV.role)){var lines=rows.map(function(x,i){return(i+1)+'. '+(n[x.user_id]||x.user_id.slice(0,8))+' — '+revRoleLabel(x.role)});var pick=prompt('Участники и роли:\n'+lines.join('\n')+'\n\nВведи номер участника для смены роли:');if(pick&&rows[+pick-1]){var target=rows[+pick-1],opts=['owner','manager','admin','senior_waiter','waiter','trainee'];var val=prompt('Роль: owner / manager / admin / senior_waiter / waiter / trainee',target.role);if(opts.indexOf(val)>=0)await revSetMemberRole(target.user_id,val)}}else alert('Участники:\n'+rows.map(function(x){return(n[x.user_id]||x.user_id.slice(0,8))+' — '+revRoleLabel(x.role)}).join('\n'))}
+async function revSetMemberRole(userId,role){
+ if(!revCanManageStaff())return revMsg('Недостаточно прав');
+ const allowed=REV.role==='главный'?['owner','manager','admin','senior_waiter','waiter','trainee']:REV.role==='владелец'?['manager','admin','senior_waiter','waiter','trainee']:['admin','senior_waiter','waiter','trainee'];
+ if(!allowed.includes(role))return revMsg('Эту роль нельзя назначить с вашим уровнем доступа');
+ const r=await sb.rpc('set_organization_member_role',{p_organization_id:REV.org,p_user_id:userId,p_role:role});
+ if(r.error)return revMsg(r.error.message);await revLoadOrgs();render();revMsg('Роль обновлена')
+}
+async function revMembers(){
+ if(!revCanManageStaff())return revMsg('Недостаточно прав');
+ const r=await sb.from('organization_members').select('user_id,role').eq('organization_id',REV.org);if(r.error)return revMsg(r.error.message);
+ var ids=(r.data||[]).map(function(x){return x.user_id}),p=ids.length?await sb.from('profiles').select('id,display_name').in('id',ids):{data:[]},n={};(p.data||[]).forEach(function(x){n[x.id]=x.display_name});
+ var rows=r.data||[],lines=rows.map(function(x,i){return(i+1)+'. '+(n[x.user_id]||x.user_id.slice(0,8))+' — '+revRoleLabel(x.role)});
+ var pick=prompt('Участники и роли:\n'+lines.join('\n')+'\n\nВведи номер участника для смены роли:');
+ if(!pick||!rows[+pick-1])return;
+ var target=rows[+pick-1];if(target.user_id===sbUser.id)return revMsg('Свою роль здесь изменить нельзя');
+ var opts=REV.role==='главный'?['owner','manager','admin','senior_waiter','waiter','trainee']:REV.role==='владелец'?['manager','admin','senior_waiter','waiter','trainee']:['admin','senior_waiter','waiter','trainee'];
+ if(target.role==='owner'&&REV.role!=='главный')return revMsg('Назначать и менять владельцев может только главный администратор');
+ var val=prompt('Доступные роли: '+opts.join(', '),target.role);if(opts.indexOf(val)>=0)await revSetMemberRole(target.user_id,val)
+}
 async function revNewSession(){if(!REV.org)return;var title=prompt('Название ревизии',({bar:'Бар',supplies:'Хозтовары',kitchen:'Кухня'}[REV.section])+' · '+new Date().toLocaleDateString('ru-RU'));if(title===null)return;title=title.trim()||'Ревизия';
  const r=await sb.from('inventory_sessions').insert({organization_id:REV.org,title:title,created_by:sbUser.id,category:REV.section}).select('*').single();if(r.error)return revMsg(r.error.message);
  try{await revLoadInventory()}catch(e){}render();revAudit('inventory_session_created','inventory_session',r.data.id,{title:title})}
