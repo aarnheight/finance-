@@ -55,7 +55,7 @@ h2{font-size:16px;margin:0 0 10px;font-weight:800}
 .x{width:30px;height:30px;border-radius:50%;border:0;background:var(--bg);cursor:pointer}
 .net{background:var(--butter);text-align:center}.net .big{font-size:32px;font-weight:800}
 .tabs{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(14px + env(safe-area-inset-bottom,0px));display:flex;gap:6px;background:var(--card);padding:6px;border-radius:99px;box-shadow:0 6px 24px #4a3f5533}
-.tabs button{border:0;background:transparent;border-radius:99px;padding:11px 15px;font-size:14px;font-weight:800;cursor:pointer;color:var(--mute)}
+.tabs button{border:0;background:transparent;border-radius:99px;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 12px;font-size:11px;line-height:1.1;font-weight:800;cursor:pointer;color:var(--mute)}
 .tabs button.on{background:var(--lav);color:var(--ink)}
 .sheetbg{position:fixed;inset:0;background:#2b263566;display:none;align-items:flex-end;justify-content:center;z-index:5}
 .sheetbg.open{display:flex}
@@ -79,8 +79,8 @@ input[type=date]{min-width:0;-webkit-appearance:none;appearance:none}
 .pc span{display:block}.pc small{display:block;font-size:10px;opacity:.75;font-weight:700}
 .pc.g{font-size:18px;padding:0 14px}
 
-#authbar{position:sticky;top:0;z-index:30;display:flex;justify-content:flex-end;align-items:center;padding:7px 14px;background:var(--bg);min-height:46px}
-#profileBtn{width:40px;height:40px;border:0;border-radius:50%;background:var(--lav);color:var(--ink);font-size:16px;font-weight:900;cursor:pointer;box-shadow:0 2px 9px #0002}
+#authbar{position:sticky;top:0;z-index:30;display:flex;justify-content:flex-end;align-items:center;padding:7px 14px;background:var(--bg);min-height:40px}
+#profileBtn{width:36px;height:36px;border:0;border-radius:50%;background:var(--lav);color:var(--ink);font-size:16px;font-weight:900;cursor:pointer;box-shadow:0 2px 9px #0002}
 .authbtn{border:0;border-radius:99px;padding:9px 14px;background:var(--lav);font-weight:800}
 #profileShade{display:none;position:fixed;inset:0;z-index:1200;background:#0007;align-items:flex-start;justify-content:center;padding:7vh 16px 20px;overflow:auto}
 #profileBox{width:min(100%,440px);background:var(--card);border-radius:24px;padding:20px;box-shadow:0 15px 55px #0003}
@@ -96,38 +96,33 @@ input[type=date]{min-width:0;-webkit-appearance:none;appearance:none}
 #authbox h2{font-size:23px;margin-bottom:8px}#authbox p{color:var(--mute);font-size:13px;line-height:1.45}
 #authbox input{width:100%;box-sizing:border-box;margin:7px 0;padding:14px;border:1px solid #0001;border-radius:14px;background:var(--bg);font:inherit}
 #authmsg{font-size:13px;color:var(--mute);min-height:20px;margin:8px 0}
-
-/* Карта и социальные разделы */
-.tabs{max-width:calc(100vw - 18px);overflow-x:auto;justify-content:flex-start;scrollbar-width:none}.tabs::-webkit-scrollbar{display:none}.tabs button{white-space:nowrap;padding:10px 12px;font-size:12px}
-.mapworld{height:min(78vh,820px);min-height:520px;aspect-ratio:1.2/1;position:relative;overflow:hidden;border-radius:24px;background:#b8d98c url("map_background.png") center/100% 100% no-repeat;box-shadow:0 8px 28px #405b3030;border:1px solid #d8e4c8;touch-action:pan-y}
-.mapplace{position:absolute;transform:translate(-50%,-72%);border:0;background:transparent;cursor:pointer;text-align:center;z-index:2;color:#33452f;min-width:108px;padding:0;filter:drop-shadow(0 4px 3px #354b3a55)}
-.maphouse{display:block;width:92px;height:82px;margin:0 auto;transition:transform .15s}
-.mapplace:hover .maphouse,.mapplace:focus-visible .maphouse{transform:translateY(-5px) scale(1.06)}
-.maplabel{display:block;max-width:160px;margin:-2px auto 0;padding:6px 10px;border-radius:12px;background:#fff5d7;border:1px solid #e7d59d;color:#3e3828;font-size:12px;font-weight:800;line-height:1.2;box-shadow:0 3px 8px #4b543733}
-.mapempty{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);padding:12px 16px;border-radius:14px;background:#fff9e8dd;color:#50613d;font-weight:700;text-align:center;max-width:75%;box-shadow:0 3px 12px #405b3022}
-.mapcard{background:var(--card);border-radius:22px;padding:14px;margin-top:12px}.mapcard .muted{margin-top:5px}
-@media(max-width:600px){.mapworld{height:68vh;min-height:440px;aspect-ratio:auto;background-size:cover}.maphouse{width:72px;height:66px}.maplabel{font-size:10px;max-width:112px;padding:5px 7px}}
-.mapcard{background:var(--card);border-radius:22px;padding:14px;margin-top:12px}.friendline,.chatline{display:flex;align-items:center;gap:11px;padding:12px;border-radius:18px;background:var(--bg);margin:8px 0}.avatar{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:var(--lav);font-size:18px;flex:none}.friendmeta{flex:1;min-width:0}.muted{font-size:12px;color:var(--mute);font-weight:600}.online{color:#29985b}.msgbubble{max-width:82%;padding:10px 13px;border-radius:17px;margin:7px 0;font-size:14px;overflow-wrap:anywhere}.msgmine{margin-left:auto;background:#d7edc9;color:#29432b}.msgother{margin-right:auto;background:var(--bg)}.chatlog{height:52vh;min-height:280px;overflow:auto;display:flex;flex-direction:column;padding:8px}.chatcompose{display:flex;gap:8px;position:sticky;bottom:0;background:var(--card);padding-top:8px}.chatcompose input{flex:1;min-width:0}.tinybtn{border:0;border-radius:50%;width:38px;height:38px;background:var(--lav);font-weight:900}
-@media(max-width:390px){.tabs button{padding:9px 10px;font-size:11px}.maphouse{font-size:45px;width:76px}.maplabel{font-size:11px}}
-
+.tabs button i{font-style:normal;font-size:19px}
+.rev-head{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.rev-head select{flex:1;min-width:150px}.rev-muted{font-size:11px;color:var(--mute)}.rev-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.rev-actions .btn{padding:10px 14px;font-size:13px}
+.item{background:var(--bg);border-radius:22px;padding:12px;margin-top:10px}
+.in{font-size:15px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;cursor:pointer}.is{font-size:11px;color:var(--mute)}
+.itot{font-size:26px;font-weight:800;margin-left:8px;min-width:40px;text-align:right}.itot.low{color:var(--bad)}
+.sts{display:flex;gap:8px;margin-top:8px}.stp{flex:1;min-width:0}
+.sb{width:30px;height:30px;border-radius:50%;border:0;background:var(--card);font-size:16px;font-weight:800;cursor:pointer;padding:0;flex:none}
+.si{width:100%;min-width:0;flex:1;text-align:center;border:0;background:var(--card);border-radius:14px;height:30px;padding:0;outline:none;font-weight:800}
 </style>
 </head>
 <body>
-<div id="authbar"><button id="profileBtn" onclick="openProfile()" aria-label="Профиль" style="display:none">?</button></div>
+<div id="authbar"><span id="sync" style="margin-right:10px;font-size:16px"></span><button id="profileBtn" onclick="openProfile()" aria-label="Профиль" style="display:none">?</button></div>
 <div id="profileShade" onclick="if(event.target===this)closeProfile()"><div id="profileBox"><div style="display:flex;justify-content:space-between;align-items:center"><div><h2>Профиль</h2><div class="sub">Личный кабинет Shift Manager</div></div><button class="nav" onclick="closeProfile()">×</button></div><label>Имя пользователя</label><input id="profileName" maxlength="60" placeholder="Как к тебе обращаться"><label>Электронная почта</label><input id="profileEmail" type="email" readonly><div class="profile-row"><button class="authbtn" onclick="saveProfile()">Сохранить профиль</button></div><div class="profile-section"><b>Мои заведения</b><label>Текущее заведение для ревизии</label><select id="profileOrg" onchange="profileChooseOrg(this.value)"><option value="">Загрузка…</option></select><div class="profile-row"><button class="authbtn" onclick="profileGoRevision()">Открыть ревизию</button><button class="authbtn" style="background:var(--bg)" onclick="revJoinOrg();closeProfile()">Ввести код</button></div></div><div class="profile-section"><b>Безопасность</b><div class="sub" style="margin-top:6px">Смена пароля и подтверждение почты выполняются через настройки аккаунта Supabase.</div><div class="profile-row"><button class="authbtn" style="background:var(--bg)" onclick="doLogout()">Выйти из аккаунта</button></div></div><div id="profileMsg"></div></div></div>
-<div id="authgate"><div id="authbox"><h2>Shift Manager</h2><p>Войди или создай аккаунт. Личные смены, доходы и расходы будут храниться отдельно в твоём аккаунте.</p><div id="emailAuthFields"><input id="authemail" type="email" autocomplete="email" placeholder="Электронная почта"><input id="authpass" type="password" autocomplete="current-password" placeholder="Пароль (от 6 символов)"><button class="authbtn" style="width:100%;margin-top:8px" onclick="doLogin()">Войти</button><button class="authbtn" style="width:100%;margin-top:8px;background:var(--bg)" onclick="doSignup()">Создать аккаунт</button></div><div id="authmsg"></div></div></div>
+<div id="authgate"><div id="authbox"><h2>Shift Manager</h2><p>Войди или создай аккаунт. Личные смены, доходы и расходы будут храниться отдельно в твоём аккаунте.</p><div id="emailAuthFields"><input id="authemail" type="email" autocomplete="email" placeholder="Электронная почта"><input id="authpass" type="password" autocomplete="current-password" placeholder="Пароль (от 6 символов)"><button class="authbtn" style="width:100%;margin-top:8px" onclick="doLogin()">Войти</button><button class="authbtn" style="width:100%;margin-top:8px;background:var(--bg)" onclick="doSignup()">Создать аккаунт</button><button class="authbtn" style="width:100%;margin-top:8px;background:transparent;color:var(--mute)" onclick="doReset()">Забыл пароль</button><button class="authbtn" style="width:100%;margin-top:4px;background:transparent;color:var(--mute)" onclick="localMode()">Продолжить без аккаунта</button></div><div id="authmsg"></div></div></div>
 
-<div class="top"><button class="nav" onclick="mv(-1)">‹</button><h1 id="ttl"></h1><button class="nav" onclick="mv(1)">›</button></div>
+<div class="top" id="top"><button class="nav" onclick="mv(-1)">‹</button><h1 id="ttl"></h1><button class="nav" onclick="mv(1)">›</button></div>
 <div id="v"></div>
 <div class="pal" id="pal"></div>
-<div class="tabs"><button id="t1" onclick="tab('s')">📅 Смены</button><button id="t2" onclick="tab('m')">💰 Выручка</button><button id="t3" onclick="tab('e')">🧾 Расходы</button><button id="t4" onclick="tab('r')">📦 Ревизия</button><button id="t5" onclick="tab('map')">🗺️ Карта</button></div>
+<div class="tabs"><button id="t1" onclick="tab('s')"><i>📅</i>Смены</button><button id="t2" onclick="tab('m')"><i>💰</i>Выручка</button><button id="t3" onclick="tab('e')"><i>🧾</i>Расходы</button><button id="t4" onclick="tab('r')"><i>📦</i>Ревизия</button></div>
 <div class="sheetbg" id="bg" onclick="if(event.target===this)closeS()"><div class="sheet" id="sh"></div></div>
 <div class="toast" id="toast"></div>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script>window.supabase||document.write('<script src="https://unpkg.com/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"><\/script>')</script>
 <script>
 const SUPABASE_URL='https://kmjiuonrcifllfudpjwx.supabase.co';
 const SUPABASE_ANON_KEY='sb_publishable_CwVDC3nxMz4vn40Lme1DYg_WdC60v2b';
-const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+const sb=window.supabase?window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY):null;
 var sbUser=null, cloudTimer=null, cloudReady=false;
 function authMessage(t){document.getElementById('authmsg').textContent=t}
 async function doLogin(){const email=document.getElementById('authemail').value.trim(),password=document.getElementById('authpass').value;if(!email||!password)return authMessage('Введи почту и пароль');authMessage('Входим…');const {error}=await sb.auth.signInWithPassword({email,password});authMessage(error?authFriendly(error):'Вход выполнен')}
@@ -141,19 +136,56 @@ function profileNote(t){const e=document.getElementById('profileMsg');if(e)e.tex
 async function openProfile(){if(!sbUser)return;document.getElementById('profileShade').style.display='flex';document.getElementById('profileName').value=sbUser.user_metadata?.display_name||'';document.getElementById('profileEmail').value=sbUser.email||'';profileNote('');await profileLoadOrgs()}
 function closeProfile(){const e=document.getElementById('profileShade');if(e)e.style.display='none'}
 async function saveProfile(){if(!sbUser)return;const name=document.getElementById('profileName').value.trim();profileNote('Сохраняю…');const u=await sb.auth.updateUser({data:{...sbUser.user_metadata,display_name:name}});if(u.error)return profileNote('Ошибка: '+u.error.message);const p=await sb.from('profiles').upsert({id:sbUser.id,display_name:name},{onConflict:'id'});if(p.error)return profileNote('Имя сохранено в аккаунте, но профиль не обновлён: '+p.error.message);sbUser=u.data.user||sbUser;refreshProfileAvatar();profileNote('Профиль сохранён')}
-async function profileLoadOrgs(){const sel=document.getElementById('profileOrg');sel.innerHTML='<option value=>Загрузка…</option>';let rows=[];try{const m=await sb.from('organization_members').select('organization_id').eq('user_id',sbUser.id);if(m.error)throw m.error;const ids=(m.data||[]).map(x=>x.organization_id);if(ids.length){const o=await sb.from('organizations').select('id,name,is_active').in('id',ids).order('name');if(o.error)throw o.error;rows=o.data||[]}if(REV.global){const o=await sb.from('organizations').select('id,name,is_active').order('name');if(!o.error)rows=o.data||[]}}catch(e){profileNote('Не удалось загрузить заведения: '+e.message)}REV.orgs=rows;const active=REV.org||sbUser.user_metadata?.active_org_id||'';sel.innerHTML='<option value="">Не выбрано</option>'+rows.map(o=>'<option value="'+o.id+'">'+revEsc(o.name)+(o.is_active?'':' (выключено)')+'</option>').join('');sel.value=rows.some(o=>o.id===active)?active:(rows[0]?.id||'')}
+async function profileLoadOrgs(){const sel=document.getElementById('profileOrg');sel.innerHTML='<option value="">Загрузка…</option>';let rows=[];try{const m=await sb.from('organization_members').select('organization_id').eq('user_id',sbUser.id);if(m.error)throw m.error;const ids=(m.data||[]).map(x=>x.organization_id);if(ids.length){const o=await sb.from('organizations').select('id,name,is_active').in('id',ids).order('name');if(o.error)throw o.error;rows=o.data||[]}if(REV.global){const o=await sb.from('organizations').select('id,name,is_active').order('name');if(!o.error)rows=o.data||[]}}catch(e){profileNote('Не удалось загрузить заведения: '+e.message)}REV.orgs=rows;const active=REV.org||sbUser.user_metadata?.active_org_id||'';sel.innerHTML='<option value="">Не выбрано</option>'+rows.map(o=>'<option value="'+o.id+'">'+revEsc(o.name)+(o.is_active?'':' (выключено)')+'</option>').join('');sel.value=rows.some(o=>o.id===active)?active:(rows[0]?.id||'')}
 async function profileChooseOrg(id){REV.org=id||null;REV.session=null;if(sbUser){await sb.auth.updateUser({data:{active_org_id:id||null}})}if(id){try{await revLoadInventory()}catch(e){profileNote('Ошибка заведения: '+e.message)}}profileNote(id?'Текущее заведение изменено.':'Заведение не выбрано.')}
 function profileGoRevision(){closeProfile();tab('r')}
-async function loadCloud(user){sbUser=user;setAuthUI(user);const {data,error}=await sb.from('user_finance_data').select('data').eq('user_id',user.id).maybeSingle();if(error){authMessage('Ошибка загрузки: '+error.message);return}if(data&&data.data){S=Object.assign(S,data.data);norm()}else{await sb.from('user_finance_data').upsert({user_id:user.id,data:S,updated_at:new Date().toISOString()},{onConflict:'user_id'})}cloudReady=true;render();sb.rpc('touch_my_presence').then(()=>{});}
-function queueCloudSave(){if(!sbUser||!cloudReady)return;clearTimeout(cloudTimer);cloudTimer=setTimeout(async()=>{const snapshot=JSON.parse(JSON.stringify(S));const {error}=await sb.from('user_finance_data').upsert({user_id:sbUser.id,data:snapshot,updated_at:new Date().toISOString()},{onConflict:'user_id'});if(error)console.error('Cloud save failed',error)},700)}
-sb.auth.onAuthStateChange((_event,session)=>{if(session?.user){loadCloud(session.user)}else{sbUser=null;cloudReady=false;setAuthUI(null)}});
-sb.auth.getSession().then(({data})=>{if(data.session?.user)loadCloud(data.session.user);else setAuthUI(null)});
+var lastPush='',cloudBusy=false;
+function syncState(t){var e=document.getElementById('sync');if(e){e.textContent={ok:'☁️',wait:'⏳',off:'⚠️'}[t]||'';e.title={ok:'Синхронизировано',wait:'Сохраняю…',off:'Нет связи: сохранено на телефоне'}[t]||''}}
+function lsKey(){return sbUser?'smeny_u_'+sbUser.id:'smeny_v1'}
+function resetS(){S=JSON.parse(DEF);norm()}
+function localMode(){document.getElementById('authgate').style.display='none';document.getElementById('profileBtn').style.display='none'}
+async function doReset(){if(!sb)return;const email=document.getElementById('authemail').value.trim();if(!email)return authMessage('Введи почту, на неё придёт ссылка');const {error}=await sb.auth.resetPasswordForEmail(email,{redirectTo:'https://aarnheight.github.io/finance-/'});authMessage(error?authFriendly(error):'Письмо отправлено. Открой ссылку из него.')}
+async function newPass(){const p=prompt('Новый пароль (от 6 символов)');if(!p||p.length<6)return;const {error}=await sb.auth.updateUser({password:p});toast(error?error.message:'Пароль обновлён ✨')}
+async function loadCloud(user){
+ if(cloudBusy||(sbUser&&sbUser.id===user.id&&cloudReady)){if(sbUser&&sbUser.id===user.id)sbUser=user;return}
+ cloudBusy=true;sbUser=user;cloudReady=false;setAuthUI(user);
+ try{
+  var key=lsKey(),loc=null,old=null;
+  try{loc=JSON.parse(localStorage.getItem(key)||'null')}catch(e){}
+  if(!loc){try{old=JSON.parse(localStorage.getItem('smeny_v1')||'null')}catch(e){}}
+  const r=await sb.from('user_finance_data').select('data,updated_at').eq('user_id',user.id).maybeSingle();
+  resetS();
+  if(r.error){if(loc)S=Object.assign(S,loc);norm();syncState('off');render();return}
+  var dirty=localStorage.getItem(key+'_d')=='1',cts=(loc&&loc._ts)||0,sts=r.data?Date.parse(r.data.updated_at)||0:0,push=false;
+  if(r.data&&r.data.data&&!(dirty&&loc&&cts>sts))S=Object.assign(S,r.data.data);
+  else if(loc){S=Object.assign(S,loc);push=true}
+  else if(old&&!r.data){S=Object.assign(S,old);push=true;localStorage.removeItem('smeny_v1')}
+  else push=!r.data;
+  norm();cloudReady=true;try{localStorage.setItem(key,JSON.stringify(S))}catch(e){}render();
+  if(push)await pushNow();else syncState('ok');
+  sb.rpc('touch_my_presence').then(function(){},function(){});
+ }catch(e){syncState('off')}finally{cloudBusy=false}
+}
+async function pushNow(){if(!sb||!sbUser||!cloudReady)return;syncState('wait');var ts=new Date().toISOString();
+ const {error}=await sb.from('user_finance_data').upsert({user_id:sbUser.id,data:JSON.parse(JSON.stringify(S)),updated_at:ts},{onConflict:'user_id'});
+ if(error){syncState('off');return}try{localStorage.removeItem(lsKey()+'_d')}catch(e){}lastPush=ts;syncState('ok')}
+function queueCloudSave(){if(!sbUser||!cloudReady)return;syncState('wait');clearTimeout(cloudTimer);cloudTimer=setTimeout(pushNow,700)}
+if(sb){
+ sb.auth.onAuthStateChange(function(ev,session){
+  if(ev==='PASSWORD_RECOVERY')setTimeout(newPass,300);
+  if(session&&session.user){var u=session.user;setTimeout(function(){loadCloud(u)},0)}
+  else{var had=!!sbUser;sbUser=null;cloudReady=false;syncState('');if(had){resetS();REV.org=null;REV.orgs=[];REV.mem=[];REV.global=false;REV.items=[];REV.session=null;revUnsub();render()}setAuthUI(null)}
+ });
+ document.getElementById('authpass').addEventListener('keydown',function(e){if(e.key==='Enter')doLogin()});
+}else{localMode()}
+
 var MN=['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
 var MG=['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
 var S={shifts:{},goals:{},deds:{},cfg:{fullH:12,mode:'fix',rate:3000},stamps:[{id:'full',name:'Полная',ico:'🌞',type:'full',col:'peach',hours:12,mode:'fix',rate:3000},{id:'part',name:'Неполная',ico:'🌙',type:'part',col:'mint',hours:6,mode:'fix',rate:1500}],extra:{},exp:[],cats:[{id:'rent',name:'Аренда',ico:'🏠',col:'lav',lim:0},{id:'food',name:'Продукты',ico:'🛒',col:'peach',lim:0},{id:'go',name:'Проезд',ico:'🚌',col:'sky',lim:0},{id:'subs',name:'Подписки',ico:'📱',col:'butter',lim:0},{id:'oops',name:'Непредвиденные',ico:'⚡',col:'rose',lim:0},{id:'save',name:'Накопления',ico:'🐷',col:'mint',sav:1,lim:0}]};
+var DEF=JSON.stringify(S);
 try{var r=localStorage.getItem('smeny_v1');if(r)S=Object.assign(S,JSON.parse(r))}catch(e){}
 norm();
-function save(){try{localStorage.setItem('smeny_v1',JSON.stringify(S))}catch(e){}queueCloudSave()}
+function save(){S._ts=Date.now();try{localStorage.setItem(lsKey(),JSON.stringify(S));if(sbUser)localStorage.setItem(lsKey()+'_d','1')}catch(e){}queueCloudSave()}
 var cur=new Date();cur.setDate(1);var TAB='s',ED=null;
 var p2=function(n){return String(n).padStart(2,'0')};
 var mk=function(){return cur.getFullYear()+'-'+p2(cur.getMonth()+1)};
@@ -161,12 +193,13 @@ var money=function(n){return Math.round(n).toLocaleString('ru-RU')+' ₽'};
 var val=function(s){return s.mode==='fix'?s.rate:s.rate*s.hours};
 function pl(n,a){var m=n%10,h=n%100;return n+' '+(h>10&&h<15?a[2]:m==1?a[0]:m>1&&m<5?a[1]:a[2])}
 function mv(d){cur.setMonth(cur.getMonth()+d);render()}
-function tab(t){TAB=t;render()}
+function tab(t){TAB=t;render();if(t=='r')revEnter()}
 function toast(t){var e=document.getElementById('toast');e.textContent=t;e.classList.add('show');setTimeout(function(){e.classList.remove('show')},1800)}
 function render(){
  document.getElementById('ttl').textContent=MN[cur.getMonth()]+' '+cur.getFullYear();
- ['s','m','e'].forEach(function(t,i){document.getElementById('t'+(i+1)).className=TAB==t?'on':''});
- document.getElementById('v').innerHTML=TAB=='s'?viewS():TAB=='m'?viewM():viewE();
+ ['s','m','e','r'].forEach(function(t,i){document.getElementById('t'+(i+1)).className=TAB==t?'on':''});
+ document.getElementById('top').style.display=TAB=='r'?'none':'';
+ document.getElementById('v').innerHTML=TAB=='s'?viewS():TAB=='m'?viewM():TAB=='e'?viewE():revHTML();
  pal();document.body.style.paddingBottom=TAB=='s'?'190px':'120px';
 }
 function viewS(){
@@ -291,128 +324,105 @@ function extraCard(){var l=S.extra[mk()]||[],h='<div class="card"><h2>➕ Доп
  return h+'<div class="flex" style="margin-top:12px"><input class="inp" id="xn" placeholder="Процент с выручки" style="flex:1.2;min-width:0"><input class="inp" id="xa" type="number" inputmode="numeric" placeholder="Сумма" style="flex:1;min-width:0"><button class="btn" onclick="addX()" style="padding:13px 16px">＋</button></div></div>'}
 function addX(){var n=document.getElementById('xn').value.trim()||'Доп. доход',a=+document.getElementById('xa').value;if(!a)return toast('Введи сумму');(S.extra[mk()]=S.extra[mk()]||[]).push({name:n,amt:a});save();render();toast('Добавлено 💵')}
 function delX(i){S.extra[mk()].splice(i,1);save();render()}
+// Общая ревизия (Supabase): заведения, позиции, живые подсчёты
+var REV={orgs:[],mem:[],org:null,role:'member',global:false,session:null,last:null,items:[],entries:{},prev:{},channel:null,chKey:'',busy:false,err:'',q:{},fl:false,x:false},RI={},revT=0;
+function revEsc(x){return String(x==null?'':x).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function revMsg(x){toast(x)}
+function revDt(d){return d?new Date(d).toLocaleDateString('ru-RU'):''}
+function revUnsub(){if(REV.channel&&sb)sb.removeChannel(REV.channel);REV.channel=null;REV.chKey=''}
+function revRole(){if(REV.global)return'admin';var m=REV.mem.filter(function(x){return x.organization_id===REV.org})[0];return m?m.role:'member'}
+function revTot(it,e){return((e&&e.full_rows)||0)*it.bottles_per_row+((e&&e.loose_bottles)||0)}
+async function revEnter(){if(!sb||!sbUser||REV.busy)return;REV.busy=true;REV.err='';render();
+ try{if(!REV.orgs.length&&!REV.org){const g=await sb.from('global_admins').select('user_id').eq('user_id',sbUser.id).maybeSingle();REV.global=!!g.data}await revLoadOrgs()}catch(e){REV.err=e.message||String(e)}
+ REV.busy=false;if(TAB=='r')render()}
+async function revLoadOrgs(){
+ const m=await sb.from('organization_members').select('organization_id,role').eq('user_id',sbUser.id);if(m.error)throw m.error;REV.mem=m.data||[];
+ let q;if(REV.global)q=await sb.from('organizations').select('id,name,is_active').order('name');
+ else{const ids=REV.mem.map(function(x){return x.organization_id});q=ids.length?await sb.from('organizations').select('id,name,is_active').in('id',ids).order('name'):{data:[],error:null}}
+ if(q.error)throw q.error;REV.orgs=q.data||[];
+ const want=REV.org||localStorage.getItem('rev_org')||(sbUser.user_metadata||{}).active_org_id;
+ REV.org=REV.orgs.some(function(o){return o.id===want})?want:(REV.orgs[0]||{}).id||null;await revLoadInventory()}
+async function revLoadInventory(){
+ REV.items=[];REV.entries={};REV.prev={};REV.session=null;REV.last=null;REV.role=revRole();if(!REV.org){revUnsub();return}
+ try{localStorage.setItem('rev_org',REV.org)}catch(e){}
+ const r=await Promise.all([sb.from('inventory_items').select('*').eq('organization_id',REV.org).eq('is_active',true).order('sort_order').order('name'),sb.from('inventory_sessions').select('*').eq('organization_id',REV.org).in('status',['open','completed']).order('created_at',{ascending:false}).limit(8)]);
+ if(r[0].error)throw r[0].error;if(r[1].error)throw r[1].error;REV.items=r[0].data||[];if(REV.items[0])REV.x='min_stock' in REV.items[0];
+ const ss=r[1].data||[];REV.session=ss.filter(function(x){return x.status=='open'})[0]||null;REV.last=ss.filter(function(x){return x.status=='completed'})[0]||null;
+ const ids=[REV.session,REV.last].filter(Boolean).map(function(x){return x.id});
+ if(ids.length){const e=await sb.from('inventory_entries').select('*').in('session_id',ids);if(e.error)throw e.error;(e.data||[]).forEach(function(x){(REV.session&&x.session_id==REV.session.id?REV.entries:REV.prev)[x.item_id]=x})}
+ revSub()}
+function revSub(){var key=REV.org+'|'+(REV.session?REV.session.id:'');if(REV.chKey==key)return;revUnsub();if(!REV.org)return;REV.chKey=key;
+ var f='organization_id=eq.'+REV.org,ch=sb.channel('inv-'+key).on('postgres_changes',{event:'*',schema:'public',table:'inventory_items',filter:f},revSoft).on('postgres_changes',{event:'*',schema:'public',table:'inventory_sessions',filter:f},revSoft);
+ if(REV.session)ch=ch.on('postgres_changes',{event:'*',schema:'public',table:'inventory_entries',filter:'session_id=eq.'+REV.session.id},function(p){var n=p.new,o=p.old||{};
+  if(p.eventType=='DELETE'){if(o.item_id){delete REV.entries[o.item_id];revPatch(o.item_id)}return}
+  if(!n||!n.item_id||n.counted_by===sbUser.id)return;REV.entries[n.item_id]=n;revPatch(n.item_id)});
+ REV.channel=ch.subscribe()}
+function revSoft(){clearTimeout(revT);revT=setTimeout(async function(){try{await revLoadInventory()}catch(e){}var a=document.activeElement;if(TAB=='r'&&!(a&&a.classList&&a.classList.contains('si')))render()},400)}
+function revPatch(id){if(TAB!='r'||!id)return;var it=REV.items.filter(function(x){return x.id===id})[0];if(!it)return;var e=REV.entries[id]||{};
+ document.querySelectorAll('[data-i="'+id+'"] .si').forEach(function(el){if(el!==document.activeElement)el.value=e[el.dataset.f]||0});
+ var t=document.querySelector('[data-t="'+id+'"]');if(t)t.textContent=revTot(it,e);revSum()}
+function revSum(){var s=0,d=0;REV.items.forEach(function(it){var e=REV.entries[it.id];if(e){d++;s+=revTot(it,e)}});var a=document.getElementById('revsum'),b=document.getElementById('revdone');if(a)a.textContent=s;if(b)b.textContent=d+'/'+REV.items.length}
+function revBump(id,f,d){revSet(id,f,Math.max(0,(+((REV.entries[id]||{})[f])||0)+d))}
+function revSet(id,f,v){if(!REV.session)return revMsg('Сначала начни ревизию');v=Math.max(0,Math.floor(+v)||0);
+ var e=REV.entries[id]=Object.assign({full_rows:0,loose_bottles:0},REV.entries[id]);e[f]=v;revPatch(id);REV.q[id+'|'+f]=[id,f,v];revFlush()}
+async function revFlush(){if(REV.fl||!sb||!sbUser||!REV.session)return;REV.fl=true;
+ try{var ks;while((ks=Object.keys(REV.q)).length){var k=ks[0],a=REV.q[k],row={session_id:REV.session.id,item_id:a[0],counted_by:sbUser.id,updated_at:new Date().toISOString()};row[a[1]]=a[2];
+  const r=await sb.from('inventory_entries').upsert(row,{onConflict:'session_id,item_id'});if(r.error){revMsg('Не сохранилось, повторю при связи');return}if(REV.q[k]===a)delete REV.q[k]}}
+ finally{REV.fl=false}}
+function stp2(id,f,l,v){return'<div class="stp"><div class="lbl" style="margin:0 0 3px 4px">'+l+'</div><div class="flex" style="gap:3px"><button class="sb" onclick="revBump(\''+id+'\',\''+f+'\',-1)">−</button><input class="si" data-f="'+f+'" type="number" inputmode="numeric" min="0" value="'+(v||0)+'" onchange="revSet(\''+id+'\',\''+f+'\',this.value)"><button class="sb" onclick="revBump(\''+id+'\',\''+f+'\',1)">＋</button></div></div>'}
+function revHTML(){
+ if(!sb)return'<div class="card empty">Ревизия работает онлайн. Сейчас нет связи с сервером.</div>';
+ if(!sbUser)return'<div class="card empty">Войди в аккаунт, чтобы вести общую ревизию.</div>';
+ if(REV.busy&&!REV.orgs.length)return'<div class="card empty">Загружаю заведения…</div>';
+ if(REV.err)return'<div class="card">Ошибка: '+revEsc(REV.err)+'<button class="btn" style="width:100%;margin-top:10px" onclick="revEnter()">Повторить</button></div>';
+ var adm=REV.role==='admin',h='<div class="card"><div class="rev-head"><h2 style="margin:0">📦 Ревизия</h2><select class="inp" onchange="revSelectOrg(this.value)">'+(REV.orgs.length?'':'<option value="">Нет заведений</option>')+REV.orgs.map(function(o){return'<option value="'+o.id+'"'+(o.id===REV.org?' selected':'')+'>'+revEsc(o.name)+(o.is_active?'':' (выключено)')+'</option>'}).join('')+'</select></div><div class="rev-actions">'+(REV.global?'<button class="btn" onclick="revCreateOrg()">＋ Заведение</button>':'')+'<button class="btn alt" onclick="revJoinOrg()">Ввести код</button>'+(REV.org&&adm?'<button class="btn alt" onclick="revMakeCode()">Код приглашения</button><button class="btn alt" onclick="revMembers()">Участники</button>':'')+'</div></div>';
+ if(!REV.org)return h+'<div class="card empty">Создай заведение или вступи по коду приглашения.</div>';
+ if(!REV.session){return h+'<div class="card"><h2>Нет активной ревизии</h2>'+(REV.last?'<div class="rev-muted" style="margin-bottom:10px">Последняя: '+revEsc(REV.last.title)+' · '+revDt(REV.last.completed_at||REV.last.created_at)+'</div>':'')+'<button class="btn" style="width:100%" onclick="revNewSession()">＋ Начать новую ревизию</button>'+(adm?'<div class="rev-actions"><button class="btn alt" onclick="revItem()">＋ Позиция</button><button class="btn alt" onclick="revBulk()">📋 Списком</button></div>':'')+'</div>'}
+ var s=0,d=0,need=[];REV.items.forEach(function(it){var e=REV.entries[it.id];if(e)d++;var t=revTot(it,e);s+=t;if(it.min_stock&&t<it.min_stock)need.push(it.name)});
+ h+='<div class="chips"><div class="chip" style="background:var(--sky)"><b id="revsum">'+s+'</b><span>бутылок всего</span></div><div class="chip" style="background:var(--mint)"><b id="revdone">'+d+'/'+REV.items.length+'</b><span>посчитано</span></div></div>';
+ h+='<div class="card"><div class="flex" style="justify-content:space-between"><h2 style="margin:0">'+revEsc(REV.session.title)+'</h2><span class="pill">Открыта</span></div><div class="rev-muted" style="margin-top:4px">Значения видны всем участникам заведения сразу.</div>';
+ if(!REV.items.length)h+='<div class="empty">Пока нет позиций.'+(adm?' Добавь их кнопками ниже.':' Попроси администратора добавить.')+'</div>';
+ REV.items.forEach(function(it){var e=REV.entries[it.id]||{},t=revTot(it,e),p=REV.prev[it.id],pv=p?revTot(it,p):null;
+  h+='<div class="item" data-i="'+it.id+'"><div class="flex" style="justify-content:space-between;align-items:flex-start"><div style="min-width:0;flex:1"'+(adm?' onclick="revItem(\''+it.id+'\')"':'')+'><div class="in">'+revEsc(it.name)+'</div><div class="is">в ряду '+it.bottles_per_row+(pv!=null?' · было '+pv+' ('+(t-pv>0?'+':'')+(t-pv)+')':'')+(it.min_stock?' · норма '+it.min_stock:'')+'</div></div><div class="itot'+(it.min_stock&&t<it.min_stock?' low':'')+'" data-t="'+it.id+'">'+t+'</div></div><div class="sts">'+stp2(it.id,'full_rows','Полные ряды',e.full_rows)+stp2(it.id,'loose_bottles','Бутылки сверху',e.loose_bottles)+'</div></div>'});
+ h+='<div class="rev-actions"><button class="btn alt" onclick="revShare()">📤 Отправить</button><button class="btn del" onclick="revFinish()">Завершить</button>'+(adm?'<button class="btn alt" onclick="revItem()">＋ Позиция</button><button class="btn alt" onclick="revBulk()">📋 Списком</button>':'')+'</div></div>';
+ if(need.length)h+='<div class="card"><h2>🛒 Докупить</h2><div class="rev-muted">'+need.map(revEsc).join(', ')+'</div></div>';
+ return h}
+function revText(){var t='📦 '+(REV.session?REV.session.title:'Ревизия')+'\n\n',s=0,nd=[];REV.items.forEach(function(it){var e=REV.entries[it.id]||{},n=revTot(it,e),p=[];s+=n;if(e.full_rows)p.push(e.full_rows+'×'+it.bottles_per_row);if(e.loose_bottles)p.push(e.loose_bottles);t+='• '+it.name+' — '+n+(p.length>1?' ('+p.join(' + ')+')':'')+'\n';if(it.min_stock&&n<it.min_stock)nd.push(it.name+' +'+(it.min_stock-n))});return t+'\nИтого: '+s+' шт'+(nd.length?'\n\n🛒 Докупить:\n'+nd.join('\n'):'')}
+function revShare(){var t=revText();if(navigator.share)navigator.share({text:t}).catch(function(){});else if(navigator.clipboard)navigator.clipboard.writeText(t).then(function(){revMsg('Скопировано 📋')});else prompt('Скопируй:',t)}
+async function revSelectOrg(id){REV.org=id||null;try{await revLoadInventory()}catch(e){revMsg(e.message)}render()}
+async function revCreateOrg(){var name=prompt('Название заведения');if(!name||!name.trim())return;const r=await sb.from('organizations').insert({name:name.trim(),created_by:sbUser.id}).select('id').single();if(r.error)return revMsg(r.error.message);
+ const m=await sb.from('organization_members').insert({organization_id:r.data.id,user_id:sbUser.id,role:'admin'});if(m.error)return revMsg('Заведение создано, но не назначен администратор: '+m.error.message);
+ REV.org=r.data.id;await revLoadOrgs();render();revAudit('organization_created','organization',r.data.id,{name:name.trim()});revMsg('Заведение создано')}
+async function revJoinOrg(){var code=prompt('Введи код приглашения');if(!code||!code.trim())return;code=code.trim().replace(/[\s-]/g,'').toUpperCase();const r=await sb.rpc('join_organization_by_code',{join_code:code});
+ if(r.error){console.error(r.error);return revMsg('Не удалось вступить: '+(r.error.message||'ошибка'))}REV.org=r.data;try{await revLoadOrgs()}catch(e){revMsg(e.message)}render();revMsg('Ты добавлен(а) в заведение')}
+async function revMakeCode(){if(!REV.org||REV.role!=='admin')return revMsg('Создавать приглашения может администратор заведения');var b=new Uint8Array(8);crypto.getRandomValues(b);var code=Array.from(b).map(function(x){return x.toString(16).padStart(2,'0')}).join('').toUpperCase();
+ var hash=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(code)),hex=Array.from(new Uint8Array(hash)).map(function(x){return x.toString(16).padStart(2,'0')}).join('');
+ const r=await sb.from('organization_invite_codes').insert({organization_id:REV.org,code_hash:hex,created_by:sbUser.id,label:'Код '+new Date().toLocaleDateString('ru-RU')}).select('id').single();if(r.error)return revMsg('Не удалось создать код: '+r.error.message);
+ try{await navigator.clipboard.writeText(code)}catch(e){}prompt('Код скопирован. Отправь его коллеге, он показывается только сейчас:',code);revAudit('invite_code_created','invite_code',r.data.id,{})}
+async function revMembers(){const r=await sb.from('organization_members').select('user_id,role').eq('organization_id',REV.org);if(r.error)return revMsg(r.error.message);var ids=(r.data||[]).map(function(x){return x.user_id}),p=ids.length?await sb.from('profiles').select('id,display_name').in('id',ids):{data:[]},n={};(p.data||[]).forEach(function(x){n[x.id]=x.display_name});alert('Участники:\n'+(r.data||[]).map(function(x){return(n[x.user_id]||x.user_id.slice(0,8))+' — '+x.role}).join('\n'))}
+async function revNewSession(){if(!REV.org)return;var title=prompt('Название ревизии','Ревизия '+new Date().toLocaleDateString('ru-RU'));if(title===null)return;title=title.trim()||'Ревизия';
+ const r=await sb.from('inventory_sessions').insert({organization_id:REV.org,title:title,created_by:sbUser.id}).select('*').single();if(r.error)return revMsg(r.error.message);
+ try{await revLoadInventory()}catch(e){}render();revAudit('inventory_session_created','inventory_session',r.data.id,{title:title})}
+async function revFinish(){if(!REV.session||!confirm('Завершить ревизию? После этого значения изменить нельзя.'))return;await revFlush();const r=await sb.from('inventory_sessions').update({status:'completed',completed_at:new Date().toISOString()}).eq('id',REV.session.id);if(r.error)return revMsg(r.error.message);
+ revAudit('inventory_session_completed','inventory_session',REV.session.id,{});try{await revLoadInventory()}catch(e){}render();revMsg('Ревизия завершена ✨')}
+async function revAudit(a,t,id,d){try{await sb.from('audit_logs').insert({organization_id:REV.org,actor_user_id:sbUser.id,action:a,entity_type:t,entity_id:id?String(id):null,details:d})}catch(e){}}
+function revItem(id){var it=id?REV.items.filter(function(x){return x.id===id})[0]:null;RI=it?{id:id,name:it.name,n:it.bottles_per_row,m:it.min_stock||0}:{id:'',name:'',n:10,m:0};
+ document.getElementById('sh').innerHTML='<h2 style="font-size:19px">'+(id?'Позиция':'Новая позиция')+'</h2><div class="lbl">Название</div><input class="inp" placeholder="Например, Харбин премиум" value="'+revEsc(RI.name)+'" oninput="RI.name=this.value"><div class="flex"><div style="flex:1;min-width:0"><div class="lbl">Бутылок в полном ряду</div><input class="inp" type="number" inputmode="numeric" value="'+RI.n+'" oninput="RI.n=+this.value"></div>'+(REV.x?'<div style="flex:1;min-width:0"><div class="lbl">Норма (минимум)</div><input class="inp" type="number" inputmode="numeric" value="'+RI.m+'" oninput="RI.m=+this.value"></div>':'')+'</div><div class="flex" style="margin-top:14px">'+(id?'<button class="btn del" onclick="revItemDel()">Убрать</button>':'')+'<button class="btn alt" onclick="closeS()" style="flex:1">Отмена</button><button class="btn" onclick="revItemSave()" style="flex:1.4">Сохранить</button></div>';
+ document.getElementById('bg').classList.add('open')}
+async function revItemSave(){var name=(RI.name||'').trim(),n=Math.floor(RI.n);if(!name)return revMsg('Введи название');if(!(n>=1))return revMsg('Укажи бутылок в ряду');var row={name:name,bottles_per_row:n};if(REV.x)row.min_stock=Math.max(0,Math.floor(RI.m)||0);
+ const r=RI.id?await sb.from('inventory_items').update(row).eq('id',RI.id):await sb.from('inventory_items').insert(Object.assign({organization_id:REV.org,sort_order:REV.items.length},row));if(r.error)return revMsg(r.error.message);
+ closeS();try{await revLoadInventory()}catch(e){}render();revAudit(RI.id?'inventory_item_updated':'inventory_item_created','inventory_item',RI.id||null,{name:name,bottles_per_row:n})}
+async function revItemDel(){if(!confirm('Убрать позицию из ревизии?'))return;const r=await sb.from('inventory_items').update({is_active:false}).eq('id',RI.id);if(r.error)return revMsg(r.error.message);closeS();try{await revLoadInventory()}catch(e){}render()}
+function revBulk(){document.getElementById('sh').innerHTML='<h2 style="font-size:19px">📋 Добавить списком</h2><div class="lbl">По одной позиции в строке. «Название, 10» — 10 бутылок в ряду (иначе 10 по умолчанию)</div><textarea class="inp" id="rbt" rows="9" style="resize:none" placeholder="Харбин премиум, 10&#10;Балтика 7, 12"></textarea><div class="flex" style="margin-top:14px"><button class="btn alt" onclick="closeS()" style="flex:1">Отмена</button><button class="btn" onclick="revBulkSave()" style="flex:1.4">Добавить</button></div>';document.getElementById('bg').classList.add('open')}
+async function revBulkSave(){var rows=[],have=REV.items.map(function(x){return x.name.toLowerCase()});document.getElementById('rbt').value.split('\n').forEach(function(l){l=l.trim();if(!l)return;var m=l.match(/^(.*?)[,;]\s*(\d+)$/),n=10;if(m){l=m[1].trim();n=+m[2]||10}if(l&&have.indexOf(l.toLowerCase())<0){have.push(l.toLowerCase());rows.push({organization_id:REV.org,name:l,bottles_per_row:n,sort_order:REV.items.length+rows.length})}});
+ if(!rows.length)return revMsg('Нечего добавлять');const r=await sb.from('inventory_items').insert(rows);if(r.error)return revMsg(r.error.message);closeS();try{await revLoadInventory()}catch(e){}render();revMsg('Добавлено: '+rows.length+' ✨')}
+window.addEventListener('online',function(){if(sbUser&&!cloudReady&&!cloudBusy)loadCloud(sbUser);else if(sbUser&&cloudReady&&localStorage.getItem(lsKey()+'_d')=='1')pushNow();revFlush()});
+document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden'&&sbUser&&cloudReady&&localStorage.getItem(lsKey()+'_d')=='1'){clearTimeout(cloudTimer);pushNow()}});
 render();
 </script>
 
-<style>
-.rev-bulk{margin:14px 0;padding:13px;border-radius:18px;background:var(--bg)}.rev-bulk textarea{display:block;resize:vertical;min-height:130px;margin-top:9px;font-size:14px;line-height:1.5}.rev-head{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.rev-head select{flex:1;min-width:150px}.rev-item{display:grid;grid-template-columns:minmax(0,1fr) 68px 68px 72px;gap:6px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}.rev-item input{width:100%;min-width:0;padding:10px 5px;text-align:center;border:1px solid var(--line);border-radius:12px;background:var(--bg)}.rev-item .nm{font-size:13px;overflow-wrap:anywhere}.rev-total{font-size:13px;text-align:right}.rev-muted{font-size:11px;color:var(--mute)}.rev-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.rev-actions .btn{padding:10px 14px;font-size:13px}.rev-label{display:grid;grid-template-columns:minmax(0,1fr) 68px 68px 72px;gap:6px;color:var(--mute);font-size:10px;padding:8px 0 2px}
-</style>
-<script>
-// Shared organizations and live inventory module
-var REV={orgs:[],org:null,role:'member',global:false,session:null,items:[],entries:{},channel:null,loading:false};
-function revEsc(x){return String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function revMsg(x){toast(x)}
-async function revInit(){if(!sbUser)return;try{
- let g=await sb.from('global_admins').select('user_id').eq('user_id',sbUser.id).maybeSingle();REV.global=!!g.data;
- await revLoadOrgs();
- }catch(e){console.error(e);revMsg('Ошибка загрузки заведений: '+e.message)}}
-async function revLoadOrgs(){
- let q;
- if(REV.global){q=await sb.from('organizations').select('id,name,is_active').order('name')}
- else {let m=await sb.from('organization_members').select('organization_id,role');if(m.error)throw m.error;let ids=(m.data||[]).map(x=>x.organization_id);q=ids.length?await sb.from('organizations').select('id,name,is_active').in('id',ids).order('name'):{data:[],error:null};REV.memberships=m.data||[]}
- if(q.error)throw q.error;REV.orgs=q.data||[];
- if(!REV.orgs.some(o=>o.id===REV.org))REV.org=REV.orgs[0]?.id||null;
- if(REV.org){let m=(REV.memberships||[]).find(x=>x.organization_id===REV.org);REV.role=REV.global?'admin':(m?.role||'member');await revLoadInventory()}
-}
-async function revSelectOrg(id){REV.org=id||null;REV.session=null;await revLoadInventory();revRender()}
-async function revCreateOrg(){let name=prompt('Название заведения');if(!name?.trim())return;let r=await sb.from('organizations').insert({name:name.trim(),created_by:sbUser.id}).select('id').single();if(r.error)return revMsg(r.error.message);let m=await sb.from('organization_members').insert({organization_id:r.data.id,user_id:sbUser.id,role:'admin'});if(m.error)return revMsg('Заведение создано, но не удалось назначить администратора: '+m.error.message);await revLoadOrgs();REV.org=r.data.id;await revLoadInventory();revRender();await revAudit('organization_created','organization',r.data.id,{name:name.trim()});revMsg('Заведение создано')}
-async function revJoinOrg(){let code=prompt('Введи код приглашения');if(!code?.trim())return;code=code.trim().replace(/[\s-]/g,'').toUpperCase();let r=await sb.rpc('join_organization_by_code',{join_code:code});if(r.error){console.error('join_organization_by_code:',r.error);return revMsg('Не удалось вступить: '+(r.error.message||'ошибка Supabase')+(r.error.code?' ('+r.error.code+')':''))}REV.org=r.data;await revLoadOrgs();REV.org=r.data;await revLoadInventory();revRender();revMsg('Ты добавлен(а) в заведение')}
-async function revMakeCode(){if(!REV.org||(!REV.global&&REV.role!=='admin'))return revMsg('Создавать приглашения может администратор заведения');let bytes=new Uint8Array(8);crypto.getRandomValues(bytes);let code=Array.from(bytes).map(x=>x.toString(16).padStart(2,'0')).join('').toUpperCase();let hash=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(code));let hex=Array.from(new Uint8Array(hash)).map(x=>x.toString(16).padStart(2,'0')).join('');let r=await sb.from('organization_invite_codes').insert({organization_id:REV.org,code_hash:hex,created_by:sbUser.id,label:'Код '+new Date().toLocaleDateString('ru-RU')}).select('id').single();if(r.error){console.error('invite code insert:',r.error);return revMsg('Не удалось создать код: '+r.error.message)}try{await navigator.clipboard.writeText(code)}catch(e){}prompt('Скопируй код и отправь коллеге. Он показывается только сейчас:',code);await revAudit('invite_code_created','invite_code',r.data.id,{});} 
-async function revAddItem(){if(REV.role!=='admin')return;let name=prompt('Название позиции (например, Водка 0,7)');if(!name?.trim())return;let n=Number(prompt('Бутылок в полном ряду','10'));if(!Number.isInteger(n)||n<1)return revMsg('Укажи число бутылок в ряду');let r=await sb.from('inventory_items').insert({organization_id:REV.org,name:name.trim(),bottles_per_row:n,sort_order:REV.items.length});if(r.error)return revMsg(r.error.message);await revLoadInventory();revRender();await revAudit('inventory_item_created','inventory_item',null,{name,bottles_per_row:n})}
-function revParseBulk(text){let out=[],bad=[];String(text||'').split(/\r?\n/).forEach((line,i)=>{line=line.trim();if(!line)return;let m=line.match(/^(.+?)\s*,\s*(\d+)\s*$/);if(!m){bad.push(i+1);return}let name=m[1].trim(),n=Number(m[2]);if(!name||!Number.isSafeInteger(n)||n<1){bad.push(i+1);return}out.push({name,bottles_per_row:n})});return {out,bad}}
-async function revAddBulk(){if(REV.role!=='admin')return revMsg('Добавлять товары может администратор');if(!REV.org)return revMsg('Сначала выбери заведение');let box=document.getElementById('revBulkList');let parsed=revParseBulk(box?.value);if(parsed.bad.length)return revMsg('Проверь строки: '+parsed.bad.join(', ')+'. Формат: Название, число');if(!parsed.out.length)return revMsg('Вставь список товаров');let seen=new Set(REV.items.map(x=>x.name.trim().toLocaleLowerCase('ru')));let rows=parsed.out.filter(x=>!seen.has(x.name.toLocaleLowerCase('ru'))).map((x,i)=>({organization_id:REV.org,name:x.name,bottles_per_row:x.bottles_per_row,sort_order:REV.items.length+i}));if(!rows.length)return revMsg('Все эти товары уже есть в списке');let r=await sb.from('inventory_items').insert(rows);if(r.error)return revMsg('Не удалось добавить список: '+r.error.message);box.value='';await revLoadInventory();revRender();revMsg('Добавлено товаров: '+rows.length);await revAudit('inventory_items_bulk_created','inventory_item',null,{count:rows.length})}
-async function revLoadInventory(){REV.items=[];REV.entries={};REV.session=null;if(!REV.org)return;let a=await sb.from('inventory_items').select('*').eq('organization_id',REV.org).eq('is_active',true).order('sort_order').order('name');if(a.error)throw a.error;REV.items=a.data||[];let s=await sb.from('inventory_sessions').select('*').eq('organization_id',REV.org).eq('status','open').order('created_at',{ascending:false}).limit(1).maybeSingle();if(s.error)throw s.error;REV.session=s.data;
- if(REV.session){let e=await sb.from('inventory_entries').select('*').eq('session_id',REV.session.id);if(e.error)throw e.error;(e.data||[]).forEach(x=>REV.entries[x.item_id]=x)}
- revSubscribe();}
-function revSubscribe(){if(REV.channel){sb.removeChannel(REV.channel);REV.channel=null}if(!REV.org)return;REV.channel=sb.channel('inventory-'+REV.org).on('postgres_changes',{event:'*',schema:'public',table:'inventory_entries'},async()=>{await revLoadInventory();revRender()}).on('postgres_changes',{event:'*',schema:'public',table:'inventory_items',filter:'organization_id=eq.'+REV.org},async()=>{await revLoadInventory();revRender()}).on('postgres_changes',{event:'*',schema:'public',table:'inventory_sessions',filter:'organization_id=eq.'+REV.org},async()=>{await revLoadInventory();revRender()}).subscribe()}
-async function revNewSession(){if(!REV.org)return;let title=prompt('Название ревизии','Ревизия '+new Date().toLocaleDateString('ru-RU'))||'Ревизия';let r=await sb.from('inventory_sessions').insert({organization_id:REV.org,title,created_by:sbUser.id}).select('*').single();if(r.error)return revMsg(r.error.message);REV.session=r.data;REV.entries={};revRender();await revAudit('inventory_session_created','inventory_session',r.data.id,{title})}
-async function revSet(itemId,field,value){if(!REV.session)return revMsg('Сначала начни ревизию');let item=REV.items.find(x=>x.id===itemId);let old=REV.entries[itemId]||{full_rows:0,loose_bottles:0};let row={session_id:REV.session.id,item_id:itemId,full_rows:field==='full_rows'?Math.max(0,parseInt(value||0)):old.full_rows,loose_bottles:field==='loose_bottles'?Math.max(0,parseInt(value||0)):old.loose_bottles,counted_by:sbUser.id,updated_at:new Date().toISOString()};let r=await sb.from('inventory_entries').upsert(row,{onConflict:'session_id,item_id'});if(r.error){revMsg(r.error.message);return}REV.entries[itemId]=row;let el=document.querySelector('[data-total="'+itemId+'"]');if(el)el.textContent=(row.full_rows*item.bottles_per_row+row.loose_bottles)+' шт.';}
-async function revFinish(){if(!REV.session)return;let r=await sb.from('inventory_sessions').update({status:'completed',completed_at:new Date().toISOString()}).eq('id',REV.session.id);if(r.error)return revMsg(r.error.message);await revAudit('inventory_session_completed','inventory_session',REV.session.id,{});await revLoadInventory();revRender();revMsg('Ревизия завершена')}
-async function revAudit(action,type,id,details){try{await sb.from('audit_logs').insert({organization_id:REV.org,actor_user_id:sbUser.id,action,entity_type:type,entity_id:id?String(id):null,details})}catch(e){console.warn(e)}}
-async function revMembers(){let r=await sb.from('organization_members').select('user_id,role,joined_at').eq('organization_id',REV.org);if(r.error)return revMsg(r.error.message);let ids=(r.data||[]).map(x=>x.user_id);let p=ids.length?await sb.from('profiles').select('id,display_name').in('id',ids):{data:[]};let names={};(p.data||[]).forEach(x=>names[x.id]=x.display_name);let lines=(r.data||[]).map(x=>(names[x.user_id]||x.user_id.slice(0,8))+' — '+x.role).join('\n');alert('Участники заведения:\n'+lines)}
-function revRender(){let root=document.getElementById('v');if(!root)return;let h='<div class="card"><div class="rev-head"><h2 style="margin:0">📦 Общая ревизия</h2><select class="inp" onchange="revSelectOrg(this.value)"><option value="">Выбери заведение</option>'+REV.orgs.map(o=>'<option value="'+o.id+'" '+(o.id===REV.org?'selected':'')+'>'+revEsc(o.name)+(o.is_active?'':' (выключено)')+'</option>').join('')+'</select></div><div class="rev-actions">'+(REV.global?'<button class="btn" onclick="revCreateOrg()">＋ Создать заведение</button>':'')+'<button class="btn alt" onclick="revJoinOrg()">Ввести код</button>'+(REV.org&&(REV.global||REV.role==='admin')?'<button class="btn alt" onclick="revMakeCode()">Создать код</button>':'')+(REV.org&&REV.role==='admin'?'<button class="btn alt" onclick="revMembers()">Участники</button>':'')+'</div></div>';
- if(!REV.org){h+='<div class="card empty">Создай заведение или вступи по коду приглашения.</div>';root.innerHTML=h;return}
- h+='<div class="card"><div class="flex" style="justify-content:space-between"><h2>'+(REV.session?revEsc(REV.session.title):'Нет активной ревизии')+'</h2><span class="pill">'+(REV.session?'Открыта':'Ожидание')+'</span></div>';
- if(!REV.session)h+='<button class="btn" style="width:100%" onclick="revNewSession()">＋ Начать новую ревизию</button>';
- if(REV.role==='admin')h+='<div class="rev-bulk"><h2>Быстро добавить список напитков</h2><div class="rev-muted">Одна позиция на строку. Формат: название, количество бутылок в полном ряду.</div><textarea id="revBulkList" class="inp" rows="6" placeholder="Harbin Premium, 10&#10;Harbin пшеничный, 9&#10;Цзиндао Premium, 8"></textarea><button class="btn" style="width:100%;margin-top:8px" onclick="revAddBulk()">✓ Добавить весь список</button></div>';
- else {h+='<div class="rev-muted">Внесённые значения видны всем участникам этого заведения сразу.</div><div class="rev-label"><span>Позиция</span><span>Ряды</span><span>Шт.</span><span>Итого</span></div>';
- if(!REV.items.length)h+='<div class="empty">Пока нет позиций. Администратор может добавить их ниже.</div>';
- REV.items.forEach(it=>{let e=REV.entries[it.id]||{full_rows:0,loose_bottles:0};let total=e.full_rows*it.bottles_per_row+e.loose_bottles;h+='<div class="rev-item"><div class="nm">'+revEsc(it.name)+'<div class="rev-muted">'+it.bottles_per_row+' шт. в ряду</div></div><input aria-label="Полные ряды" type="number" min="0" step="1" value="'+e.full_rows+'" '+(!REV.session?'disabled':'')+' onchange="revSet(\''+it.id+'\',\'full_rows\',this.value)"><input aria-label="Отдельные бутылки" type="number" min="0" step="1" value="'+e.loose_bottles+'" onchange="revSet(\''+it.id+'\',\'loose_bottles\',this.value)"><div class="rev-total" data-total="'+it.id+'">'+total+' шт.</div></div>'});
- h+='<div class="rev-actions"><button class="btn alt" onclick="revLoadInventory().then(revRender)">Обновить</button><button class="btn del" onclick="revFinish()">Завершить ревизию</button></div>'}
- if(REV.role==='admin')h+='<div class="rev-actions"><button class="btn alt" onclick="revAddItem()">＋ Добавить позицию</button></div>';
- h+='</div><div class="card"><h2>Формула подсчёта</h2><div class="rev-muted">Количество = полные ряды × бутылок в ряду + отдельные бутылки. Например: 3 × 10 + 4 = 34.</div></div>';root.innerHTML=h;
-}
-var baseRender=render;render=function(){if(TAB==='r'){document.getElementById('ttl').textContent='Ревизия';['s','m','e'].forEach((t,i)=>document.getElementById('t'+(i+1)).className='');document.getElementById('t4').className='on';document.getElementById('v').innerHTML='<div class="card empty">Загружаю заведения и склад…</div>';document.body.style.paddingBottom='120px';if(sbUser&&!REV.loading){REV.loading=true;revInit().then(revRender).catch(e=>{document.getElementById('v').innerHTML='<div class="card">Ошибка: '+revEsc(e.message)+'</div>'}).finally(()=>REV.loading=false)}else revRender();document.getElementById('pal').innerHTML='';return}document.getElementById('t4').className='';baseRender()};
-// Ensure auth transitions also refresh the organization workspace.
-let oldLoadCloud=loadCloud;loadCloud=async function(user){await oldLoadCloud(user);if(user){REV.orgs=[];REV.org=null;if(TAB==='r')await revInit()}};
-</script>
 
 
-<script>
-// MAP + FRIENDS + PRIVATE CHATS
-var SOCIAL={friends:[],requests:[],profiles:[],activeChat:null,chatChannel:null,chatUser:null,loaded:false};
-function socialEsc(x){return String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function socialName(p){return p?.display_name||'Пользователь'}
-function socialErr(e){toast(e?.message||String(e))}
-async function socialLoad(){if(!sbUser)return;let [f,r]=await Promise.all([sb.from('friendships').select('*').or('user_low.eq.'+sbUser.id+',user_high.eq.'+sbUser.id),sb.from('friend_requests').select('*').or('sender_id.eq.'+sbUser.id+',receiver_id.eq.'+sbUser.id).order('created_at',{ascending:false})]);if(f.error)throw f.error;if(r.error)throw r.error;SOCIAL.friends=f.data||[];SOCIAL.requests=r.data||[];let ids=[...new Set(SOCIAL.friends.flatMap(x=>[x.user_low,x.user_high]).filter(x=>x!==sbUser.id).concat(SOCIAL.requests.flatMap(x=>[x.sender_id,x.receiver_id]).filter(x=>x!==sbUser.id)))];let p=ids.length?await sb.rpc('get_social_profiles',{profile_ids:ids}):{data:[],error:null};if(p.error)throw p.error;SOCIAL.profiles=p.data||[];}
-function socialProfile(id){return SOCIAL.profiles.find(p=>p.id===id)||{id,display_name:'Пользователь'}}
-function isOnline(p){return p.last_seen_at&&Date.now()-new Date(p.last_seen_at).getTime()<120000}
-function ago(p){if(isOnline(p))return '<span class="online">● В сети</span>';if(!p.last_seen_at)return 'Не в сети';let m=Math.floor((Date.now()-new Date(p.last_seen_at).getTime())/60000);return m<60?'Был(а) '+m+' мин. назад':m<1440?'Был(а) '+Math.floor(m/60)+' ч. назад':'Был(а) давно'}
-function mapHouseSvg(){return '<svg class="maphouse" viewBox="0 0 120 104" aria-hidden="true"><ellipse cx="60" cy="96" rx="43" ry="7" fill="#314b2b" opacity=".22"/><path d="M22 45 60 12 98 45v43H22Z" fill="#f3d7a0" stroke="#70472c" stroke-width="4" stroke-linejoin="round"/><path d="M13 47 60 7l47 40-8 8-39-32-39 32Z" fill="#a94e32" stroke="#70472c" stroke-width="4" stroke-linejoin="round"/><path d="M47 88V61q13-17 26 0v27" fill="#75452d" stroke="#70472c" stroke-width="3"/><rect x="29" y="55" width="13" height="15" rx="2" fill="#8fd0d6" stroke="#70472c" stroke-width="2"/><rect x="79" y="55" width="13" height="15" rx="2" fill="#8fd0d6" stroke="#70472c" stroke-width="2"/><path d="M34 76h52" stroke="#70472c" stroke-width="3"/><path d="M39 43h42" stroke="#fff1c9" stroke-width="7" stroke-linecap="round"/><path d="M43 40h34" stroke="#70472c" stroke-width="2"/><circle cx="67" cy="74" r="2" fill="#f4d36e"/></svg>'}
-function mapFallbackPosition(i,total){var spots=[[24,27],[73,66],[48,46],[78,30],[28,75],[57,83],[52,20],[87,48],[15,52],[65,50]];if(i<spots.length)return {x:spots[i][0],y:spots[i][1]};var angle=i*2.3999632297,r=.17+(.08*Math.floor(i/10));return{x:Math.max(12,Math.min(88,50+Math.cos(angle)*r*100)),y:Math.max(14,Math.min(86,50+Math.sin(angle)*r*85))}}
-async function socialMap(){
- if(!REV.orgs?.length)await revInit();
- let orgs=REV.orgs||[],positions={};
- if(orgs.length){let pr=await sb.from('venue_map_positions').select('organization_id,x,y,display_order').in('organization_id',orgs.map(o=>o.id));if(!pr.error)(pr.data||[]).forEach(p=>positions[p.organization_id]=p)}
- let h='<div class="card"><h2>🗺️ Карта заведений</h2><div class="muted">Здесь появляются домики всех заведений, к которым у тебя есть доступ.</div></div><div class="mapworld" role="group" aria-label="Иллюстрированная карта заведений">';
- if(!orgs.length){h+='<div class="mapempty">Пока нет доступных заведений.<br>Когда тебя добавят в заведение, его домик появится здесь.</div>'}
- else {
-  let sorted=orgs.slice().sort((a,b)=>{let pa=positions[a.id],pb=positions[b.id];return (pa?.display_order??999)-(pb?.display_order??999)});
-  sorted.forEach((o,i)=>{let pos=positions[o.id]||mapFallbackPosition(i,sorted.length);let x=Number(pos.x),y=Number(pos.y);if(!Number.isFinite(x)||!Number.isFinite(y)){let f=mapFallbackPosition(i,sorted.length);x=f.x;y=f.y}h+='<button type="button" class="mapplace" style="left:'+x+'%;top:'+y+'%" aria-label="Открыть '+socialEsc(o.name)+'" onclick="mapOpen(\''+o.id+'\')">'+mapHouseSvg()+'<span class="maplabel">'+socialEsc(o.name)+'</span></button>'});
- }
- h+='</div><div id="mapVenueCard"></div>';
- document.getElementById('v').innerHTML=h;document.getElementById('ttl').textContent='Карта';document.getElementById('pal').innerHTML='';
-}
-async function mapOpen(id){
- const o=(REV.orgs||[]).find(x=>x.id===id);if(!o)return;
- const card=document.getElementById('mapVenueCard');if(!card)return;
- card.innerHTML='<div class="mapcard"><div class="muted">Загружаю информацию о заведении…</div></div>';
- card.scrollIntoView({behavior:'smooth',block:'nearest'});
- let members=[],profiles=[];
- try{
-   const mr=await sb.from('organization_members').select('user_id,role,joined_at').eq('organization_id',id);
-   if(mr.error)throw mr.error;
-   members=mr.data||[];
-   const ids=members.map(x=>x.user_id);
-   if(ids.length){const pr=await sb.from('profiles').select('id,display_name').in('id',ids);if(!pr.error)profiles=pr.data||[];}
- }catch(e){console.warn('Не удалось загрузить участников заведения:',e)}
- const names={};profiles.forEach(p=>names[p.id]=p.display_name||'Участник');
- const isAdmin=REV.global||(REV.memberships||[]).some(m=>m.organization_id===id&&m.role==='admin');
- let staff=members.map(m=>'<div class="friendline"><div class="avatar">'+socialEsc((names[m.user_id]||'У')[0])+'</div><div class="friendmeta"><b>'+socialEsc(names[m.user_id]||'Участник')+'</b><div class="muted">'+socialEsc(m.role||'сотрудник')+'</div></div></div>').join('');
- card.innerHTML='<div class="mapcard"><div class="flex" style="justify-content:space-between;align-items:center"><div><h2>'+socialEsc(o.name)+'</h2><div class="muted">'+(o.is_active?'Заведение активно':'Заведение временно отключено')+'</div></div><button class="tinybtn" onclick="document.getElementById(\'mapVenueCard\').innerHTML=\'\'" aria-label="Закрыть">×</button></div><div class="flex" style="gap:8px;margin:14px 0;flex-wrap:wrap"><span class="pill">👥 Сотрудников: '+members.length+'</span><span class="pill">'+(isAdmin?'Администратор':'Участник')+'</span></div><h3>Сотрудники заведения</h3>'+(staff||'<div class="empty">Список сотрудников недоступен.</div>')+'<div class="flex" style="margin-top:14px;flex-wrap:wrap"><button class="btn" onclick="mapOpenRevision(\''+id+'\')">📦 Открыть ревизию</button><button class="btn alt" onclick="mapSelectVenue(\''+id+'\')">Открыть заведение</button></div></div>';
-}
-async function mapSelectVenue(id){
- const o=(REV.orgs||[]).find(x=>x.id===id);if(!o)return;
- REV.org=id;REV.session=null;
- try{await revLoadInventory();TAB='r';render();}catch(e){socialErr(e)}
-}
-async function mapOpenRevision(id){await mapSelectVenue(id)}
-async function friendsView(){await socialLoad();let h='<div class="card"><div class="flex" style="justify-content:space-between"><h2>👥 Друзья</h2><button class="btn" onclick="friendSearch()">＋ Найти</button></div><input class="inp" id="friendQuery" placeholder="Поиск среди друзей" oninput="friendFilter(this.value)">';if(!SOCIAL.friends.length)h+='<div class="empty">Пока нет друзей. Нажми «Найти».</div>';SOCIAL.friends.forEach(f=>{let id=f.user_low===sbUser.id?f.user_high:f.user_low,p=socialProfile(id);h+='<div class="friendline" data-friend="'+socialEsc(socialName(p).toLowerCase())+'"><div class="avatar">'+socialEsc(socialName(p)[0]||'👤')+'</div><div class="friendmeta"><b>'+socialEsc(socialName(p))+'</b><div class="muted">'+ago(p)+'</div></div><button class="tinybtn" onclick="openChat(\''+id+'\')">✉</button><button class="tinybtn" onclick="removeFriend(\''+id+'\')">×</button></div>'});let incoming=SOCIAL.requests.filter(x=>x.receiver_id===sbUser.id&&x.status==='pending');if(incoming.length){h+='<h2 style="margin-top:16px">Входящие заявки</h2>';incoming.forEach(r=>{let p=socialProfile(r.sender_id);h+='<div class="friendline"><div class="friendmeta"><b>'+socialEsc(socialName(p))+'</b></div><button class="btn" onclick="acceptFriend(\''+r.id+'\')">✓</button><button class="tinybtn" onclick="rejectFriend(\''+r.id+'\')">×</button></div>'})}h+='</div>';document.getElementById('v').innerHTML=h;document.getElementById('ttl').textContent='Друзья';document.getElementById('pal').innerHTML=''}
-function friendFilter(q){document.querySelectorAll('[data-friend]').forEach(e=>e.style.display=e.dataset.friend.includes(q.toLowerCase())?'flex':'none')}
-async function friendSearch(){let q=prompt('Имя пользователя для поиска');if(!q?.trim())return;let r=await sb.rpc('search_profiles',{search_text:q.trim()});if(r.error)return socialErr(r.error);if(!r.data?.length)return toast('Никого не нашли');let lines=r.data.map((p,i)=>(i+1)+'. '+socialName(p)).join('\n');let pick=prompt('Кому отправить заявку? Введи номер:\n'+lines);let p=r.data[Number(pick)-1];if(!p)return;let x=await sb.from('friend_requests').insert({sender_id:sbUser.id,receiver_id:p.id,status:'pending'});if(x.error)return socialErr(x.error);toast('Заявка отправлена');friendsView()}
-async function acceptFriend(id){let r=await sb.rpc('accept_friend_request',{p_request_id:id});if(r.error)return socialErr(r.error);await friendsView()}
-async function rejectFriend(id){let r=await sb.from('friend_requests').update({status:'rejected',updated_at:new Date().toISOString()}).eq('id',id);if(r.error)return socialErr(r.error);await friendsView()}
-async function removeFriend(id){if(!confirm('Удалить пользователя из друзей?'))return;let a=sbUser.id<id?sbUser.id:id,b=sbUser.id<id?id:sbUser.id;let r=await sb.from('friendships').delete().eq('user_low',a).eq('user_high',b);if(r.error)return socialErr(r.error);await friendsView()}
-async function chatsView(){await socialLoad();let f=SOCIAL.friends;let h='<div class="card"><h2>💬 Сообщения</h2>';for(let x of f){let id=x.user_low===sbUser.id?x.user_high:x.user_low,p=socialProfile(id);h+='<div class="chatline" onclick="openChat(\''+id+'\')"><div class="avatar">'+socialEsc(socialName(p)[0]||'👤')+'</div><div class="friendmeta"><b>'+socialEsc(socialName(p))+'</b><div class="muted">'+ago(p)+'</div></div><span>›</span></div>'}if(!f.length)h+='<div class="empty">Добавь друзей, чтобы начать переписку.</div>';h+='</div>';document.getElementById('v').innerHTML=h;document.getElementById('ttl').textContent='Сообщения';document.getElementById('pal').innerHTML=''}
-async function openChat(other){try{let r=await sb.rpc('open_direct_conversation',{p_other_user:other});if(r.error)throw r.error;SOCIAL.activeChat=r.data;SOCIAL.chatUser=other;await chatRender();if(SOCIAL.chatChannel)sb.removeChannel(SOCIAL.chatChannel);SOCIAL.chatChannel=sb.channel('chat-'+r.data).on('postgres_changes',{event:'INSERT',schema:'public',table:'messages',filter:'conversation_id=eq.'+r.data},()=>chatRender()).subscribe();}catch(e){socialErr(e)}}
-async function chatRender(){let id=SOCIAL.activeChat,p=socialProfile(SOCIAL.chatUser);let r=await sb.from('messages').select('*').eq('conversation_id',id).order('created_at');if(r.error)return socialErr(r.error);let h='<div class="card"><div class="flex"><button class="nav" onclick="tab(\'chats\')">‹</button><div><b>'+socialEsc(socialName(p))+'</b><div class="muted">'+ago(p)+'</div></div></div><div class="chatlog" id="chatlog">';(r.data||[]).forEach(m=>{h+='<div class="msgbubble '+(m.sender_id===sbUser.id?'msgmine':'msgother')+'">'+socialEsc(m.content)+'<div class="muted" style="text-align:right">'+new Date(m.created_at).toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'})+'</div></div>'});h+='</div><div class="chatcompose"><input class="inp" id="chatText" placeholder="Напиши сообщение…" onkeydown="if(event.key===\'Enter\')sendChat()"><button class="btn" onclick="sendChat()">➤</button></div></div>';document.getElementById('v').innerHTML=h;document.getElementById('ttl').textContent='Чат';document.getElementById('pal').innerHTML='';let log=document.getElementById('chatlog');log.scrollTop=log.scrollHeight;await sb.from('conversation_members').update({last_read_at:new Date().toISOString()}).eq('conversation_id',id).eq('user_id',sbUser.id)}
-async function sendChat(){let el=document.getElementById('chatText'),content=el?.value.trim();if(!content)return;el.value='';let r=await sb.from('messages').insert({conversation_id:SOCIAL.activeChat,sender_id:sbUser.id,content});if(r.error){el.value=content;return socialErr(r.error)}await chatRender()}
-// Wrap current renderer; original finance and revision renderers remain intact.
-var renderBeforeSocial=render;
-render=function(){if(TAB==='map'||TAB==='friends'||TAB==='chats'){document.getElementById('v').innerHTML='<div class="card empty">Загружаю…</div>';document.getElementById('pal').innerHTML='';document.body.style.paddingBottom='120px';['t1','t2','t3','t4','t5','t6','t7'].forEach(id=>{let e=document.getElementById(id);if(e)e.className=(id==='t5'&&TAB==='map'||id==='t6'&&TAB==='friends'||id==='t7'&&TAB==='chats')?'on':''});let fn=TAB==='map'?socialMap:TAB==='friends'?friendsView:chatsView;fn().catch(e=>{document.getElementById('v').innerHTML='<div class="card">Ошибка: '+socialEsc(e.message)+'</div>'});return}['t5','t6','t7'].forEach(id=>document.getElementById(id).className='');renderBeforeSocial()};
-// Presence heartbeat: last_seen_at only; no financial data is involved.
-setInterval(()=>{if(sbUser)sb.from('profiles').update({last_seen_at:new Date().toISOString()}).eq('id',sbUser.id).then(()=>{})},60000);
-</script>
 
 </body>
 </html>
