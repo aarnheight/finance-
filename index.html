@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Мои финансы</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Финансы">
+<meta name="theme-color" content="#e6dcee">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon.png">
+<style>
+:root{--bg:#e6dcee;--card:#f4eef7;--ink:#4a3f55;--mute:#8a7d97;--peach:#f2b5a7;--mint:#a9d9c4;--lav:#b9a8dc;--sky:#a8c8e8;--butter:#f0d9a0;--line:#d8cbe3;--rose:#e3a9c4;--bad:#e8908f;--lime:#c8dc9e;--aqua:#9ad6d8;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#2b2635;--card:#383244;--ink:#f0e8f5;--mute:#a99dbb;--peach:#d99a8c;--mint:#7fb89f;--lav:#9484c0;--sky:#7fa3c9;--butter:#cdb87a;--line:#4a4258;--rose:#b8809b;--bad:#d37a79;--lime:#9bb072;--aqua:#6aa6a9;color-scheme:dark}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:ui-rounded,"SF Pro Rounded",Nunito,-apple-system,system-ui,sans-serif;font-weight:700}
+body{min-height:100%;padding:12px 16px 120px;max-width:560px;margin:0 auto}
+button,input{font:inherit;color:inherit}
+.top{display:flex;align-items:center;justify-content:space-between;margin:6px 0 14px}
+.top h1{font-size:22px;margin:0;font-weight:800}
+.nav{width:42px;height:42px;border-radius:50%;border:0;background:var(--card);font-size:18px;cursor:pointer}
+.card{background:var(--card);border-radius:26px;padding:16px;margin-bottom:14px}
+.chips{display:flex;gap:10px;margin-bottom:14px}
+.chip{flex:1;border-radius:22px;padding:12px 8px;text-align:center}
+.chip b{display:block;font-size:20px;font-weight:800}.chip span{font-size:12px;color:var(--ink);opacity:.75}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.wd{text-align:center;font-size:12px;color:var(--mute);padding-bottom:2px}
+.day{aspect-ratio:1;border-radius:16px;border:2px solid transparent;background:transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:15px;cursor:pointer;padding:0;line-height:1.1}
+.day small{font-size:10px;opacity:.8}
+.day.full{background:var(--peach)}.day.part{background:var(--mint)}
+.day.today{border-color:var(--lav)}
+.day:empty{visibility:hidden}
+.legend{display:flex;gap:14px;font-size:12px;color:var(--mute);margin-top:12px;justify-content:center}
+.dot{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:5px;vertical-align:-1px}
+.row{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:20px;background:var(--bg);margin-top:8px;cursor:pointer}
+.ico{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-size:18px;flex:none}
+.row .t{flex:1;min-width:0}.row .t div:last-child{font-size:12px;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.row .s{font-weight:800}
+h2{font-size:16px;margin:0 0 10px;font-weight:800}
+.hero{background:var(--lav);text-align:center;padding:22px 16px}
+.hero .big{font-size:38px;font-weight:800;margin:4px 0}.hero small{opacity:.8}
+.bar{height:18px;border-radius:99px;background:var(--bg);overflow:hidden;position:relative;margin:10px 0 8px}
+.bar i{display:block;height:100%;border-radius:99px;background:var(--mint);transition:width .5s}
+.pill{display:inline-flex;align-items:center;gap:6px;background:var(--bg);border-radius:99px;padding:6px 12px;font-size:13px}
+.inp{width:100%;border:2px solid transparent;background:var(--bg);border-radius:18px;padding:12px 14px;outline:none}
+.inp:focus{border-color:var(--lav)}
+.flex{display:flex;gap:8px;align-items:center}
+.btn{border:0;border-radius:99px;padding:13px 20px;background:var(--lav);font-weight:800;cursor:pointer}
+.btn.alt{background:var(--bg)}.btn.del{background:var(--peach)}
+.seg{display:flex;background:var(--bg);border-radius:99px;padding:4px;gap:4px;margin:6px 0 12px}
+.seg button{flex:1;border:0;background:transparent;border-radius:99px;padding:10px;cursor:pointer;font-weight:700}
+.seg button.on{background:var(--lav);font-weight:800}
+.x{width:30px;height:30px;border-radius:50%;border:0;background:var(--bg);cursor:pointer}
+.net{background:var(--butter);text-align:center}.net .big{font-size:32px;font-weight:800}
+.tabs{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(14px + env(safe-area-inset-bottom,0px));display:flex;gap:6px;background:var(--card);padding:6px;border-radius:99px;box-shadow:0 6px 24px #4a3f5533}
+.tabs button{border:0;background:transparent;border-radius:99px;padding:11px 15px;font-size:14px;font-weight:800;cursor:pointer;color:var(--mute)}
+.tabs button.on{background:var(--lav);color:var(--ink)}
+.sheetbg{position:fixed;inset:0;background:#2b263566;display:none;align-items:flex-end;justify-content:center;z-index:5}
+.sheetbg.open{display:flex}
+.sheet{background:var(--card);width:100%;max-width:560px;border-radius:30px 30px 0 0;padding:20px 18px calc(20px + env(safe-area-inset-bottom,0px));max-height:92%;overflow:auto}
+.lbl{font-size:12px;color:var(--mute);margin:8px 4px 4px}
+.prev{text-align:center;font-size:22px;font-weight:800;margin:6px 0 12px}
+.toast{position:fixed;top:calc(14px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%) translateY(-90px);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:99px;transition:.3s;z-index:9;font-size:14px}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.empty{text-align:center;color:var(--mute);padding:14px 0;font-size:14px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+.cat{background:var(--card);border:0;border-radius:26px;padding:14px;text-align:left;cursor:pointer;display:flex;flex-direction:column;gap:4px;min-height:132px}
+.cat.add{align-items:center;justify-content:center;opacity:.8;text-align:center}
+.cn{font-size:14px;margin-top:4px}.cs{font-size:18px;font-weight:800}.cl{font-size:11px;color:var(--mute)}
+.bar.sm{height:8px;margin:4px 0 0}
+.em{width:46px;height:46px;border-radius:50%;border:2px solid transparent;background:var(--bg);font-size:22px;cursor:pointer}.em.on{border-color:var(--lav)}
+.ems{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 16px}
+input[type=date]{min-width:0;-webkit-appearance:none;appearance:none}
+.day.custom{background:var(--lav)}
+.pal{position:fixed;left:0;right:0;bottom:calc(76px + env(safe-area-inset-bottom,0px));display:flex;gap:8px;padding:8px 12px 14px;z-index:2;pointer-events:auto;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;touch-action:pan-x;overscroll-behavior-x:contain;scrollbar-width:none}.pal::-webkit-scrollbar{display:none}.pal>:first-child{margin-left:auto}.pal>:last-child{margin-right:auto}.pc{flex:none}
+.pc{pointer-events:auto;border:0;border-radius:22px;padding:8px 12px;background:var(--card);cursor:pointer;font-size:13px;font-weight:800;line-height:1.25}
+.pc span{display:block}.pc small{display:block;font-size:10px;opacity:.75;font-weight:700}
+.pc.g{font-size:18px;padding:0 14px}
+
+#authbar{position:sticky;top:0;z-index:30;display:flex;justify-content:flex-end;align-items:center;padding:7px 14px;background:var(--bg);min-height:46px}
+#profileBtn{width:40px;height:40px;border:0;border-radius:50%;background:var(--lav);color:var(--ink);font-size:16px;font-weight:900;cursor:pointer;box-shadow:0 2px 9px #0002}
+.authbtn{border:0;border-radius:99px;padding:9px 14px;background:var(--lav);font-weight:800}
+#profileShade{display:none;position:fixed;inset:0;z-index:1200;background:#0007;align-items:flex-start;justify-content:center;padding:7vh 16px 20px;overflow:auto}
+#profileBox{width:min(100%,440px);background:var(--card);border-radius:24px;padding:20px;box-shadow:0 15px 55px #0003}
+#profileBox h2{margin:0 0 5px;font-size:22px}
+#profileBox .sub{font-size:12px;color:var(--mute);margin-bottom:14px}
+#profileBox label{display:block;font-size:12px;color:var(--mute);margin:12px 0 5px}
+#profileBox input,#profileBox select{box-sizing:border-box;width:100%;padding:12px;border:1px solid #0002;border-radius:12px;background:var(--bg);color:var(--ink);font:inherit}
+.profile-row{display:flex;gap:8px;margin-top:14px}.profile-row button{flex:1}
+.profile-section{margin-top:16px;padding-top:14px;border-top:1px solid #0001}
+#profileMsg{font-size:12px;color:var(--mute);min-height:18px;margin-top:10px}
+#authgate{position:fixed;inset:0;z-index:1000;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:22px}
+#authbox{width:min(100%,420px);background:var(--card);border-radius:26px;padding:24px;box-shadow:0 12px 50px #0002}
+#authbox h2{font-size:23px;margin-bottom:8px}#authbox p{color:var(--mute);font-size:13px;line-height:1.45}
+#authbox input{width:100%;box-sizing:border-box;margin:7px 0;padding:14px;border:1px solid #0001;border-radius:14px;background:var(--bg);font:inherit}
+#authmsg{font-size:13px;color:var(--mute);min-height:20px;margin:8px 0}
+
+/* Карта и социальные разделы */
+.tabs{max-width:calc(100vw - 18px);overflow-x:auto;justify-content:flex-start;scrollbar-width:none}.tabs::-webkit-scrollbar{display:none}.tabs button{white-space:nowrap;padding:10px 12px;font-size:12px}
+.mapworld{height:min(68vh,650px);min-height:430px;position:relative;overflow:hidden;border-radius:28px;background:radial-gradient(ellipse at 20% 18%,#d8e8a8 0 9%,transparent 10%),radial-gradient(ellipse at 75% 22%,#c4dfa0 0 12%,transparent 13%),radial-gradient(ellipse at 25% 76%,#c9e2a8 0 15%,transparent 16%),linear-gradient(145deg,#b9d98f,#d8e8ae 52%,#b6d89a);box-shadow:inset 0 0 35px #678b4d33}
+.mapworld:before{content:"";position:absolute;inset:-10%;opacity:.6;background:repeating-radial-gradient(ellipse at 50% 50%,transparent 0 75px,#ffffff22 77px 80px,transparent 82px 135px);pointer-events:none}
+.mapstream{position:absolute;left:-5%;top:58%;width:115%;height:100px;border-radius:50%;border:24px solid #83c9d0;border-left-color:transparent;border-right-color:transparent;transform:rotate(-18deg);opacity:.9}
+.maptrail{position:absolute;left:12%;top:22%;width:75%;height:55%;border:13px dashed #e8d49b;border-left-color:transparent;border-bottom-color:transparent;border-radius:48%;transform:rotate(17deg);filter:drop-shadow(0 2px 1px #987d4d55)}
+.mapdecor{position:absolute;font-size:24px;opacity:.75;filter:drop-shadow(0 2px 2px #4563)}
+.mapplace{position:absolute;transform:translate(-50%,-50%);border:0;background:transparent;cursor:pointer;text-align:center;z-index:2;color:#3f5140;min-width:105px}
+.maphouse{display:grid;place-items:center;width:90px;height:76px;margin:auto;font-size:54px;filter:drop-shadow(0 5px 3px #47633b55);transition:transform .15s}.mapplace:active .maphouse{transform:scale(.92)}
+.maplabel{display:inline-block;background:#fff9df;border:2px solid #fff;border-radius:15px;padding:6px 10px;font-size:12px;font-weight:900;box-shadow:0 3px 9px #4563;max-width:150px}
+.mapcard{background:var(--card);border-radius:22px;padding:14px;margin-top:12px}.friendline,.chatline{display:flex;align-items:center;gap:11px;padding:12px;border-radius:18px;background:var(--bg);margin:8px 0}.avatar{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:var(--lav);font-size:18px;flex:none}.friendmeta{flex:1;min-width:0}.muted{font-size:12px;color:var(--mute);font-weight:600}.online{color:#29985b}.msgbubble{max-width:82%;padding:10px 13px;border-radius:17px;margin:7px 0;font-size:14px;overflow-wrap:anywhere}.msgmine{margin-left:auto;background:#d7edc9;color:#29432b}.msgother{margin-right:auto;background:var(--bg)}.chatlog{height:52vh;min-height:280px;overflow:auto;display:flex;flex-direction:column;padding:8px}.chatcompose{display:flex;gap:8px;position:sticky;bottom:0;background:var(--card);padding-top:8px}.chatcompose input{flex:1;min-width:0}.tinybtn{border:0;border-radius:50%;width:38px;height:38px;background:var(--lav);font-weight:900}
+@media(max-width:390px){.tabs button{padding:9px 10px;font-size:11px}.maphouse{font-size:45px;width:76px}.maplabel{font-size:11px}}
+
+</style>
+</head>
+<body>
+<div id="authbar"><button id="profileBtn" onclick="openProfile()" aria-label="Профиль" style="display:none">?</button></div>
+<div id="profileShade" onclick="if(event.target===this)closeProfile()"><div id="profileBox"><div style="display:flex;justify-content:space-between;align-items:center"><div><h2>Профиль</h2><div class="sub">Личный кабинет Shift Manager</div></div><button class="nav" onclick="closeProfile()">×</button></div><label>Имя пользователя</label><input id="profileName" maxlength="60" placeholder="Как к тебе обращаться"><label>Электронная почта</label><input id="profileEmail" type="email" readonly><div class="profile-row"><button class="authbtn" onclick="saveProfile()">Сохранить профиль</button></div><div class="profile-section"><b>Мои заведения</b><label>Текущее заведение для ревизии</label><select id="profileOrg" onchange="profileChooseOrg(this.value)"><option value="">Загрузка…</option></select><div class="profile-row"><button class="authbtn" onclick="profileGoRevision()">Открыть ревизию</button><button class="authbtn" style="background:var(--bg)" onclick="revJoinOrg();closeProfile()">Ввести код</button></div></div><div class="profile-section"><b>Безопасность</b><div class="sub" style="margin-top:6px">Смена пароля и подтверждение почты выполняются через настройки аккаунта Supabase.</div><div class="profile-row"><button class="authbtn" style="background:var(--bg)" onclick="doLogout()">Выйти из аккаунта</button></div></div><div id="profileMsg"></div></div></div>
+<div id="authgate"><div id="authbox"><h2>Shift Manager</h2><p>Войди или создай аккаунт. Личные смены, доходы и расходы будут храниться отдельно в твоём аккаунте.</p><div id="emailAuthFields"><input id="authemail" type="email" autocomplete="email" placeholder="Электронная почта"><input id="authpass" type="password" autocomplete="current-password" placeholder="Пароль (от 6 символов)"><button class="authbtn" style="width:100%;margin-top:8px" onclick="doLogin()">Войти</button><button class="authbtn" style="width:100%;margin-top:8px;background:var(--bg)" onclick="doSignup()">Создать аккаунт</button></div><div id="authmsg"></div></div></div>
+
+<div class="top"><button class="nav" onclick="mv(-1)">‹</button><h1 id="ttl"></h1><button class="nav" onclick="mv(1)">›</button></div>
+<div id="v"></div>
+<div class="pal" id="pal"></div>
+<div class="tabs"><button id="t1" onclick="tab('s')">📅 Смены</button><button id="t2" onclick="tab('m')">💰 Выручка</button><button id="t3" onclick="tab('e')">🧾 Расходы</button><button id="t4" onclick="tab('r')">📦 Ревизия</button><button id="t5" onclick="tab('map')">🗺️ Карта</button><button id="t6" onclick="tab('friends')">👥 Друзья</button><button id="t7" onclick="tab('chats')">💬 Чаты</button></div>
+<div class="sheetbg" id="bg" onclick="if(event.target===this)closeS()"><div class="sheet" id="sh"></div></div>
+<div class="toast" id="toast"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL='https://kmjiuonrcifllfudpjwx.supabase.co';
+const SUPABASE_ANON_KEY='sb_publishable_CwVDC3nxMz4vn40Lme1DYg_WdC60v2b';
+const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+var sbUser=null, cloudTimer=null, cloudReady=false;
+function authMessage(t){document.getElementById('authmsg').textContent=t}
+async function doLogin(){const email=document.getElementById('authemail').value.trim(),password=document.getElementById('authpass').value;if(!email||!password)return authMessage('Введи почту и пароль');authMessage('Входим…');const {error}=await sb.auth.signInWithPassword({email,password});authMessage(error?authFriendly(error):'Вход выполнен')}
+async function doSignup(){const email=document.getElementById('authemail').value.trim(),password=document.getElementById('authpass').value;if(!email||password.length<6)return authMessage('Введи почту и пароль минимум из 6 символов');authMessage('Создаём аккаунт…');const {data,error}=await sb.auth.signUp({email,password,options:{emailRedirectTo:'https://aarnheight.github.io/finance-/'}});if(error)return authMessage(authFriendly(error));authMessage(data.session?'Аккаунт создан, вход выполнен.':'Аккаунт создан. Открой письмо и подтверди почту. Если ссылка выдаёт ошибку, проверь настройки Redirect URLs в Supabase.')}
+function authFriendly(e){let m=e?.message||String(e);if(/redirect|url/i.test(m))return 'Supabase отклонил адрес возврата. Добавь https://aarnheight.github.io/finance-/ в Authentication → URL Configuration → Redirect URLs.';if(/invalid.*otp|otp.*expired/i.test(m))return 'Код неверный или истёк. Запроси новый.';return m}
+
+async function doLogout(){await sb.auth.signOut()}
+function setAuthUI(user){const gate=document.getElementById('authgate'),btn=document.getElementById('profileBtn');if(user){gate.style.display='none';btn.style.display='block';refreshProfileAvatar()}else{gate.style.display='flex';btn.style.display='none';closeProfile()}}
+function refreshProfileAvatar(){const b=document.getElementById('profileBtn');if(!b||!sbUser)return;const n=(sbUser.user_metadata?.display_name||sbUser.email||'?').trim();b.textContent=(n[0]||'?').toUpperCase()}
+function profileNote(t){const e=document.getElementById('profileMsg');if(e)e.textContent=t}
+async function openProfile(){if(!sbUser)return;document.getElementById('profileShade').style.display='flex';document.getElementById('profileName').value=sbUser.user_metadata?.display_name||'';document.getElementById('profileEmail').value=sbUser.email||'';profileNote('');await profileLoadOrgs()}
+function closeProfile(){const e=document.getElementById('profileShade');if(e)e.style.display='none'}
+async function saveProfile(){if(!sbUser)return;const name=document.getElementById('profileName').value.trim();profileNote('Сохраняю…');const u=await sb.auth.updateUser({data:{...sbUser.user_metadata,display_name:name}});if(u.error)return profileNote('Ошибка: '+u.error.message);const p=await sb.from('profiles').upsert({id:sbUser.id,display_name:name},{onConflict:'id'});if(p.error)return profileNote('Имя сохранено в аккаунте, но профиль не обновлён: '+p.error.message);sbUser=u.data.user||sbUser;refreshProfileAvatar();profileNote('Профиль сохранён')}
+async function profileLoadOrgs(){const sel=document.getElementById('profileOrg');sel.innerHTML='<option value=>Загрузка…</option>';let rows=[];try{const m=await sb.from('organization_members').select('organization_id').eq('user_id',sbUser.id);if(m.error)throw m.error;const ids=(m.data||[]).map(x=>x.organization_id);if(ids.length){const o=await sb.from('organizations').select('id,name,is_active').in('id',ids).order('name');if(o.error)throw o.error;rows=o.data||[]}if(REV.global){const o=await sb.from('organizations').select('id,name,is_active').order('name');if(!o.error)rows=o.data||[]}}catch(e){profileNote('Не удалось загрузить заведения: '+e.message)}REV.orgs=rows;const active=REV.org||sbUser.user_metadata?.active_org_id||'';sel.innerHTML='<option value="">Не выбрано</option>'+rows.map(o=>'<option value="'+o.id+'">'+revEsc(o.name)+(o.is_active?'':' (выключено)')+'</option>').join('');sel.value=rows.some(o=>o.id===active)?active:(rows[0]?.id||'')}
+async function profileChooseOrg(id){REV.org=id||null;REV.session=null;if(sbUser){await sb.auth.updateUser({data:{active_org_id:id||null}})}if(id){try{await revLoadInventory()}catch(e){profileNote('Ошибка заведения: '+e.message)}}profileNote(id?'Текущее заведение изменено.':'Заведение не выбрано.')}
+function profileGoRevision(){closeProfile();tab('r')}
+async function loadCloud(user){sbUser=user;setAuthUI(user);const {data,error}=await sb.from('user_finance_data').select('data').eq('user_id',user.id).maybeSingle();if(error){authMessage('Ошибка загрузки: '+error.message);return}if(data&&data.data){S=Object.assign(S,data.data);norm()}else{await sb.from('user_finance_data').upsert({user_id:user.id,data:S,updated_at:new Date().toISOString()},{onConflict:'user_id'})}cloudReady=true;render();sb.rpc('touch_my_presence').then(()=>{});}
+function queueCloudSave(){if(!sbUser||!cloudReady)return;clearTimeout(cloudTimer);cloudTimer=setTimeout(async()=>{const snapshot=JSON.parse(JSON.stringify(S));const {error}=await sb.from('user_finance_data').upsert({user_id:sbUser.id,data:snapshot,updated_at:new Date().toISOString()},{onConflict:'user_id'});if(error)console.error('Cloud save failed',error)},700)}
+sb.auth.onAuthStateChange((_event,session)=>{if(session?.user){loadCloud(session.user)}else{sbUser=null;cloudReady=false;setAuthUI(null)}});
+sb.auth.getSession().then(({data})=>{if(data.session?.user)loadCloud(data.session.user);else setAuthUI(null)});
+var MN=['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
+var MG=['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+var S={shifts:{},goals:{},deds:{},cfg:{fullH:12,mode:'fix',rate:3000},stamps:[{id:'full',name:'Полная',ico:'🌞',type:'full',col:'peach',hours:12,mode:'fix',rate:3000},{id:'part',name:'Неполная',ico:'🌙',type:'part',col:'mint',hours:6,mode:'fix',rate:1500}],extra:{},exp:[],cats:[{id:'rent',name:'Аренда',ico:'🏠',col:'lav',lim:0},{id:'food',name:'Продукты',ico:'🛒',col:'peach',lim:0},{id:'go',name:'Проезд',ico:'🚌',col:'sky',lim:0},{id:'subs',name:'Подписки',ico:'📱',col:'butter',lim:0},{id:'oops',name:'Непредвиденные',ico:'⚡',col:'rose',lim:0},{id:'save',name:'Накопления',ico:'🐷',col:'mint',sav:1,lim:0}]};
+try{var r=localStorage.getItem('smeny_v1');if(r)S=Object.assign(S,JSON.parse(r))}catch(e){}
+norm();
+function save(){try{localStorage.setItem('smeny_v1',JSON.stringify(S))}catch(e){}queueCloudSave()}
+var cur=new Date();cur.setDate(1);var TAB='s',ED=null;
+var p2=function(n){return String(n).padStart(2,'0')};
+var mk=function(){return cur.getFullYear()+'-'+p2(cur.getMonth()+1)};
+var money=function(n){return Math.round(n).toLocaleString('ru-RU')+' ₽'};
+var val=function(s){return s.mode==='fix'?s.rate:s.rate*s.hours};
+function pl(n,a){var m=n%10,h=n%100;return n+' '+(h>10&&h<15?a[2]:m==1?a[0]:m>1&&m<5?a[1]:a[2])}
+function mv(d){cur.setMonth(cur.getMonth()+d);render()}
+function tab(t){TAB=t;render()}
+function toast(t){var e=document.getElementById('toast');e.textContent=t;e.classList.add('show');setTimeout(function(){e.classList.remove('show')},1800)}
+function render(){
+ document.getElementById('ttl').textContent=MN[cur.getMonth()]+' '+cur.getFullYear();
+ ['s','m','e'].forEach(function(t,i){document.getElementById('t'+(i+1)).className=TAB==t?'on':''});
+ document.getElementById('v').innerHTML=TAB=='s'?viewS():TAB=='m'?viewM():viewE();
+ pal();document.body.style.paddingBottom=TAB=='s'?'190px':'120px';
+}
+function viewS(){
+ var y=cur.getFullYear(),m=cur.getMonth(),n=new Date(y,m+1,0).getDate(),off=(new Date(y,m,1).getDay()+6)%7,td=new Date(),h='';
+ var ls=mShifts(),hrs=0,fl=0;ls.forEach(function(x){hrs+=x[1].hours;if(x[1].type=='full')fl++});
+ h+='<div class="chips"><div class="chip" style="background:var(--peach)"><b>'+ls.length+'</b><span>смен</span></div><div class="chip" style="background:var(--mint)"><b>'+hrs+'</b><span>часов</span></div><div class="chip" style="background:var(--sky)"><b>'+fl+'</b><span>полных</span></div></div>';
+ h+='<div class="card"><div class="cal">'+['Пн','Вт','Ср','Чт','Пт','Сб','Вс'].map(function(w){return'<div class="wd">'+w+'</div>'}).join('');
+ for(var i=0;i<off;i++)h+='<div class="day"></div>';
+ for(var d=1;d<=n;d++){var k=y+'-'+p2(m+1)+'-'+p2(d),a=sl(k),t=(td.getFullYear()==y&&td.getMonth()==m&&td.getDate()==d),hh=0;a.forEach(function(z){hh+=z.hours});
+  h+='<button class="day'+(t?' today':'')+'" style="'+bg(a)+'" onclick="dayTap(\''+k+'\')">'+d+(a.length?'<small>'+hh+' ч'+(a.length>1?' ·'+a.length:'')+'</small>':'')+'</button>'}
+ h+='</div><div class="empty" style="padding:10px 0 0;font-size:12px">'+(ST?'Режим штампа: тап по дню — поставить, ещё раз — убрать':'Выбери смену внизу и тапай по дням ✨')+'</div></div>';
+ return h;
+}
+function viewM(){
+ var k=mk(),ls=mShifts(),tot=0,earned=0,hrs=0,now=new Date(),ts=now.getFullYear()+'-'+p2(now.getMonth()+1)+'-'+p2(now.getDate());
+ ls.forEach(function(x){var v=val(x[1]);tot+=v;hrs+=x[1].hours;if(x[0]<=ts)earned+=v});
+ var xs=extraSum();tot+=xs;earned+=xs;
+ var goal=S.goals[k]||0,dl=S.deds[k]||[],ded=0;dl.forEach(function(d){ded+=d.amt});
+ var pct=goal?Math.min(100,Math.round(tot/goal*100)):0,left=Math.max(0,goal-tot),avg=ls.length?(tot-xs)/ls.length:0;
+ var h='<div class="card hero"><small>Потенциальная выручка</small><div class="big">'+money(tot)+'</div><small>'+pl(ls.length,['смена','смены','смен'])+' · '+hrs+' ч'+(xs?' · доп. доход '+money(xs):'')+' · уже заработано '+money(earned)+'</small></div>';
+ h+='<div class="card"><h2>🎯 Цель на месяц</h2><div class="flex"><input class="inp" type="number" inputmode="numeric" placeholder="Сколько хочу заработать" value="'+(goal||'')+'" onchange="setGoal(this.value)"><span class="pill">₽</span></div>';
+ if(goal){h+='<div class="bar"><i style="width:'+pct+'%"></i></div><div class="flex" style="justify-content:space-between"><span class="pill">'+(pct>=100?'🎉 ':'')+'Выполнено '+pct+'%</span><span class="pill">'+(left?'Осталось '+money(left):'Цель достигнута!')+'</span></div>';
+  if(left&&avg)h+='<div class="empty" style="padding-bottom:0">Чтобы дойти до цели, нужно ещё '+pl(Math.ceil(left/avg),['смена','смены','смен'])+' по средней ставке 💪</div>'}
+ h+='</div>'+extraCard()+'<div class="card"><h2>➖ Вычеты</h2>';
+ if(!dl.length)h+='<div class="empty" style="padding-top:0">Аванс или другие выплаты — вычти их здесь</div>';
+ dl.forEach(function(d,i){h+='<div class="row" style="cursor:default"><div class="ico" style="background:var(--butter)">💸</div><div class="t"><div>'+esc(d.name)+'</div></div><div class="s">−'+money(d.amt)+'</div><button class="x" onclick="delDed('+i+')">✕</button></div>'});
+ h+='<div class="flex" style="margin-top:12px"><input class="inp" id="dn" placeholder="Аванс" style="flex:1.2;min-width:0"><input class="inp" id="da" type="number" inputmode="numeric" placeholder="Сумма" style="flex:1;min-width:0"><button class="btn" onclick="addDed()" style="padding:13px 16px">＋</button></div></div>';
+ h+='<div class="card net"><small>К получению за вычетом</small><div class="big">'+money(tot-ded)+'</div>'+(ded?'<small>выручка '+money(tot)+' − вычеты '+money(ded)+'</small>':'')+'</div>';
+ return h;
+}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function setGoal(v){S.goals[mk()]=Math.max(0,+v||0);save();render()}
+function addDed(){var n=document.getElementById('dn').value.trim()||'Аванс',a=+document.getElementById('da').value;if(!a)return toast('Введи сумму');(S.deds[mk()]=S.deds[mk()]||[]).push({name:n,amt:a});save();render();toast('Вычтено 💸')}
+function delDed(i){S.deds[mk()].splice(i,1);save();render()}
+function closeS(){document.getElementById('bg').classList.remove('open');pal()}
+function drawS(){
+ var s=ED.s,d=ED.k.split('-'),h='<h2 style="font-size:19px">'+parseInt(d[2])+' '+MG[+d[1]-1]+(ED.isNew?' — новая смена':'')+'</h2>';
+ h+='<div class="lbl">Тип смены</div><div class="seg"><button class="'+(s.type=='full'?'on':'')+'" onclick="ED.s.type=\'full\';ED.s.hours=S.cfg.fullH;drawS()">🌞 Полная</button><button class="'+(s.type=='part'?'on':'')+'" onclick="ED.s.type=\'part\';if(ED.s.hours==S.cfg.fullH)ED.s.hours=6;drawS()">🌙 Неполная</button><button class="'+(s.type=='custom'?'on':'')+'" onclick="ED.s.type=\'custom\';drawS()">✨ Своя</button></div>';
+ h+='<div class="lbl">Часов отработано</div><div class="flex"><button class="nav" onclick="hh(-1)">−</button><input class="inp" id="eh" type="number" inputmode="decimal" value="'+s.hours+'" oninput="ED.s.hours=+this.value||0;pv()" style="text-align:center"><button class="nav" onclick="hh(1)">＋</button></div>';
+ h+='<div class="lbl">Ставка</div><div class="seg"><button class="'+(s.mode=='fix'?'on':'')+'" onclick="ED.s.mode=\'fix\';drawS()">Фикс за смену</button><button class="'+(s.mode=='hour'?'on':'')+'" onclick="ED.s.mode=\'hour\';drawS()">Почасовая</button></div>';
+ h+='<input class="inp" id="er" type="number" inputmode="decimal" placeholder="'+(s.mode=='fix'?'Сумма за смену, ₽':'Ставка в час, ₽')+'" value="'+(s.rate||'')+'" oninput="ED.s.rate=+this.value||0;pv()">';
+ h+='<div class="lbl">Заметка</div><input class="inp" placeholder="Необязательно" value="'+esc(s.note||'')+'" oninput="ED.s.note=this.value">';
+ h+='<div class="prev" id="pv"></div><div class="flex">'+(ED.isNew?'':'<button class="btn del" onclick="delS()">Удалить</button>')+'<button class="btn alt" onclick="closeS()" style="flex:1">Отмена</button><button class="btn" onclick="saveS()" style="flex:1.4">Сохранить</button></div>';
+ document.getElementById('sh').innerHTML=h;pv();
+}
+function hh(d){ED.s.hours=Math.max(0,(+ED.s.hours||0)+d);document.getElementById('eh').value=ED.s.hours;pv()}
+function pv(){document.getElementById('pv').textContent='= '+money(val(ED.s))}
+var EM=['🍽️','🎮','💊','👕','🎁','🐱','✈️','🏋️','☕','🎓'],CC=['lav','peach','sky','butter','rose','mint'],EC='',NC={};
+function cat(id){return S.cats.filter(function(c){return c.id==id})[0]}
+function mExp(){var k=mk();return S.exp.filter(function(e){return e.d.indexOf(k)==0})}
+function viewE(){
+ var tot=0,spent=0,sav=0,by={},ex=mExp();
+ mShifts().forEach(function(x){tot+=val(x[1])});tot+=extraSum();
+ ex.forEach(function(e){by[e.c]=(by[e.c]||0)+e.a;var c=cat(e.c);if(c&&c.sav)sav+=e.a;else spent+=e.a});
+ var base=Math.max(tot,spent+sav,1),free=tot-spent-sav;
+ var h='<div class="card hero" style="background:var(--'+(free<0?'bad':'sky')+')"><small>Свободно после расходов</small><div class="big">'+money(free)+'</div><small>доход за месяц '+money(tot)+'</small></div>';
+ h+='<div class="chips"><div class="chip" style="background:var(--peach)"><b>'+money(spent)+'</b><span>потрачено</span></div><div class="chip" style="background:var(--mint)"><b>'+money(sav)+'</b><span>отложено</span></div></div>';
+ h+='<div class="card"><h2>Куда уходят деньги</h2><div class="bar" style="display:flex;margin:0 0 8px">'+S.cats.map(function(c){return by[c.id]?'<i style="width:'+by[c.id]/base*100+'%;background:var(--'+c.col+');border-radius:0"></i>':''}).join('')+'</div><div class="empty" style="padding:0">'+(tot?'Распределено '+Math.round((spent+sav)/base*100)+'% дохода':'Добавь смены, и тут появится доля дохода')+'</div></div>';
+ h+='<div class="grid">'+S.cats.map(function(c){var a=by[c.id]||0,p=c.lim?Math.min(100,a/c.lim*100):0;
+  return '<button class="cat" onclick="openE(\''+c.id+'\')"><div class="ico" style="background:var(--'+c.col+')">'+c.ico+'</div><div class="cn">'+esc(c.name)+'</div><div class="cs">'+money(a)+'</div>'+(c.lim?'<div class="bar sm"><i style="width:'+p+'%;background:var(--'+(a>c.lim?'bad':c.col)+')"></i></div><div class="cl">из '+money(c.lim)+'</div>':'')+'</button>'}).join('')+'<button class="cat add" onclick="openC()"><div class="ico" style="background:var(--bg)">＋</div><div class="cn">Новая категория</div></button></div>';
+ h+='<div class="card"><h2>Операции месяца</h2>';
+ if(!ex.length)h+='<div class="empty">Пока трат нет 🌿<br>Выбери категорию и добавь первую</div>';
+ ex.slice().sort(function(a,b){return a.d<b.d?1:-1}).forEach(function(e){var c=cat(e.c)||{ico:'•',col:'lav',name:''};h+=erow(e,c)});
+ return h+'</div>';
+}
+function erow(e,c){return '<div class="row" style="cursor:default"><div class="ico" style="background:var(--'+c.col+')">'+c.ico+'</div><div class="t"><div>'+esc(c.name)+'</div><div>'+e.d.slice(8)+'.'+e.d.slice(5,7)+(e.n?' · '+esc(e.n):'')+'</div></div><div class="s">−'+money(e.a)+'</div><button class="x" onclick="delE(\''+e.i+'\')">✕</button></div>'}
+function openE(id){EC=id;drawE();document.getElementById('bg').classList.add('open')}
+function drawE(){
+ var c=cat(EC),n=new Date(),k=mk(),t=n.getFullYear()+'-'+p2(n.getMonth()+1),d=t==k?t+'-'+p2(n.getDate()):k+'-01',its=mExp().filter(function(e){return e.c==EC});
+ var h='<div class="flex" style="margin-bottom:6px"><div class="ico" style="background:var(--'+c.col+')">'+c.ico+'</div><h2 style="margin:0;font-size:19px">'+esc(c.name)+'</h2></div>';
+ h+='<div class="lbl">Сумма</div><input class="inp" id="ea" type="number" inputmode="decimal" placeholder="0 ₽"><div class="lbl">Заметка</div><input class="inp" id="en" placeholder="Необязательно"><div class="lbl">Дата</div><input class="inp" id="ed" type="date" value="'+d+'">';
+ h+='<div class="flex" style="margin-top:14px"><button class="btn alt" onclick="closeS()" style="flex:1">Закрыть</button><button class="btn" onclick="addE()" style="flex:1.4">'+(c.sav?'Отложить':'Добавить')+'</button></div>';
+ if(its.length){h+='<div class="lbl" style="margin-top:16px">В этом месяце</div>';its.forEach(function(e){h+=erow(e,c)})}
+ h+='<div class="lbl" style="margin-top:14px">Лимит на месяц (0 — без лимита)</div><input class="inp" type="number" inputmode="numeric" value="'+(c.lim||0)+'" onchange="cat(EC).lim=Math.max(0,+this.value||0);save();render();toast(\'Лимит сохранён\')">';
+ h+='<button class="btn del" style="width:100%;margin-top:14px" onclick="delC()">Удалить категорию</button>';
+ document.getElementById('sh').innerHTML=h;
+}
+function addE(){var a=+document.getElementById('ea').value;if(!(a>0))return toast('Введи сумму');S.exp.push({i:String(Date.now()),c:EC,a:a,d:document.getElementById('ed').value||mk()+'-01',n:document.getElementById('en').value.trim()});save();closeS();render();toast(cat(EC).sav?'Отложено 🐷':'Расход добавлен ✨')}
+function delE(i){S.exp=S.exp.filter(function(e){return e.i!=i});save();render();if(document.getElementById('bg').classList.contains('open')&&EC)drawE()}
+function delC(){if(!confirm('Удалить категорию и все её траты?'))return;S.cats=S.cats.filter(function(c){return c.id!=EC});S.exp=S.exp.filter(function(e){return e.c!=EC});save();closeS();render()}
+function openC(){NC={ico:EM[0]};EC='';var h='<h2 style="font-size:19px">Новая категория</h2><div class="lbl">Название</div><input class="inp" id="cn" placeholder="Например, Кафе"><div class="lbl" style="margin-top:12px">Иконка</div><div class="ems">'+EM.map(function(e,i){return '<button class="em'+(i?'':' on')+'" onclick="pe(this)">'+e+'</button>'}).join('')+'</div><div class="flex"><button class="btn alt" onclick="closeS()" style="flex:1">Отмена</button><button class="btn" onclick="addC()" style="flex:1.4">Создать</button></div>';document.getElementById('sh').innerHTML=h;document.getElementById('bg').classList.add('open')}
+function pe(b){NC.ico=b.textContent;document.querySelectorAll('.em').forEach(function(x){x.classList.toggle('on',x===b)})}
+function addC(){var n=document.getElementById('cn').value.trim();if(!n)return toast('Введи название');S.cats.push({id:'c'+Date.now(),name:n,ico:NC.ico,col:CC[S.cats.length%6],lim:0});save();closeS();render();toast('Категория создана ✨')}
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(function(){});
+var ST=null,TC={full:'peach',part:'mint',custom:'lav'},TI={full:'🌞',part:'🌙',custom:'✨'};
+function stamp(id){return S.stamps.filter(function(x){return x.id==id})[0]}
+function pick(id){ST=ST==id?null:id;render()}
+function openT(){drawT();document.getElementById('bg').classList.add('open')}
+function sv(){S.cfg.fullH=S.stamps[0].hours||12;save()}
+var CL=['lav','sky','butter','rose','lime','aqua'],IC=['🌅','🌆','🍸','🎵','⭐','🔥'],NM={full:'Полная',part:'Неполная',custom:'Кастомная'};
+function norm(){Object.keys(S.shifts).forEach(function(d){var v=S.shifts[d];if(!Array.isArray(v))S.shifts[d]=[v]});S.stamps=S.stamps.filter(function(x){return !(x.id=='custom'&&x.name=='Кастомная'&&x.hours==8&&x.mode=='hour'&&x.rate==300)})}
+function sl(k){var v=S.shifts[k];return !v?[]:Array.isArray(v)?v:[v]}
+function mShifts(){var k=mk(),o=[];Object.keys(S.shifts).sort().forEach(function(d){if(d.indexOf(k)==0)sl(d).forEach(function(z,i){o.push([d,z,i])})});return o}
+function bg(a){var c=a.map(function(z){return 'var(--'+(z.col||TC[z.type])+')'});if(!c.length)return '';if(c.length==1)return 'background:'+c[0];if(c.length==2)return 'background:linear-gradient(135deg,'+c[0]+' 50%,'+c[1]+' 50%)';return 'background:linear-gradient(135deg,'+c[0]+' 33.3%,'+c[1]+' 33.3% 66.6%,'+c[2]+' 66.6%)'}
+function dayTap(k){if(!ST)return openS(k);var x=stamp(ST),a=sl(k).slice(),j=-1;a.forEach(function(z,i){if(z.st==ST)j=i});
+ if(j>=0)a.splice(j,1);else if(a.length>=3)return toast('Максимум 3 смены в день');else a.push({type:x.type,hours:x.hours,mode:x.mode,rate:x.rate,note:'',st:ST,col:x.col,nm:x.name});
+ if(a.length)S.shifts[k]=a;else delete S.shifts[k];save();render();if(navigator.vibrate)navigator.vibrate(8)}
+function openS(k){if(!sl(k).length)return editS(k,-1);ED={k:k};drawD();document.getElementById('bg').classList.add('open')}
+function drawD(){var a=sl(ED.k),d=ED.k.split('-'),h='<h2 style="font-size:19px">'+parseInt(d[2])+' '+MG[+d[1]-1]+'</h2>';
+ a.forEach(function(z,i){h+='<div class="row" onclick="editS(\''+ED.k+'\','+i+')"><div class="ico" style="background:var(--'+(z.col||TC[z.type])+')">'+TI[z.type]+'</div><div class="t"><div>'+esc(z.nm||NM[z.type])+'</div><div>'+z.hours+' ч · '+(z.mode=='fix'?'фикс':money(z.rate)+'/ч')+(z.note?' · '+esc(z.note):'')+'</div></div><div class="s">'+money(val(z))+'</div></div>'});
+ if(a.length<3)h+='<button class="btn" style="width:100%;margin-top:12px" onclick="editS(\''+ED.k+'\',-1)">＋ Добавить смену</button>';
+ document.getElementById('sh').innerHTML=h+'<button class="btn alt" style="width:100%;margin-top:8px" onclick="closeS()">Закрыть</button>'}
+function editS(k,i){var a=sl(k),ex=i>=0?a[i]:null,d=S.stamps[0];ED={k:k,i:i,t0:ex?ex.type:'full',s:ex?JSON.parse(JSON.stringify(ex)):{type:'full',hours:d.hours,mode:d.mode,rate:d.rate,note:''},isNew:!ex};drawS();document.getElementById('bg').classList.add('open')}
+function saveS(){var s=ED.s;if(!s.hours)return toast('Укажи часы');if(!s.rate)return toast('Укажи ставку');
+ if(!s.col||s.type!=ED.t0){s.col=TC[s.type];if(s.type!=ED.t0)delete s.st}
+ var a=sl(ED.k).slice();if(ED.isNew)a.push(s);else a[ED.i]=s;S.shifts[ED.k]=a;S.cfg.mode=s.mode;S.cfg.rate=s.rate;save();closeS();render();toast('Смена сохранена ✨')}
+function delS(){var a=sl(ED.k).slice();a.splice(ED.i,1);if(a.length)S.shifts[ED.k]=a;else delete S.shifts[ED.k];save();closeS();render();toast('Смена удалена')}
+function pal(){var e=document.getElementById('pal');if(TAB!='s'){e.style.display='none';return}e.style.display='flex';var sc=e.scrollLeft,nc=S.stamps.filter(function(x){return x.type=='custom'}).length,sh='box-shadow:0 4px 16px #4a3f5533';
+ e.innerHTML=S.stamps.map(function(x){var on=ST==x.id;return '<button class="pc" style="'+(on?'background:var(--'+x.col+');box-shadow:0 0 0 2px var(--ink),0 4px 16px #4a3f5533':'box-shadow:inset 0 -4px 0 var(--'+x.col+'),0 4px 16px #4a3f5533')+'" onclick="pick(\''+x.id+'\')"><span>'+x.ico+' '+esc(x.name)+'</span><small>'+x.hours+' ч · '+money(x.rate)+(x.mode=='fix'?'':'/ч')+'</small></button>'}).join('')+(nc<6?'<button class="pc g" style="'+sh+'" onclick="addStamp()">＋</button>':'')+'<button class="pc g" style="'+sh+'" onclick="openT()">⚙️</button>';e.scrollLeft=sc}
+function addStamp(){var n=S.stamps.filter(function(x){return x.type=='custom'}).length;if(n>=6)return;var u=S.stamps.map(function(x){return x.col}),c=CL.filter(function(z){return u.indexOf(z)<0})[0]||'lav';
+ S.stamps.push({id:'c'+Date.now(),name:'Смена '+(n+1),ico:IC[n],type:'custom',col:c,hours:8,mode:'hour',rate:300});save();render();openT();var e=document.getElementById('sh');e.scrollTop=e.scrollHeight}
+function delT(i){if(ST==S.stamps[i].id)ST=null;S.stamps.splice(i,1);save();render();drawT()}
+function drawT(){var h='<h2 style="font-size:19px">⚙️ Настройка смен</h2><div class="lbl" style="margin-bottom:10px">Эти значения подставляются, когда ставишь смену одним тапом. Новые смены создаются кнопкой ＋ (до 6)</div>';
+ S.stamps.forEach(function(x,i){var p='S.stamps['+i+']';h+='<div class="card" style="background:var(--bg);margin-bottom:10px"><div class="flex"><div class="ico" style="background:var(--'+x.col+')">'+x.ico+'</div><input class="inp" style="background:var(--card);min-width:0" value="'+esc(x.name)+'" oninput="'+p+'.name=this.value||\'Смена\';sv()">'+(x.type=='custom'?'<button class="x" onclick="delT('+i+')">✕</button>':'')+'</div>'
+ +'<div class="seg" style="background:var(--card)"><button class="'+(x.mode=='fix'?'on':'')+'" onclick="'+p+'.mode=\'fix\';sv();drawT()">Фикс</button><button class="'+(x.mode=='hour'?'on':'')+'" onclick="'+p+'.mode=\'hour\';sv();drawT()">Почасовая</button></div>'
+ +'<div class="flex"><div style="flex:1;min-width:0"><div class="lbl">Часов</div><input class="inp" style="background:var(--card)" type="number" inputmode="decimal" value="'+x.hours+'" oninput="'+p+'.hours=+this.value||0;sv()"></div><div style="flex:1;min-width:0"><div class="lbl">'+(x.mode=='fix'?'Сумма, ₽':'Ставка, ₽/ч')+'</div><input class="inp" style="background:var(--card)" type="number" inputmode="decimal" value="'+x.rate+'" oninput="'+p+'.rate=+this.value||0;sv()"></div></div></div>'});
+ document.getElementById('sh').innerHTML=h+'<button class="btn" style="width:100%" onclick="closeS()">Готово</button>'}
+function extraSum(){var s=0;(S.extra[mk()]||[]).forEach(function(x){s+=x.amt});return s}
+function extraCard(){var l=S.extra[mk()]||[],h='<div class="card"><h2>➕ Дополнительный доход</h2>';
+ if(!l.length)h+='<div class="empty" style="padding-top:0">Процент с выручки, чаевые, подработка — всё, что добавляется к заработку</div>';
+ l.forEach(function(x,i){h+='<div class="row" style="cursor:default"><div class="ico" style="background:var(--mint)">💵</div><div class="t"><div>'+esc(x.name)+'</div></div><div class="s">+'+money(x.amt)+'</div><button class="x" onclick="delX('+i+')">✕</button></div>'});
+ return h+'<div class="flex" style="margin-top:12px"><input class="inp" id="xn" placeholder="Процент с выручки" style="flex:1.2;min-width:0"><input class="inp" id="xa" type="number" inputmode="numeric" placeholder="Сумма" style="flex:1;min-width:0"><button class="btn" onclick="addX()" style="padding:13px 16px">＋</button></div></div>'}
+function addX(){var n=document.getElementById('xn').value.trim()||'Доп. доход',a=+document.getElementById('xa').value;if(!a)return toast('Введи сумму');(S.extra[mk()]=S.extra[mk()]||[]).push({name:n,amt:a});save();render();toast('Добавлено 💵')}
+function delX(i){S.extra[mk()].splice(i,1);save();render()}
+render();
+</script>
+
+<style>
+.rev-head{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.rev-head select{flex:1;min-width:150px}.rev-item{display:grid;grid-template-columns:minmax(0,1fr) 68px 68px 72px;gap:6px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}.rev-item input{width:100%;min-width:0;padding:10px 5px;text-align:center;border:1px solid var(--line);border-radius:12px;background:var(--bg)}.rev-item .nm{font-size:13px;overflow-wrap:anywhere}.rev-total{font-size:13px;text-align:right}.rev-muted{font-size:11px;color:var(--mute)}.rev-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.rev-actions .btn{padding:10px 14px;font-size:13px}.rev-label{display:grid;grid-template-columns:minmax(0,1fr) 68px 68px 72px;gap:6px;color:var(--mute);font-size:10px;padding:8px 0 2px}
+</style>
+<script>
+// Shared organizations and live inventory module
+var REV={orgs:[],org:null,role:'member',global:false,session:null,items:[],entries:{},channel:null,loading:false};
+function revEsc(x){return String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function revMsg(x){toast(x)}
+async function revInit(){if(!sbUser)return;try{
+ let g=await sb.from('global_admins').select('user_id').eq('user_id',sbUser.id).maybeSingle();REV.global=!!g.data;
+ await revLoadOrgs();
+ }catch(e){console.error(e);revMsg('Ошибка загрузки заведений: '+e.message)}}
+async function revLoadOrgs(){
+ let q;
+ if(REV.global){q=await sb.from('organizations').select('id,name,is_active').order('name')}
+ else {let m=await sb.from('organization_members').select('organization_id,role');if(m.error)throw m.error;let ids=(m.data||[]).map(x=>x.organization_id);q=ids.length?await sb.from('organizations').select('id,name,is_active').in('id',ids).order('name'):{data:[],error:null};REV.memberships=m.data||[]}
+ if(q.error)throw q.error;REV.orgs=q.data||[];
+ if(!REV.orgs.some(o=>o.id===REV.org))REV.org=REV.orgs[0]?.id||null;
+ if(REV.org){let m=(REV.memberships||[]).find(x=>x.organization_id===REV.org);REV.role=REV.global?'admin':(m?.role||'member');await revLoadInventory()}
+}
+async function revSelectOrg(id){REV.org=id||null;REV.session=null;await revLoadInventory();revRender()}
+async function revCreateOrg(){let name=prompt('Название заведения');if(!name?.trim())return;let r=await sb.from('organizations').insert({name:name.trim(),created_by:sbUser.id}).select('id').single();if(r.error)return revMsg(r.error.message);let m=await sb.from('organization_members').insert({organization_id:r.data.id,user_id:sbUser.id,role:'admin'});if(m.error)return revMsg('Заведение создано, но не удалось назначить администратора: '+m.error.message);await revLoadOrgs();REV.org=r.data.id;await revLoadInventory();revRender();await revAudit('organization_created','organization',r.data.id,{name:name.trim()});revMsg('Заведение создано')}
+async function revJoinOrg(){let code=prompt('Введи код приглашения');if(!code?.trim())return;code=code.trim().replace(/[\s-]/g,'').toUpperCase();let r=await sb.rpc('join_organization_by_code',{join_code:code});if(r.error){console.error('join_organization_by_code:',r.error);return revMsg('Не удалось вступить: '+(r.error.message||'ошибка Supabase')+(r.error.code?' ('+r.error.code+')':''))}REV.org=r.data;await revLoadOrgs();REV.org=r.data;await revLoadInventory();revRender();revMsg('Ты добавлен(а) в заведение')}
+async function revMakeCode(){if(!REV.org||(!REV.global&&REV.role!=='admin'))return revMsg('Создавать приглашения может администратор заведения');let bytes=new Uint8Array(8);crypto.getRandomValues(bytes);let code=Array.from(bytes).map(x=>x.toString(16).padStart(2,'0')).join('').toUpperCase();let hash=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(code));let hex=Array.from(new Uint8Array(hash)).map(x=>x.toString(16).padStart(2,'0')).join('');let r=await sb.from('organization_invite_codes').insert({organization_id:REV.org,code_hash:hex,created_by:sbUser.id,label:'Код '+new Date().toLocaleDateString('ru-RU')}).select('id').single();if(r.error){console.error('invite code insert:',r.error);return revMsg('Не удалось создать код: '+r.error.message)}try{await navigator.clipboard.writeText(code)}catch(e){}prompt('Скопируй код и отправь коллеге. Он показывается только сейчас:',code);await revAudit('invite_code_created','invite_code',r.data.id,{});} 
+async function revAddItem(){if(REV.role!=='admin')return;let name=prompt('Название позиции (например, Водка 0,7)');if(!name?.trim())return;let n=Number(prompt('Бутылок в полном ряду','10'));if(!Number.isInteger(n)||n<1)return revMsg('Укажи число бутылок в ряду');let r=await sb.from('inventory_items').insert({organization_id:REV.org,name:name.trim(),bottles_per_row:n,sort_order:REV.items.length});if(r.error)return revMsg(r.error.message);await revLoadInventory();revRender();await revAudit('inventory_item_created','inventory_item',null,{name,bottles_per_row:n})}
+async function revLoadInventory(){REV.items=[];REV.entries={};REV.session=null;if(!REV.org)return;let a=await sb.from('inventory_items').select('*').eq('organization_id',REV.org).eq('is_active',true).order('sort_order').order('name');if(a.error)throw a.error;REV.items=a.data||[];let s=await sb.from('inventory_sessions').select('*').eq('organization_id',REV.org).eq('status','open').order('created_at',{ascending:false}).limit(1).maybeSingle();if(s.error)throw s.error;REV.session=s.data;
+ if(REV.session){let e=await sb.from('inventory_entries').select('*').eq('session_id',REV.session.id);if(e.error)throw e.error;(e.data||[]).forEach(x=>REV.entries[x.item_id]=x)}
+ revSubscribe();}
+function revSubscribe(){if(REV.channel){sb.removeChannel(REV.channel);REV.channel=null}if(!REV.org)return;REV.channel=sb.channel('inventory-'+REV.org).on('postgres_changes',{event:'*',schema:'public',table:'inventory_entries'},async()=>{await revLoadInventory();revRender()}).on('postgres_changes',{event:'*',schema:'public',table:'inventory_items',filter:'organization_id=eq.'+REV.org},async()=>{await revLoadInventory();revRender()}).on('postgres_changes',{event:'*',schema:'public',table:'inventory_sessions',filter:'organization_id=eq.'+REV.org},async()=>{await revLoadInventory();revRender()}).subscribe()}
+async function revNewSession(){if(!REV.org)return;let title=prompt('Название ревизии','Ревизия '+new Date().toLocaleDateString('ru-RU'))||'Ревизия';let r=await sb.from('inventory_sessions').insert({organization_id:REV.org,title,created_by:sbUser.id}).select('*').single();if(r.error)return revMsg(r.error.message);REV.session=r.data;REV.entries={};revRender();await revAudit('inventory_session_created','inventory_session',r.data.id,{title})}
+async function revSet(itemId,field,value){if(!REV.session)return revMsg('Сначала начни ревизию');let item=REV.items.find(x=>x.id===itemId);let old=REV.entries[itemId]||{full_rows:0,loose_bottles:0};let row={session_id:REV.session.id,item_id:itemId,full_rows:field==='full_rows'?Math.max(0,parseInt(value||0)):old.full_rows,loose_bottles:field==='loose_bottles'?Math.max(0,parseInt(value||0)):old.loose_bottles,counted_by:sbUser.id,updated_at:new Date().toISOString()};let r=await sb.from('inventory_entries').upsert(row,{onConflict:'session_id,item_id'});if(r.error){revMsg(r.error.message);return}REV.entries[itemId]=row;let el=document.querySelector('[data-total="'+itemId+'"]');if(el)el.textContent=(row.full_rows*item.bottles_per_row+row.loose_bottles)+' шт.';}
+async function revFinish(){if(!REV.session)return;let r=await sb.from('inventory_sessions').update({status:'completed',completed_at:new Date().toISOString()}).eq('id',REV.session.id);if(r.error)return revMsg(r.error.message);await revAudit('inventory_session_completed','inventory_session',REV.session.id,{});await revLoadInventory();revRender();revMsg('Ревизия завершена')}
+async function revAudit(action,type,id,details){try{await sb.from('audit_logs').insert({organization_id:REV.org,actor_user_id:sbUser.id,action,entity_type:type,entity_id:id?String(id):null,details})}catch(e){console.warn(e)}}
+async function revMembers(){let r=await sb.from('organization_members').select('user_id,role,joined_at').eq('organization_id',REV.org);if(r.error)return revMsg(r.error.message);let ids=(r.data||[]).map(x=>x.user_id);let p=ids.length?await sb.from('profiles').select('id,display_name').in('id',ids):{data:[]};let names={};(p.data||[]).forEach(x=>names[x.id]=x.display_name);let lines=(r.data||[]).map(x=>(names[x.user_id]||x.user_id.slice(0,8))+' — '+x.role).join('\n');alert('Участники заведения:\n'+lines)}
+function revRender(){let root=document.getElementById('v');if(!root)return;let h='<div class="card"><div class="rev-head"><h2 style="margin:0">📦 Общая ревизия</h2><select class="inp" onchange="revSelectOrg(this.value)"><option value="">Выбери заведение</option>'+REV.orgs.map(o=>'<option value="'+o.id+'" '+(o.id===REV.org?'selected':'')+'>'+revEsc(o.name)+(o.is_active?'':' (выключено)')+'</option>').join('')+'</select></div><div class="rev-actions">'+(REV.global?'<button class="btn" onclick="revCreateOrg()">＋ Создать заведение</button>':'')+'<button class="btn alt" onclick="revJoinOrg()">Ввести код</button>'+(REV.org&&(REV.global||REV.role==='admin')?'<button class="btn alt" onclick="revMakeCode()">Создать код</button>':'')+(REV.org&&REV.role==='admin'?'<button class="btn alt" onclick="revMembers()">Участники</button>':'')+'</div></div>';
+ if(!REV.org){h+='<div class="card empty">Создай заведение или вступи по коду приглашения.</div>';root.innerHTML=h;return}
+ h+='<div class="card"><div class="flex" style="justify-content:space-between"><h2>'+(REV.session?revEsc(REV.session.title):'Нет активной ревизии')+'</h2><span class="pill">'+(REV.session?'Открыта':'Ожидание')+'</span></div>';
+ if(!REV.session)h+='<button class="btn" style="width:100%" onclick="revNewSession()">＋ Начать новую ревизию</button>';
+ else {h+='<div class="rev-muted">Внесённые значения видны всем участникам этого заведения сразу.</div><div class="rev-label"><span>Позиция</span><span>Ряды</span><span>Шт.</span><span>Итого</span></div>';
+ if(!REV.items.length)h+='<div class="empty">Пока нет позиций. Администратор может добавить их ниже.</div>';
+ REV.items.forEach(it=>{let e=REV.entries[it.id]||{full_rows:0,loose_bottles:0};let total=e.full_rows*it.bottles_per_row+e.loose_bottles;h+='<div class="rev-item"><div class="nm">'+revEsc(it.name)+'<div class="rev-muted">'+it.bottles_per_row+' шт. в ряду</div></div><input aria-label="Полные ряды" type="number" min="0" step="1" value="'+e.full_rows+'" '+(!REV.session?'disabled':'')+' onchange="revSet(\''+it.id+'\',\'full_rows\',this.value)"><input aria-label="Отдельные бутылки" type="number" min="0" step="1" value="'+e.loose_bottles+'" onchange="revSet(\''+it.id+'\',\'loose_bottles\',this.value)"><div class="rev-total" data-total="'+it.id+'">'+total+' шт.</div></div>'});
+ h+='<div class="rev-actions"><button class="btn alt" onclick="revLoadInventory().then(revRender)">Обновить</button><button class="btn del" onclick="revFinish()">Завершить ревизию</button></div>'}
+ if(REV.role==='admin')h+='<div class="rev-actions"><button class="btn alt" onclick="revAddItem()">＋ Добавить позицию</button></div>';
+ h+='</div><div class="card"><h2>Формула подсчёта</h2><div class="rev-muted">Количество = полные ряды × бутылок в ряду + отдельные бутылки. Например: 3 × 10 + 4 = 34.</div></div>';root.innerHTML=h;
+}
+var baseRender=render;render=function(){if(TAB==='r'){document.getElementById('ttl').textContent='Ревизия';['s','m','e'].forEach((t,i)=>document.getElementById('t'+(i+1)).className='');document.getElementById('t4').className='on';document.getElementById('v').innerHTML='<div class="card empty">Загружаю заведения и склад…</div>';document.body.style.paddingBottom='120px';if(sbUser&&!REV.loading){REV.loading=true;revInit().then(revRender).catch(e=>{document.getElementById('v').innerHTML='<div class="card">Ошибка: '+revEsc(e.message)+'</div>'}).finally(()=>REV.loading=false)}else revRender();document.getElementById('pal').innerHTML='';return}document.getElementById('t4').className='';baseRender()};
+// Ensure auth transitions also refresh the organization workspace.
+let oldLoadCloud=loadCloud;loadCloud=async function(user){await oldLoadCloud(user);if(user){REV.orgs=[];REV.org=null;if(TAB==='r')await revInit()}};
+</script>
+
+
+<script>
+// MAP + FRIENDS + PRIVATE CHATS
+var SOCIAL={friends:[],requests:[],profiles:[],activeChat:null,chatChannel:null,chatUser:null,loaded:false};
+function socialEsc(x){return String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function socialName(p){return p?.display_name||'Пользователь'}
+function socialErr(e){toast(e?.message||String(e))}
+async function socialLoad(){if(!sbUser)return;let [f,r]=await Promise.all([sb.from('friendships').select('*').or('user_low.eq.'+sbUser.id+',user_high.eq.'+sbUser.id),sb.from('friend_requests').select('*').or('sender_id.eq.'+sbUser.id+',receiver_id.eq.'+sbUser.id).order('created_at',{ascending:false})]);if(f.error)throw f.error;if(r.error)throw r.error;SOCIAL.friends=f.data||[];SOCIAL.requests=r.data||[];let ids=[...new Set(SOCIAL.friends.flatMap(x=>[x.user_low,x.user_high]).filter(x=>x!==sbUser.id).concat(SOCIAL.requests.flatMap(x=>[x.sender_id,x.receiver_id]).filter(x=>x!==sbUser.id)))];let p=ids.length?await sb.rpc('get_social_profiles',{profile_ids:ids}):{data:[],error:null};if(p.error)throw p.error;SOCIAL.profiles=p.data||[];}
+function socialProfile(id){return SOCIAL.profiles.find(p=>p.id===id)||{id,display_name:'Пользователь'}}
+function isOnline(p){return p.last_seen_at&&Date.now()-new Date(p.last_seen_at).getTime()<120000}
+function ago(p){if(isOnline(p))return '<span class="online">● В сети</span>';if(!p.last_seen_at)return 'Не в сети';let m=Math.floor((Date.now()-new Date(p.last_seen_at).getTime())/60000);return m<60?'Был(а) '+m+' мин. назад':m<1440?'Был(а) '+Math.floor(m/60)+' ч. назад':'Был(а) давно'}
+async function socialMap(){if(!REV.orgs?.length)await revInit();let orgs=REV.orgs||[];let pos=await sb.from('venue_map_positions').select('*');if(pos.error)throw pos.error;let pm={};(pos.data||[]).forEach(x=>pm[x.organization_id]=x);let coords=[[25,31],[68,62],[48,18],[82,30],[22,72],[55,82]];let h='<div class="card"><h2>🗺️ Карта заведений</h2><div class="muted">Твои места и маршруты между ними</div></div><div class="mapworld"><div class="mapstream"></div><div class="maptrail"></div><span class="mapdecor" style="left:8%;top:12%">🌳</span><span class="mapdecor" style="left:80%;top:12%">🌲</span><span class="mapdecor" style="left:13%;top:83%">🌼</span><span class="mapdecor" style="left:85%;top:80%">🌳</span><span class="mapdecor" style="left:48%;top:48%">🌷</span>';
+orgs.forEach((o,i)=>{let nm=(o.name||'').toLowerCase();let fallback=nm.includes('красноармейской')?[27,34]:nm==='хого'?[70,62]:coords[i%coords.length];let c=pm[o.id]||{x:fallback[0],y:fallback[1]};let icon=/хого/i.test(o.name)?'🏮':'🏡';h+='<button class="mapplace" style="left:'+c.x+'%;top:'+c.y+'%" onclick="mapOpen(\''+o.id+'\')"><span class="maphouse">'+icon+'</span><span class="maplabel">'+socialEsc(o.name)+'</span></button>'});if(!orgs.length)h+='<div style="position:absolute;inset:40% 10%;text-align:center;color:#435b3e">Пока нет доступных заведений</div>';h+='</div><div id="mapVenueCard"></div>';document.getElementById('v').innerHTML=h;document.getElementById('ttl').textContent='Карта';document.getElementById('pal').innerHTML='';}
+function mapOpen(id){let o=(REV.orgs||[]).find(x=>x.id===id);if(!o)return;document.getElementById('mapVenueCard').innerHTML='<div class="mapcard"><div class="flex" style="justify-content:space-between"><h2>'+socialEsc(o.name)+'</h2><span class="pill">'+(o.is_active?'Открыто':'Закрыто')+'</span></div><div class="muted">Заведение доступно тебе</div><button class="btn" style="width:100%;margin-top:12px" onclick="REV.org=\''+id+'\';profileChooseOrg(\''+id+'\').then(()=>tab(\'r\'))">Открыть заведение</button></div>'}
+async function friendsView(){await socialLoad();let h='<div class="card"><div class="flex" style="justify-content:space-between"><h2>👥 Друзья</h2><button class="btn" onclick="friendSearch()">＋ Найти</button></div><input class="inp" id="friendQuery" placeholder="Поиск среди друзей" oninput="friendFilter(this.value)">';if(!SOCIAL.friends.length)h+='<div class="empty">Пока нет друзей. Нажми «Найти».</div>';SOCIAL.friends.forEach(f=>{let id=f.user_low===sbUser.id?f.user_high:f.user_low,p=socialProfile(id);h+='<div class="friendline" data-friend="'+socialEsc(socialName(p).toLowerCase())+'"><div class="avatar">'+socialEsc(socialName(p)[0]||'👤')+'</div><div class="friendmeta"><b>'+socialEsc(socialName(p))+'</b><div class="muted">'+ago(p)+'</div></div><button class="tinybtn" onclick="openChat(\''+id+'\')">✉</button><button class="tinybtn" onclick="removeFriend(\''+id+'\')">×</button></div>'});let incoming=SOCIAL.requests.filter(x=>x.receiver_id===sbUser.id&&x.status==='pending');if(incoming.length){h+='<h2 style="margin-top:16px">Входящие заявки</h2>';incoming.forEach(r=>{let p=socialProfile(r.sender_id);h+='<div class="friendline"><div class="friendmeta"><b>'+socialEsc(socialName(p))+'</b></div><button class="btn" onclick="acceptFriend(\''+r.id+'\')">✓</button><button class="tinybtn" onclick="rejectFriend(\''+r.id+'\')">×</button></div>'})}h+='</div>';document.getElementById('v').innerHTML=h;document.getElementById('ttl').textContent='Друзья';document.getElementById('pal').innerHTML=''}
+function friendFilter(q){document.querySelectorAll('[data-friend]').forEach(e=>e.style.display=e.dataset.friend.includes(q.toLowerCase())?'flex':'none')}
+async function friendSearch(){let q=prompt('Имя пользователя для поиска');if(!q?.trim())return;let r=await sb.rpc('search_profiles',{search_text:q.trim()});if(r.error)return socialErr(r.error);if(!r.data?.length)return toast('Никого не нашли');let lines=r.data.map((p,i)=>(i+1)+'. '+socialName(p)).join('\n');let pick=prompt('Кому отправить заявку? Введи номер:\n'+lines);let p=r.data[Number(pick)-1];if(!p)return;let x=await sb.from('friend_requests').insert({sender_id:sbUser.id,receiver_id:p.id,status:'pending'});if(x.error)return socialErr(x.error);toast('Заявка отправлена');friendsView()}
+async function acceptFriend(id){let r=await sb.rpc('accept_friend_request',{p_request_id:id});if(r.error)return socialErr(r.error);await friendsView()}
+async function rejectFriend(id){let r=await sb.from('friend_requests').update({status:'rejected',updated_at:new Date().toISOString()}).eq('id',id);if(r.error)return socialErr(r.error);await friendsView()}
+async function removeFriend(id){if(!confirm('Удалить пользователя из друзей?'))return;let a=sbUser.id<id?sbUser.id:id,b=sbUser.id<id?id:sbUser.id;let r=await sb.from('friendships').delete().eq('user_low',a).eq('user_high',b);if(r.error)return socialErr(r.error);await friendsView()}
+async function chatsView(){await socialLoad();let f=SOCIAL.friends;let h='<div class="card"><h2>💬 Сообщения</h2>';for(let x of f){let id=x.user_low===sbUser.id?x.user_high:x.user_low,p=socialProfile(id);h+='<div class="chatline" onclick="openChat(\''+id+'\')"><div class="avatar">'+socialEsc(socialName(p)[0]||'👤')+'</div><div class="friendmeta"><b>'+socialEsc(socialName(p))+'</b><div class="muted">'+ago(p)+'</div></div><span>›</span></div>'}if(!f.length)h+='<div class="empty">Добавь друзей, чтобы начать переписку.</div>';h+='</div>';document.getElementById('v').innerHTML=h;document.getElementById('ttl').textContent='Сообщения';document.getElementById('pal').innerHTML=''}
+async function openChat(other){try{let r=await sb.rpc('open_direct_conversation',{p_other_user:other});if(r.error)throw r.error;SOCIAL.activeChat=r.data;SOCIAL.chatUser=other;await chatRender();if(SOCIAL.chatChannel)sb.removeChannel(SOCIAL.chatChannel);SOCIAL.chatChannel=sb.channel('chat-'+r.data).on('postgres_changes',{event:'INSERT',schema:'public',table:'messages',filter:'conversation_id=eq.'+r.data},()=>chatRender()).subscribe();}catch(e){socialErr(e)}}
+async function chatRender(){let id=SOCIAL.activeChat,p=socialProfile(SOCIAL.chatUser);let r=await sb.from('messages').select('*').eq('conversation_id',id).order('created_at');if(r.error)return socialErr(r.error);let h='<div class="card"><div class="flex"><button class="nav" onclick="tab(\'chats\')">‹</button><div><b>'+socialEsc(socialName(p))+'</b><div class="muted">'+ago(p)+'</div></div></div><div class="chatlog" id="chatlog">';(r.data||[]).forEach(m=>{h+='<div class="msgbubble '+(m.sender_id===sbUser.id?'msgmine':'msgother')+'">'+socialEsc(m.content)+'<div class="muted" style="text-align:right">'+new Date(m.created_at).toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'})+'</div></div>'});h+='</div><div class="chatcompose"><input class="inp" id="chatText" placeholder="Напиши сообщение…" onkeydown="if(event.key===\'Enter\')sendChat()"><button class="btn" onclick="sendChat()">➤</button></div></div>';document.getElementById('v').innerHTML=h;document.getElementById('ttl').textContent='Чат';document.getElementById('pal').innerHTML='';let log=document.getElementById('chatlog');log.scrollTop=log.scrollHeight;await sb.from('conversation_members').update({last_read_at:new Date().toISOString()}).eq('conversation_id',id).eq('user_id',sbUser.id)}
+async function sendChat(){let el=document.getElementById('chatText'),content=el?.value.trim();if(!content)return;el.value='';let r=await sb.from('messages').insert({conversation_id:SOCIAL.activeChat,sender_id:sbUser.id,content});if(r.error){el.value=content;return socialErr(r.error)}await chatRender()}
+// Wrap current renderer; original finance and revision renderers remain intact.
+var renderBeforeSocial=render;
+render=function(){if(TAB==='map'||TAB==='friends'||TAB==='chats'){document.getElementById('v').innerHTML='<div class="card empty">Загружаю…</div>';document.getElementById('pal').innerHTML='';document.body.style.paddingBottom='120px';['t1','t2','t3','t4','t5','t6','t7'].forEach(id=>{let e=document.getElementById(id);if(e)e.className=(id==='t5'&&TAB==='map'||id==='t6'&&TAB==='friends'||id==='t7'&&TAB==='chats')?'on':''});let fn=TAB==='map'?socialMap:TAB==='friends'?friendsView:chatsView;fn().catch(e=>{document.getElementById('v').innerHTML='<div class="card">Ошибка: '+socialEsc(e.message)+'</div>'});return}['t5','t6','t7'].forEach(id=>document.getElementById(id).className='');renderBeforeSocial()};
+// Presence heartbeat: last_seen_at only; no financial data is involved.
+setInterval(()=>{if(sbUser)sb.from('profiles').update({last_seen_at:new Date().toISOString()}).eq('id',sbUser.id).then(()=>{})},60000);
+</script>
+
+</body>
+</html>
