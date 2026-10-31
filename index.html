@@ -370,7 +370,30 @@ async function socialMap(){
  h+='</div><div id="mapVenueCard"></div>';
  document.getElementById('v').innerHTML=h;document.getElementById('ttl').textContent='Карта';document.getElementById('pal').innerHTML='';
 }
-function mapOpen(id){let o=(REV.orgs||[]).find(x=>x.id===id);if(!o)return;let card=document.getElementById('mapVenueCard');if(!card)return;card.innerHTML='<div class="mapcard"><div class="flex" style="justify-content:space-between;align-items:center"><h2>'+socialEsc(o.name)+'</h2><button class="tinybtn" onclick="document.getElementById(\'mapVenueCard\').innerHTML=\'\'" aria-label="Закрыть">×</button></div><div class="muted">'+(o.is_active?'Заведение активно':'Заведение временно отключено')+'</div></div>';card.scrollIntoView({behavior:'smooth',block:'nearest'})}
+async function mapOpen(id){
+ const o=(REV.orgs||[]).find(x=>x.id===id);if(!o)return;
+ const card=document.getElementById('mapVenueCard');if(!card)return;
+ card.innerHTML='<div class="mapcard"><div class="muted">Загружаю информацию о заведении…</div></div>';
+ card.scrollIntoView({behavior:'smooth',block:'nearest'});
+ let members=[],profiles=[];
+ try{
+   const mr=await sb.from('organization_members').select('user_id,role,joined_at').eq('organization_id',id);
+   if(mr.error)throw mr.error;
+   members=mr.data||[];
+   const ids=members.map(x=>x.user_id);
+   if(ids.length){const pr=await sb.from('profiles').select('id,display_name').in('id',ids);if(!pr.error)profiles=pr.data||[];}
+ }catch(e){console.warn('Не удалось загрузить участников заведения:',e)}
+ const names={};profiles.forEach(p=>names[p.id]=p.display_name||'Участник');
+ const isAdmin=REV.global||(REV.memberships||[]).some(m=>m.organization_id===id&&m.role==='admin');
+ let staff=members.map(m=>'<div class="friendline"><div class="avatar">'+socialEsc((names[m.user_id]||'У')[0])+'</div><div class="friendmeta"><b>'+socialEsc(names[m.user_id]||'Участник')+'</b><div class="muted">'+socialEsc(m.role||'сотрудник')+'</div></div></div>').join('');
+ card.innerHTML='<div class="mapcard"><div class="flex" style="justify-content:space-between;align-items:center"><div><h2>'+socialEsc(o.name)+'</h2><div class="muted">'+(o.is_active?'Заведение активно':'Заведение временно отключено')+'</div></div><button class="tinybtn" onclick="document.getElementById(\'mapVenueCard\').innerHTML=\'\'" aria-label="Закрыть">×</button></div><div class="flex" style="gap:8px;margin:14px 0;flex-wrap:wrap"><span class="pill">👥 Сотрудников: '+members.length+'</span><span class="pill">'+(isAdmin?'Администратор':'Участник')+'</span></div><h3>Сотрудники заведения</h3>'+(staff||'<div class="empty">Список сотрудников недоступен.</div>')+'<div class="flex" style="margin-top:14px;flex-wrap:wrap"><button class="btn" onclick="mapOpenRevision(\''+id+'\')">📦 Открыть ревизию</button><button class="btn alt" onclick="mapSelectVenue(\''+id+'\')">Открыть заведение</button></div></div>';
+}
+async function mapSelectVenue(id){
+ const o=(REV.orgs||[]).find(x=>x.id===id);if(!o)return;
+ REV.org=id;REV.session=null;
+ try{await revLoadInventory();TAB='r';render();}catch(e){socialErr(e)}
+}
+async function mapOpenRevision(id){await mapSelectVenue(id)}
 async function friendsView(){await socialLoad();let h='<div class="card"><div class="flex" style="justify-content:space-between"><h2>👥 Друзья</h2><button class="btn" onclick="friendSearch()">＋ Найти</button></div><input class="inp" id="friendQuery" placeholder="Поиск среди друзей" oninput="friendFilter(this.value)">';if(!SOCIAL.friends.length)h+='<div class="empty">Пока нет друзей. Нажми «Найти».</div>';SOCIAL.friends.forEach(f=>{let id=f.user_low===sbUser.id?f.user_high:f.user_low,p=socialProfile(id);h+='<div class="friendline" data-friend="'+socialEsc(socialName(p).toLowerCase())+'"><div class="avatar">'+socialEsc(socialName(p)[0]||'👤')+'</div><div class="friendmeta"><b>'+socialEsc(socialName(p))+'</b><div class="muted">'+ago(p)+'</div></div><button class="tinybtn" onclick="openChat(\''+id+'\')">✉</button><button class="tinybtn" onclick="removeFriend(\''+id+'\')">×</button></div>'});let incoming=SOCIAL.requests.filter(x=>x.receiver_id===sbUser.id&&x.status==='pending');if(incoming.length){h+='<h2 style="margin-top:16px">Входящие заявки</h2>';incoming.forEach(r=>{let p=socialProfile(r.sender_id);h+='<div class="friendline"><div class="friendmeta"><b>'+socialEsc(socialName(p))+'</b></div><button class="btn" onclick="acceptFriend(\''+r.id+'\')">✓</button><button class="tinybtn" onclick="rejectFriend(\''+r.id+'\')">×</button></div>'})}h+='</div>';document.getElementById('v').innerHTML=h;document.getElementById('ttl').textContent='Друзья';document.getElementById('pal').innerHTML=''}
 function friendFilter(q){document.querySelectorAll('[data-friend]').forEach(e=>e.style.display=e.dataset.friend.includes(q.toLowerCase())?'flex':'none')}
 async function friendSearch(){let q=prompt('Имя пользователя для поиска');if(!q?.trim())return;let r=await sb.rpc('search_profiles',{search_text:q.trim()});if(r.error)return socialErr(r.error);if(!r.data?.length)return toast('Никого не нашли');let lines=r.data.map((p,i)=>(i+1)+'. '+socialName(p)).join('\n');let pick=prompt('Кому отправить заявку? Введи номер:\n'+lines);let p=r.data[Number(pick)-1];if(!p)return;let x=await sb.from('friend_requests').insert({sender_id:sbUser.id,receiver_id:p.id,status:'pending'});if(x.error)return socialErr(x.error);toast('Заявка отправлена');friendsView()}
