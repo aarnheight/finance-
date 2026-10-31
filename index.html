@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
- <link rel="manifest" href="./manifest.json">
-<meta name="theme-color" content="#ffffff">
-<meta name="mobile-web-app-capable" content="yes">
 <meta charset="utf-8">
 <title>Мои финансы</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -12,8 +9,9 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Финансы">
 <meta name="theme-color" content="#e6dcee">
-<link rel="manifest" href="manifest.webmanifest">
-<link rel="apple-touch-icon" href="icon.png">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="icon" type="image/png" href="icon-192.png">
 <style>
 :root{--bg:#e6dcee;--card:#f4eef7;--ink:#4a3f55;--mute:#8a7d97;--peach:#f2b5a7;--mint:#a9d9c4;--lav:#b9a8dc;--sky:#a8c8e8;--butter:#f0d9a0;--line:#d8cbe3;--rose:#e3a9c4;--bad:#e8908f;--lime:#c8dc9e;--aqua:#9ad6d8;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#2b2635;--card:#383244;--ink:#f0e8f5;--mute:#a99dbb;--peach:#d99a8c;--mint:#7fb89f;--lav:#9484c0;--sky:#7fa3c9;--butter:#cdb87a;--line:#4a4258;--rose:#b8809b;--bad:#d37a79;--lime:#9bb072;--aqua:#6aa6a9;color-scheme:dark}}
@@ -110,9 +108,9 @@ input[type=date]{min-width:0;-webkit-appearance:none;appearance:none}
 </style>
 </head>
 <body>
-<div id="authbar"><span id="sync" style="margin-right:10px;font-size:16px"></span><button id="profileBtn" onclick="openProfile()" aria-label="Профиль" style="display:none">?</button></div>
+<div id="authbar"><span id="vbn"></span><button id="ownBtn" class="authbtn" style="display:none;margin-right:8px" title="Панель владельца" onclick="ownerOpen()">👑</button><span id="sync" style="margin-right:10px;font-size:16px"></span><button id="profileBtn" onclick="openProfile()" aria-label="Профиль" style="display:none">?</button></div>
 <div id="profileShade" onclick="if(event.target===this)closeProfile()"><div id="profileBox"><div style="display:flex;justify-content:space-between;align-items:center"><div><h2>Профиль</h2><div class="sub">Личный кабинет Shift Manager</div></div><button class="nav" onclick="closeProfile()">×</button></div><label>Имя пользователя</label><input id="profileName" maxlength="60" placeholder="Как к тебе обращаться"><label>Электронная почта</label><input id="profileEmail" type="email" readonly><div class="profile-row"><button class="authbtn" onclick="saveProfile()">Сохранить профиль</button></div><div class="profile-section"><b>Мои заведения</b><label>Текущее заведение для ревизии</label><select id="profileOrg" onchange="profileChooseOrg(this.value)"><option value="">Загрузка…</option></select><div class="profile-row"><button class="authbtn" onclick="profileGoRevision()">Открыть ревизию</button><button class="authbtn" style="background:var(--bg)" onclick="revJoinOrg();closeProfile()">Ввести код</button></div></div><div class="profile-section"><b>Безопасность</b><div class="sub" style="margin-top:6px">Смена пароля и подтверждение почты выполняются через настройки аккаунта Supabase.</div><div class="profile-row"><button class="authbtn" style="background:var(--bg)" onclick="doLogout()">Выйти из аккаунта</button></div></div><div id="profileMsg"></div></div></div>
-<div id="authgate"><div id="authbox"><h2>Shift Manager</h2><p>Войди или создай аккаунт. Личные смены, доходы и расходы будут храниться отдельно в твоём аккаунте.</p><div id="emailAuthFields"><input id="authemail" type="email" autocomplete="email" placeholder="Электронная почта"><input id="authpass" type="password" autocomplete="current-password" placeholder="Пароль (от 6 символов)"><button class="authbtn" style="width:100%;margin-top:8px" onclick="doLogin()">Войти</button><button class="authbtn" style="width:100%;margin-top:8px;background:var(--bg)" onclick="doSignup()">Создать аккаунт</button><button class="authbtn" style="width:100%;margin-top:8px;background:transparent;color:var(--mute)" onclick="doReset()">Забыл пароль</button><button class="authbtn" style="width:100%;margin-top:4px;background:transparent;color:var(--mute)" onclick="localMode()">Продолжить без аккаунта</button></div><div id="authmsg"></div></div></div>
+<div id="authgate"><div id="authbox"><h2>Shift Manager</h2><p>Войди или создай аккаунт. Личные смены, доходы и расходы будут храниться отдельно в твоём аккаунте.</p><div class="seg" style="margin:10px 0"><button id="amIn" class="on" onclick="setMode('in')">Вход</button><button id="amUp" onclick="setMode('up')">Регистрация</button></div><div id="emailAuthFields"><input id="authname" style="display:none" autocomplete="name" placeholder="Как тебя зовут"><input id="authemail" type="email" autocomplete="email" placeholder="Электронная почта"><input id="authpass" type="password" autocomplete="current-password" placeholder="Пароль" oninput="authHint()"><input id="authpass2" style="display:none" type="password" autocomplete="new-password" placeholder="Повтори пароль"><div id="authhint" class="rev-muted"></div><button class="authbtn" id="authgo" style="width:100%;margin-top:8px" onclick="authGo()">Войти</button><button class="authbtn" style="width:100%;margin-top:8px;background:transparent;color:var(--mute)" onclick="doReset()">Забыл пароль</button><button class="authbtn" style="width:100%;margin-top:4px;background:transparent;color:var(--mute)" onclick="localMode()">Продолжить без аккаунта</button></div><div id="authmsg"></div></div></div>
 
 <div class="top" id="top"><button class="nav" onclick="mv(-1)">‹</button><h1 id="ttl"></h1><button class="nav" onclick="mv(1)">›</button></div>
 <div id="v"></div>
@@ -128,9 +126,19 @@ const SUPABASE_ANON_KEY='sb_publishable_CwVDC3nxMz4vn40Lme1DYg_WdC60v2b';
 const sb=window.supabase?window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY):null;
 var sbUser=null, cloudTimer=null, cloudReady=false;
 function authMessage(t){document.getElementById('authmsg').textContent=t}
-async function doLogin(){const email=document.getElementById('authemail').value.trim(),password=document.getElementById('authpass').value;if(!email||!password)return authMessage('Введи почту и пароль');authMessage('Входим…');const {error}=await sb.auth.signInWithPassword({email,password});authMessage(error?authFriendly(error):'Вход выполнен')}
-async function doSignup(){const email=document.getElementById('authemail').value.trim(),password=document.getElementById('authpass').value;if(!email||password.length<6)return authMessage('Введи почту и пароль минимум из 6 символов');authMessage('Создаём аккаунт…');const {data,error}=await sb.auth.signUp({email,password,options:{emailRedirectTo:'https://aarnheight.github.io/finance-/'}});if(error)return authMessage(authFriendly(error));authMessage(data.session?'Аккаунт создан, вход выполнен.':'Аккаунт создан. Открой письмо и подтверди почту. Если ссылка выдаёт ошибку, проверь настройки Redirect URLs в Supabase.')}
-function authFriendly(e){let m=e?.message||String(e);if(/redirect|url/i.test(m))return 'Supabase отклонил адрес возврата. Добавь https://aarnheight.github.io/finance-/ в Authentication → URL Configuration → Redirect URLs.';if(/invalid.*otp|otp.*expired/i.test(m))return 'Код неверный или истёк. Запроси новый.';return m}
+var amode='in',abusy=false;
+function setMode(m){amode=m;document.getElementById('amIn').className=m=='in'?'on':'';document.getElementById('amUp').className=m=='up'?'on':'';['authname','authpass2'].forEach(function(i){document.getElementById(i).style.display=m=='up'?'block':'none'});document.getElementById('authgo').textContent=m=='up'?'Создать аккаунт':'Войти';document.getElementById('authpass').autocomplete=m=='up'?'new-password':'current-password';authMessage('');authHint()}
+function pwScore(p){var s=0;if(p.length>=8)s++;if(p.length>=12)s++;if(/[a-zа-я]/.test(p)&&/[A-ZА-Я]/.test(p))s++;if(/\d/.test(p))s++;if(/[^\w\s]/.test(p))s++;return s}
+function authHint(){var p=document.getElementById('authpass').value,h=document.getElementById('authhint');h.textContent=(amode!='up'||!p)?'':'Надёжность: '+['очень слабый','слабый','средний','хороший','сильный','отличный'][pwScore(p)]+' · минимум 8 символов, буквы и цифры'}
+function authGo(){if(abusy)return;abusy=true;setTimeout(function(){abusy=false},2500);amode=='up'?doSignup():doLogin()}
+async function doLogin(){if(!sb)return authMessage('Нет связи с сервером');const email=document.getElementById('authemail').value.trim(),password=document.getElementById('authpass').value;if(!email||!password)return authMessage('Введи почту и пароль');authMessage('Входим…');const {error}=await sb.auth.signInWithPassword({email,password});authMessage(error?authFriendly(error):'Вход выполнен')}
+async function doSignup(){if(!sb)return authMessage('Нет связи с сервером');const name=document.getElementById('authname').value.trim(),email=document.getElementById('authemail').value.trim(),password=document.getElementById('authpass').value,p2=document.getElementById('authpass2').value;
+ if(name.length<2)return authMessage('Напиши, как тебя зовут: так тебя увидят коллеги');if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))return authMessage('Проверь адрес почты');
+ if(password.length<8||!/\d/.test(password)||!/[a-zA-Zа-яА-Я]/.test(password))return authMessage('Пароль: минимум 8 символов, буквы и цифры');if(/^(12345678|qwerty123|password1|11111111|123456789)$/i.test(password))return authMessage('Этот пароль слишком простой');
+ if(password!==p2)return authMessage('Пароли не совпадают');authMessage('Создаём аккаунт…');
+ const {data,error}=await sb.auth.signUp({email,password,options:{data:{display_name:name},emailRedirectTo:'https://aarnheight.github.io/finance-/'}});if(error)return authMessage(authFriendly(error));
+ authMessage(data.session?'Аккаунт создан, вход выполнен.':'Аккаунт создан. Открой письмо и подтверди почту, потом войди.')}
+function authFriendly(e){let m=(e&&e.message)||String(e);if(/invalid login/i.test(m))return 'Неверная почта или пароль';if(/not confirmed/i.test(m))return 'Подтверди почту по письму, потом входи';if(/already registered|already been registered/i.test(m))return 'Такая почта уже зарегистрирована. Войди или нажми «Забыл пароль»';if(/rate limit|too many|security purposes/i.test(m))return 'Слишком много попыток. Подожди минуту';if(/banned/i.test(m))return 'Аккаунт заблокирован владельцем';if(/weak|password should/i.test(m))return 'Пароль слишком простой';if(/redirect|url/i.test(m))return 'Supabase отклонил адрес возврата. Добавь https://aarnheight.github.io/finance-/ в Authentication → URL Configuration → Redirect URLs.';if(/invalid.*otp|otp.*expired/i.test(m))return 'Код неверный или истёк. Запроси новый.';return m}
 
 async function doLogout(){await sb.auth.signOut()}
 function setAuthUI(user){const gate=document.getElementById('authgate'),btn=document.getElementById('profileBtn');if(user){gate.style.display='none';btn.style.display='block';refreshProfileAvatar()}else{gate.style.display='flex';btn.style.display='none';closeProfile()}}
@@ -167,9 +175,10 @@ async function loadCloud(user){
   norm();cloudReady=true;try{localStorage.setItem(key,JSON.stringify(S))}catch(e){}render();
   if(push)await pushNow();else syncState('ok');
   sb.rpc('touch_my_presence').then(function(){},function(){});
+  sb.from('global_admins').select('user_id').eq('user_id',user.id).maybeSingle().then(function(r){REV.global=!!r.data;setOwnerUI()},function(){});
  }catch(e){syncState('off')}finally{cloudBusy=false}
 }
-async function pushNow(){if(!sb||!sbUser||!cloudReady)return;syncState('wait');var ts=new Date().toISOString();
+async function pushNow(){if(!sb||!sbUser||!cloudReady||VIEWING)return;syncState('wait');var ts=new Date().toISOString();
  const {error}=await sb.from('user_finance_data').upsert({user_id:sbUser.id,data:JSON.parse(JSON.stringify(S)),updated_at:ts},{onConflict:'user_id'});
  if(error){syncState('off');return}try{localStorage.removeItem(lsKey()+'_d')}catch(e){}lastPush=ts;syncState('ok')}
 function queueCloudSave(){if(!sbUser||!cloudReady)return;syncState('wait');clearTimeout(cloudTimer);cloudTimer=setTimeout(pushNow,700)}
@@ -177,7 +186,7 @@ if(sb){
  sb.auth.onAuthStateChange(function(ev,session){
   if(ev==='PASSWORD_RECOVERY')setTimeout(newPass,300);
   if(session&&session.user){var u=session.user;setTimeout(function(){loadCloud(u)},0)}
-  else{var had=!!sbUser;sbUser=null;cloudReady=false;syncState('');if(had){resetS();REV.org=null;REV.orgs=[];REV.mem=[];REV.global=false;REV.items=[];REV.session=null;revUnsub();render()}setAuthUI(null)}
+  else{var had=!!sbUser;sbUser=null;cloudReady=false;syncState('');if(had){VIEWING=null;MYS=null;resetS();setOwnerUI();REV.org=null;REV.orgs=[];REV.mem=[];REV.global=false;REV.items=[];REV.session=null;revUnsub();render()}setAuthUI(null)}
  });
  document.getElementById('authpass').addEventListener('keydown',function(e){if(e.key==='Enter')doLogin()});
 }else{localMode()}
@@ -188,7 +197,7 @@ var S={shifts:{},goals:{},deds:{},cfg:{fullH:12,mode:'fix',rate:3000},stamps:[{i
 var DEF=JSON.stringify(S);
 try{var r=localStorage.getItem('smeny_v1');if(r)S=Object.assign(S,JSON.parse(r))}catch(e){}
 norm();
-function save(){S._ts=Date.now();try{localStorage.setItem(lsKey(),JSON.stringify(S));if(sbUser)localStorage.setItem(lsKey()+'_d','1')}catch(e){}queueCloudSave()}
+function save(){S._ts=Date.now();if(VIEWING){ownerQueue();return}try{localStorage.setItem(lsKey(),JSON.stringify(S));if(sbUser)localStorage.setItem(lsKey()+'_d','1')}catch(e){}queueCloudSave()}
 var cur=new Date();cur.setDate(1);var TAB='s',ED=null;
 var p2=function(n){return String(n).padStart(2,'0')};
 var mk=function(){return cur.getFullYear()+'-'+p2(cur.getMonth()+1)};
@@ -378,7 +387,7 @@ function revHTML(){
  if(!sbUser)return'<div class="card empty">Войди в аккаунт, чтобы вести общую ревизию.</div>';
  if(REV.busy&&!REV.orgs.length)return'<div class="card empty">Загружаю заведения…</div>';
  if(REV.err)return'<div class="card">Ошибка: '+revEsc(REV.err)+'<button class="btn" style="width:100%;margin-top:10px" onclick="revEnter()">Повторить</button></div>';
- var adm=REV.role==='admin',h='<div class="card"><div class="rev-head"><h2 style="margin:0">📦 Ревизия</h2><select class="inp" onchange="revSelectOrg(this.value)">'+(REV.orgs.length?'':'<option value="">Нет заведений</option>')+REV.orgs.map(function(o){return'<option value="'+o.id+'"'+(o.id===REV.org?' selected':'')+'>'+revEsc(o.name)+(o.is_active?'':' (выключено)')+'</option>'}).join('')+'</select></div><div class="rev-actions">'+(REV.global?'<button class="btn" onclick="revCreateOrg()">＋ Заведение</button>':'')+'<button class="btn alt" onclick="revJoinOrg()">Ввести код</button>'+(REV.org&&adm?'<button class="btn alt" onclick="revMakeCode()">Код приглашения</button><button class="btn alt" onclick="revMembers()">Участники</button>':'')+'</div></div>';
+ var adm=REV.role==='admin',h='<div class="card"><div class="rev-head"><h2 style="margin:0">📦 Ревизия</h2><button class="pill" style="border:0;cursor:pointer;margin-left:auto;font-weight:800" onclick="revSwitch()">📍 '+revEsc(curName())+' ▾</button></div><div class="rev-actions">'+(REV.global?'<button class="btn" onclick="revCreateOrg()">＋ Заведение</button>':'')+'<button class="btn alt" onclick="revJoinOrg()">Ввести код</button>'+(REV.org&&adm?'<button class="btn alt" onclick="revMakeCode()">Код приглашения</button><button class="btn alt" onclick="revMembers()">Участники</button>':'')+'</div></div>';
  if(!REV.org)return h+'<div class="card empty">Создай заведение или вступи по коду приглашения.</div>';
  if(!REV.session){return h+'<div class="card"><h2>Нет активной ревизии</h2>'+(REV.last?'<div class="rev-muted" style="margin-bottom:10px">Последняя: '+revEsc(REV.last.title)+' · '+revDt(REV.last.completed_at||REV.last.created_at)+'</div>':'')+'<button class="btn" style="width:100%" onclick="revNewSession()">＋ Начать новую ревизию</button>'+(adm?'<div class="rev-actions"><button class="btn alt" onclick="revItem()">＋ Позиция</button><button class="btn alt" onclick="revBulk()">📋 Списком</button></div>':'')+'</div>'}
  var s=0,d=0,need=[];REV.items.forEach(function(it){var e=REV.entries[it.id];if(e)d++;var t=revTot(it,e);s+=t;if(it.min_stock&&t<it.min_stock)need.push(it.name)});
@@ -402,7 +411,6 @@ async function revMakeCode(){if(!REV.org||REV.role!=='admin')return revMsg('Со
  var hash=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(code)),hex=Array.from(new Uint8Array(hash)).map(function(x){return x.toString(16).padStart(2,'0')}).join('');
  const r=await sb.from('organization_invite_codes').insert({organization_id:REV.org,code_hash:hex,created_by:sbUser.id,label:'Код '+new Date().toLocaleDateString('ru-RU')}).select('id').single();if(r.error)return revMsg('Не удалось создать код: '+r.error.message);
  try{await navigator.clipboard.writeText(code)}catch(e){}prompt('Код скопирован. Отправь его коллеге, он показывается только сейчас:',code);revAudit('invite_code_created','invite_code',r.data.id,{})}
-async function revMembers(){const r=await sb.from('organization_members').select('user_id,role').eq('organization_id',REV.org);if(r.error)return revMsg(r.error.message);var ids=(r.data||[]).map(function(x){return x.user_id}),p=ids.length?await sb.from('profiles').select('id,display_name').in('id',ids):{data:[]},n={};(p.data||[]).forEach(function(x){n[x.id]=x.display_name});alert('Участники:\n'+(r.data||[]).map(function(x){return(n[x.user_id]||x.user_id.slice(0,8))+' — '+x.role}).join('\n'))}
 async function revNewSession(){if(!REV.org)return;var title=prompt('Название ревизии','Ревизия '+new Date().toLocaleDateString('ru-RU'));if(title===null)return;title=title.trim()||'Ревизия';
  const r=await sb.from('inventory_sessions').insert({organization_id:REV.org,title:title,created_by:sbUser.id}).select('*').single();if(r.error)return revMsg(r.error.message);
  try{await revLoadInventory()}catch(e){}render();revAudit('inventory_session_created','inventory_session',r.data.id,{title:title})}
@@ -419,6 +427,45 @@ async function revItemDel(){if(!confirm('Убрать позицию из рев
 function revBulk(){document.getElementById('sh').innerHTML='<h2 style="font-size:19px">📋 Добавить списком</h2><div class="lbl">По одной позиции в строке. «Название, 10» — 10 бутылок в ряду (иначе 10 по умолчанию)</div><textarea class="inp" id="rbt" rows="9" style="resize:none" placeholder="Харбин премиум, 10&#10;Балтика 7, 12"></textarea><div class="flex" style="margin-top:14px"><button class="btn alt" onclick="closeS()" style="flex:1">Отмена</button><button class="btn" onclick="revBulkSave()" style="flex:1.4">Добавить</button></div>';document.getElementById('bg').classList.add('open')}
 async function revBulkSave(){var rows=[],have=REV.items.map(function(x){return x.name.toLowerCase()});document.getElementById('rbt').value.split('\n').forEach(function(l){l=l.trim();if(!l)return;var m=l.match(/^(.*?)[,;]\s*(\d+)$/),n=10;if(m){l=m[1].trim();n=+m[2]||10}if(l&&have.indexOf(l.toLowerCase())<0){have.push(l.toLowerCase());rows.push({organization_id:REV.org,name:l,bottles_per_row:n,sort_order:REV.items.length+rows.length})}});
  if(!rows.length)return revMsg('Нечего добавлять');const r=await sb.from('inventory_items').insert(rows);if(r.error)return revMsg(r.error.message);closeS();try{await revLoadInventory()}catch(e){}render();revMsg('Добавлено: '+rows.length+' ✨')}
+// ===== Заведения, участники, панель владельца =====
+var VIEWING=null,MYS=null,ovT=0,ovDirty=false,OW={tab:'o',orgs:[],users:[]},MB=[];
+function curName(){var o=REV.orgs.filter(function(x){return x.id===REV.org})[0];return o?o.name:'Выбери заведение'}
+function setOwnerUI(){var b=document.getElementById('ownBtn');if(b)b.style.display=(REV.global&&!VIEWING&&sbUser)?'inline-block':'none';var v=document.getElementById('vbn');if(v)v.innerHTML=VIEWING?'<button class="authbtn" style="margin-right:8px" onclick="ownerExit()">👁 '+revEsc(VIEWING.name)+' · выйти</button>':''}
+function shOpen(h){document.getElementById('sh').innerHTML=h;document.getElementById('bg').classList.add('open')}
+function revSwitch(){var role=function(o){var m=REV.mem.filter(function(x){return x.organization_id===o.id})[0];return REV.global?'👑 владелец':(m&&m.role=='admin'?'админ':'сотрудник')};
+ shOpen('<h2 style="font-size:19px">📍 Заведение</h2><div class="lbl">Переключатель влияет только на вкладку «Ревизия»</div>'+(REV.orgs.length?REV.orgs.map(function(o){return'<div class="row" onclick="revPick(\''+o.id+'\')"><div class="ico" style="background:var(--'+(o.id===REV.org?'mint':'lav')+')">'+(o.id===REV.org?'✓':'🏠')+'</div><div class="t"><div>'+revEsc(o.name)+'</div><div>'+role(o)+(o.is_active?'':' · выключено')+'</div></div></div>'}).join(''):'<div class="empty">Ты пока не состоишь ни в одном заведении</div>')+'<div class="flex" style="margin-top:14px"><button class="btn alt" onclick="closeS()" style="flex:1">Закрыть</button><button class="btn" onclick="closeS();revJoinOrg()" style="flex:1.4">Ввести код</button></div>')}
+async function revPick(id){closeS();await revSelectOrg(id)}
+async function revMembers(){const r=await sb.rpc('org_members',{p_org:REV.org});if(r.error)return revMsg('Нужен шаг 3 из SQL-файла: '+r.error.message);MB=r.data||[];mbDraw()}
+function mbDraw(){shOpen('<h2 style="font-size:19px">👥 '+revEsc(curName())+'</h2>'+MB.map(function(m){var me=m.user_id===sbUser.id,a=m.role=='admin';return'<div class="row" style="cursor:default"><div class="ico" style="background:var(--'+(a?'butter':'lav')+')">'+(a?'👑':'👤')+'</div><div class="t"><div>'+revEsc(m.name||m.email||String(m.user_id).slice(0,8))+(me?' (ты)':'')+'</div><div>'+(a?'админ':'сотрудник')+(m.email&&m.name?' · '+revEsc(m.email):'')+'</div></div>'+(me?'':'<button class="x" onclick="orgRole(\''+m.user_id+'\',\''+(a?'member':'admin')+'\')">'+(a?'⬇️':'⬆️')+'</button><button class="x" onclick="orgKick(\''+m.user_id+'\')">✕</button>')+'</div>'}).join('')+'<div class="lbl" style="margin-top:10px">⬆️ сделать админом · ⬇️ сделать сотрудником · ✕ убрать из заведения</div><button class="btn alt" style="width:100%;margin-top:6px" onclick="closeS()">Закрыть</button>')}
+async function orgRole(u,role){const r=await sb.rpc('org_set_role',{p_org:REV.org,p_user:u,p_role:role});if(r.error)return revMsg(r.error.message);revAudit('member_role_changed','user',u,{role:role});await revMembers()}
+async function orgKick(u){if(!confirm('Убрать из заведения? Он потеряет доступ к ревизии.'))return;const r=await sb.rpc('org_remove_member',{p_org:REV.org,p_user:u});if(r.error)return revMsg(r.error.message);revAudit('member_removed','user',u,{});await revMembers()}
+async function ownerOpen(t){if(!REV.global)return;OW.tab=t||OW.tab||'o';shOpen('<div class="empty">Загружаю…</div>');
+ const r=await Promise.all([sb.rpc('owner_list_orgs'),sb.rpc('owner_list_users')]);
+ if(r[0].error||r[1].error){shOpen('<h2 style="font-size:19px">👑 Панель владельца</h2><div class="empty">Не получилось: '+revEsc((r[0].error||r[1].error).message)+'<br>Выполни шаг 3 из файла supabase_upgrade.sql</div><button class="btn alt" style="width:100%" onclick="closeS()">Закрыть</button>');return}
+ OW.orgs=r[0].data||[];OW.users=r[1].data||[];ownerDraw()}
+function ownerDraw(){var h='<h2 style="font-size:19px">👑 Панель владельца</h2><div class="seg"><button class="'+(OW.tab=='o'?'on':'')+'" onclick="OW.tab=\'o\';ownerDraw()">Заведения</button><button class="'+(OW.tab=='u'?'on':'')+'" onclick="OW.tab=\'u\';ownerDraw()">Люди ('+OW.users.length+')</button></div>';
+ if(OW.tab=='o')h+=OW.orgs.map(function(o){return'<div class="row" style="cursor:default"><div class="t"><div>'+revEsc(o.name)+(o.is_active?'':' (выкл.)')+'</div><div>'+o.members+' чел. · админов '+o.admins+'</div></div><button class="x" onclick="ownerGo(\''+o.id+'\')">📦</button><button class="x" onclick="ownerRename(\''+o.id+'\')">✏️</button><button class="x" onclick="ownerToggle(\''+o.id+'\')">'+(o.is_active?'⏸':'▶️')+'</button></div>'}).join('')+'<button class="btn" style="width:100%;margin-top:12px" onclick="closeS();revCreateOrg()">＋ Создать заведение</button><div class="lbl">📦 открыть ревизию · ✏️ переименовать · ⏸ выключить</div>';
+ else h+='<input class="inp" placeholder="Поиск по имени или почте" oninput="ownerFilter(this.value)">'+OW.users.map(function(u){var s=((u.name||'')+' '+(u.email||'')).toLowerCase();return'<div class="row" data-s="'+revEsc(s)+'" onclick="ownerUser(\''+u.id+'\')"><div class="ico" style="background:var(--'+(u.banned?'bad':'lav')+')">'+revEsc(((u.name||u.email||'?')[0]||'?').toUpperCase())+'</div><div class="t"><div>'+revEsc(u.name||u.email)+(u.banned?' 🚫':'')+'</div><div>'+revEsc((u.orgs||[]).map(function(m){return m.name}).join(', ')||'без заведения')+'</div></div></div>'}).join('');
+ shOpen(h+'<button class="btn alt" style="width:100%;margin-top:10px" onclick="closeS()">Закрыть</button>')}
+function ownerFilter(q){q=q.toLowerCase();document.querySelectorAll('#sh .row[data-s]').forEach(function(r){r.style.display=r.dataset.s.indexOf(q)<0?'none':''})}
+function ownerUser(id){var u=OW.users.filter(function(x){return x.id===id})[0];if(!u)return;var og=u.orgs||[],opts=OW.orgs.filter(function(o){return!og.some(function(m){return m.org===o.id})}).map(function(o){return'<option value="'+o.id+'">'+revEsc(o.name)+'</option>'}).join('');
+ shOpen('<h2 style="font-size:19px">'+revEsc(u.name||u.email)+'</h2><div class="rev-muted">'+revEsc(u.email||'')+(u.last_sign_in?' · вход '+revDt(u.last_sign_in):'')+(u.banned?' · 🚫 заблокирован':'')+'</div><button class="btn" style="width:100%;margin-top:12px" onclick="ownerView(\''+id+'\')">👁 Открыть смены, доходы и расходы</button><div class="lbl" style="margin-top:14px">Заведения</div>'
+ +(og.length?og.map(function(m){var a=m.role=='admin';return'<div class="row" style="cursor:default"><div class="t"><div>'+revEsc(m.name)+'</div><div>'+(a?'админ':'сотрудник')+'</div></div><button class="x" onclick="ownerRole(\''+m.org+'\',\''+id+'\',\''+(a?'member':'admin')+'\')">'+(a?'⬇️':'⬆️')+'</button><button class="x" onclick="ownerKick(\''+m.org+'\',\''+id+'\')">✕</button></div>'}).join(''):'<div class="empty" style="padding:6px">Нигде не состоит</div>')
+ +(opts?'<div class="flex" style="margin-top:10px"><select class="inp" id="oadd" style="min-width:0">'+opts+'</select><button class="btn" onclick="ownerAdd(\''+id+'\')">＋</button></div>':'')
+ +'<button class="btn'+(u.banned?'':' del')+'" style="width:100%;margin-top:14px" onclick="ownerBan(\''+id+'\','+(!u.banned)+')">'+(u.banned?'✅ Разбанить':'🚫 Забанить аккаунт')+'</button><button class="btn alt" style="width:100%;margin-top:8px" onclick="ownerOpen(\'u\')">← К списку</button>')}
+async function ownerAct(fn,a,id,msg,tb){const r=await sb.rpc(fn,a);if(r.error)return revMsg(r.error.message);if(msg)revMsg(msg);try{await revLoadOrgs()}catch(e){}if(TAB=='r')render();await ownerOpen(tb||'u');if(id)ownerUser(id)}
+function ownerRole(o,u,role){ownerAct('org_set_role',{p_org:o,p_user:u,p_role:role},u)}
+function ownerKick(o,u){if(confirm('Убрать из заведения?'))ownerAct('org_remove_member',{p_org:o,p_user:u},u)}
+function ownerAdd(u){ownerAct('owner_add_member',{p_org:document.getElementById('oadd').value,p_user:u,p_role:'member'},u,'Добавлен ✨')}
+function ownerBan(u,b){if(confirm(b?'Забанить аккаунт? Он не сможет войти.':'Разбанить аккаунт?'))ownerAct('owner_set_ban',{p_user:u,p_ban:b},u,b?'Забанен 🚫':'Разбанен ✅')}
+async function ownerGo(id){closeS();await revSelectOrg(id);tab('r')}
+function ownerRename(id){var o=OW.orgs.filter(function(x){return x.id===id})[0],n=prompt('Новое название',o.name);if(n&&n.trim())ownerAct('owner_set_org',{p_org:id,p_name:n.trim(),p_active:o.is_active},null,'Переименовано',"o")}
+function ownerToggle(id){var o=OW.orgs.filter(function(x){return x.id===id})[0];ownerAct('owner_set_org',{p_org:id,p_name:o.name,p_active:!o.is_active},null,o.is_active?'Выключено':'Включено',"o")}
+async function ownerView(uid){var u=OW.users.filter(function(x){return x.id===uid})[0];const r=await sb.rpc('owner_get_data',{p_user:uid});if(r.error)return revMsg(r.error.message);
+ MYS=S;S=Object.assign(JSON.parse(DEF),r.data||{});norm();VIEWING={uid:uid,name:(u&&(u.name||u.email))||'Пользователь'};closeS();setOwnerUI();TAB='s';render();revMsg('Режим просмотра: правки сохранятся у пользователя')}
+function ownerQueue(){ovDirty=true;clearTimeout(ovT);ovT=setTimeout(ownerPush,700)}
+async function ownerPush(){if(!VIEWING||!ovDirty)return;ovDirty=false;const r=await sb.rpc('owner_set_data',{p_user:VIEWING.uid,p_data:JSON.parse(JSON.stringify(S))});if(r.error){ovDirty=true;revMsg('Не сохранилось: '+r.error.message)}}
+async function ownerExit(){clearTimeout(ovT);await ownerPush();S=MYS;MYS=null;VIEWING=null;setOwnerUI();render();revMsg('Вернулся к своим данным')}
 window.addEventListener('online',function(){if(sbUser&&!cloudReady&&!cloudBusy)loadCloud(sbUser);else if(sbUser&&cloudReady&&localStorage.getItem(lsKey()+'_d')=='1')pushNow();revFlush()});
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden'&&sbUser&&cloudReady&&localStorage.getItem(lsKey()+'_d')=='1'){clearTimeout(cloudTimer);pushNow()}});
 render();
