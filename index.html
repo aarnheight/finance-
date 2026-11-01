@@ -2,20 +2,21 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
-<title>Мои финансы</title>
+<title>Мои финансы 🎀</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Финансы">
-<meta name="theme-color" content="#e6dcee">
-<link rel="manifest" href="manifest.webmanifest">
-<link rel="apple-touch-icon" href="icon.png">
+<meta name="theme-color" content="#ffe1ec">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="icon" type="image/png" href="icon-192.png">
 <style>
-:root{--bg:#e6dcee;--card:#f4eef7;--ink:#4a3f55;--mute:#8a7d97;--peach:#f2b5a7;--mint:#a9d9c4;--lav:#b9a8dc;--sky:#a8c8e8;--butter:#f0d9a0;--line:#d8cbe3;--rose:#e3a9c4;--bad:#e8908f;--lime:#c8dc9e;--aqua:#9ad6d8;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#2b2635;--card:#383244;--ink:#f0e8f5;--mute:#a99dbb;--peach:#d99a8c;--mint:#7fb89f;--lav:#9484c0;--sky:#7fa3c9;--butter:#cdb87a;--line:#4a4258;--rose:#b8809b;--bad:#d37a79;--lime:#9bb072;--aqua:#6aa6a9;color-scheme:dark}}
+:root{--bg:#ffe1ec;--card:#fff3f8;--ink:#6b3a55;--mute:#a77b93;--peach:#ffc2a8;--mint:#bdeedb;--lav:#ff9fc4;--sky:#bfdcff;--butter:#ffe9a8;--line:#f6c9da;--rose:#e0aef5;--bad:#ff7d97;--lime:#d3ecaa;--aqua:#9ad6d8;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#2b1824;--card:#3a2230;--ink:#ffe9f2;--mute:#d6a8bf;--peach:#d9967f;--mint:#7fbfa6;--lav:#d6709a;--sky:#7fa6cf;--butter:#cdb06b;--line:#53303f;--rose:#a98bc4;--bad:#d96b85;--lime:#9db36f;--aqua:#6aa6a9;color-scheme:dark}}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;background:var(--bg);color:var(--ink);font-family:ui-rounded,"SF Pro Rounded",Nunito,-apple-system,system-ui,sans-serif;font-weight:700}
+html,body{margin:0;background:var(--bg) radial-gradient(circle,#ffffff99 1.6px,transparent 2.2px) 0 0/26px 26px;color:var(--ink);font-family:ui-rounded,"SF Pro Rounded",Nunito,-apple-system,system-ui,sans-serif;font-weight:700}
 body{min-height:100%;padding:12px 16px 120px;max-width:560px;margin:0 auto}
 button,input{font:inherit;color:inherit}
 .top{display:flex;align-items:center;justify-content:space-between;margin:6px 0 14px}
@@ -54,8 +55,8 @@ h2{font-size:16px;margin:0 0 10px;font-weight:800}
 .seg button.on{background:var(--lav);font-weight:800}
 .x{width:30px;height:30px;border-radius:50%;border:0;background:var(--bg);cursor:pointer}
 .net{background:var(--butter);text-align:center}.net .big{font-size:32px;font-weight:800}
-.tabs{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(14px + env(safe-area-inset-bottom,0px));display:flex;gap:6px;background:var(--card);padding:6px;border-radius:99px;box-shadow:0 6px 24px #4a3f5533}
-.tabs button{border:0;background:transparent;border-radius:99px;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 12px;font-size:11px;line-height:1.1;font-weight:800;cursor:pointer;color:var(--mute)}
+.tabs{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(14px + env(safe-area-inset-bottom,0px));display:flex;gap:6px;background:var(--card);padding:6px;border-radius:99px;box-shadow:0 6px 24px #c2477a33}
+.tabs button{border:0;background:transparent;border-radius:99px;display:flex;flex-direction:column;align-items:center;gap:2px;padding:7px 8px;font-size:10.5px;line-height:1.1;font-weight:800;cursor:pointer;color:var(--mute)}
 .tabs button.on{background:var(--lav);color:var(--ink)}
 .sheetbg{position:fixed;inset:0;background:#2b263566;display:none;align-items:flex-end;justify-content:center;z-index:5}
 .sheetbg.open{display:flex}
@@ -104,17 +105,27 @@ input[type=date]{min-width:0;-webkit-appearance:none;appearance:none}
 .sts{display:flex;gap:8px;margin-top:8px}.stp{flex:1;min-width:0}
 .sb{width:30px;height:30px;border-radius:50%;border:0;background:var(--card);font-size:16px;font-weight:800;cursor:pointer;padding:0;flex:none}
 .si{width:100%;min-width:0;flex:1;text-align:center;border:0;background:var(--card);border-radius:14px;height:30px;padding:0;outline:none;font-weight:800}
+.ph{width:72px;flex:none;text-align:center}.ph img,.ph>span{width:72px;height:72px;border-radius:20px;object-fit:cover;background:var(--card);display:grid;place-items:center;font-size:30px}.ph small{display:block;font-size:10px;color:var(--mute);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ph.adm{cursor:pointer}
+.mapbox{height:calc(100vh - 250px);min-height:380px;overflow:auto;border-radius:26px;background:#86bde4;-webkit-overflow-scrolling:touch}@media (prefers-color-scheme:dark){.mapbox svg{filter:brightness(.7) saturate(.9)}}
+.chatlog{height:46vh;overflow:auto;display:flex;flex-direction:column;gap:6px;padding:4px;margin:8px 0}.bub{max-width:80%;padding:8px 12px;border-radius:18px;background:var(--bg);font-size:14px;align-self:flex-start;word-break:break-word}.bub.me{align-self:flex-end;background:var(--lav)}.bub small{display:block;font-size:10px;color:var(--mute)}
+#chatN,.bdg{background:var(--peach);border-radius:99px;font-size:10px;padding:1px 6px;margin-left:4px;font-style:normal}#chatN:empty{display:none}
+#ttl::before{content:'🎀 '}#ttl::after{content:' 🎀'}
+.card{border:2px solid var(--line)}.chip{border:2px solid #ffffffaa}
+.btn:not(.alt):not(.del){background:linear-gradient(135deg,#ff9fc4,#ffc4da);color:#6b2a4a;box-shadow:0 3px 0 #f27aa8}.btn:active{transform:translateY(2px);box-shadow:none}
+.tabs{border:2px solid var(--line)}.tabs button.on{background:linear-gradient(135deg,#ff9fc4,#ffc4da);color:#6b2a4a}
+.seg button.on{background:linear-gradient(135deg,#ff9fc4,#ffc4da);color:#6b2a4a}
+.day.today{border-color:#ff7fb0;box-shadow:0 0 0 2px #ffd0e2}
 </style>
 </head>
 <body>
-<div id="authbar"><span id="sync" style="margin-right:10px;font-size:16px"></span><button id="profileBtn" onclick="openProfile()" aria-label="Профиль" style="display:none">?</button></div>
+<div id="authbar"><span id="vbn"></span><button id="instBtn" class="authbtn" style="display:none;margin-right:8px" onclick="doInstall()">⬇️ Установить</button><button id="ownBtn" class="authbtn" style="display:none;margin-right:8px" title="Панель владельца" onclick="ownerOpen()">👑</button><span id="sync" style="margin-right:10px;font-size:16px"></span><button id="profileBtn" onclick="openProfile()" aria-label="Профиль" style="display:none">?</button></div>
 <div id="profileShade" onclick="if(event.target===this)closeProfile()"><div id="profileBox"><div style="display:flex;justify-content:space-between;align-items:center"><div><h2>Профиль</h2><div class="sub">Личный кабинет Shift Manager</div></div><button class="nav" onclick="closeProfile()">×</button></div><label>Имя пользователя</label><input id="profileName" maxlength="60" placeholder="Как к тебе обращаться"><label>Электронная почта</label><input id="profileEmail" type="email" readonly><div class="profile-row"><button class="authbtn" onclick="saveProfile()">Сохранить профиль</button></div><div class="profile-section"><b>Мои заведения</b><label>Текущее заведение для ревизии</label><select id="profileOrg" onchange="profileChooseOrg(this.value)"><option value="">Загрузка…</option></select><div class="profile-row"><button class="authbtn" onclick="profileGoRevision()">Открыть ревизию</button><button class="authbtn" style="background:var(--bg)" onclick="revJoinOrg();closeProfile()">Ввести код</button></div></div><div class="profile-section"><b>Безопасность</b><div class="sub" style="margin-top:6px">Смена пароля и подтверждение почты выполняются через настройки аккаунта Supabase.</div><div class="profile-row"><button class="authbtn" style="background:var(--bg)" onclick="doLogout()">Выйти из аккаунта</button></div></div><div id="profileMsg"></div></div></div>
-<div id="authgate"><div id="authbox"><h2>Shift Manager</h2><p>Войди или создай аккаунт. Личные смены, доходы и расходы будут храниться отдельно в твоём аккаунте.</p><div id="emailAuthFields"><input id="authemail" type="email" autocomplete="email" placeholder="Электронная почта"><input id="authpass" type="password" autocomplete="current-password" placeholder="Пароль (от 6 символов)"><button class="authbtn" style="width:100%;margin-top:8px" onclick="doLogin()">Войти</button><button class="authbtn" style="width:100%;margin-top:8px;background:var(--bg)" onclick="doSignup()">Создать аккаунт</button><button class="authbtn" style="width:100%;margin-top:8px;background:transparent;color:var(--mute)" onclick="doReset()">Забыл пароль</button><button class="authbtn" style="width:100%;margin-top:4px;background:transparent;color:var(--mute)" onclick="localMode()">Продолжить без аккаунта</button></div><div id="authmsg"></div></div></div>
+<div id="authgate"><div id="authbox"><div style="text-align:center"><svg viewBox="0 0 120 108" width="92" height="83" aria-hidden="true"><path d="M24 40L30 8L54 26Z" fill="#fff" stroke="#6b3a55" stroke-width="3" stroke-linejoin="round"/><path d="M96 40L90 8L66 26Z" fill="#fff" stroke="#6b3a55" stroke-width="3" stroke-linejoin="round"/><path d="M33 30L35 17L45 25Z" fill="#ffb8c9"/><path d="M87 30L85 17L75 25Z" fill="#ffb8c9"/><ellipse cx="60" cy="66" rx="47" ry="38" fill="#fff" stroke="#6b3a55" stroke-width="3"/><ellipse cx="41" cy="64" rx="4.5" ry="6.5" fill="#6b3a55"/><ellipse cx="79" cy="64" rx="4.5" ry="6.5" fill="#6b3a55"/><circle cx="39.5" cy="61.5" r="1.6" fill="#fff"/><circle cx="77.5" cy="61.5" r="1.6" fill="#fff"/><ellipse cx="28" cy="77" rx="8" ry="5" fill="#ffb8c9" opacity=".85"/><ellipse cx="92" cy="77" rx="8" ry="5" fill="#ffb8c9" opacity=".85"/><path d="M55 74Q60 80 65 74" fill="none" stroke="#6b3a55" stroke-width="3" stroke-linecap="round"/><ellipse cx="60" cy="71" rx="4" ry="2.8" fill="#ff8fb0"/><path d="M12 66L26 69M12 76L26 75M108 66L94 69M108 76L94 75" stroke="#6b3a55" stroke-width="2.4" stroke-linecap="round"/><g transform="translate(60 27)"><path d="M0 0L-19 -11L-19 11Z" fill="#ff8fb0" stroke="#6b3a55" stroke-width="2.5" stroke-linejoin="round"/><path d="M0 0L19 -11L19 11Z" fill="#ff8fb0" stroke="#6b3a55" stroke-width="2.5" stroke-linejoin="round"/><circle r="5" fill="#ffd0df" stroke="#6b3a55" stroke-width="2.5"/></g></svg></div><h2 style="text-align:center">Мои финансы 🎀</h2><p>Войди или создай аккаунт. Личные смены, доходы и расходы будут храниться отдельно в твоём аккаунте.</p><div class="seg" style="margin:10px 0"><button id="amIn" class="on" onclick="setMode('in')">Вход</button><button id="amUp" onclick="setMode('up')">Регистрация</button></div><div id="emailAuthFields"><input id="authname" style="display:none" autocomplete="name" placeholder="Как тебя зовут"><input id="authemail" type="email" autocomplete="email" placeholder="Электронная почта"><input id="authpass" type="password" autocomplete="current-password" placeholder="Пароль" oninput="authHint()"><input id="authpass2" style="display:none" type="password" autocomplete="new-password" placeholder="Повтори пароль"><div id="authhint" class="rev-muted"></div><button class="authbtn" id="authgo" style="width:100%;margin-top:8px" onclick="authGo()">Войти</button><button class="authbtn" style="width:100%;margin-top:8px;background:transparent;color:var(--mute)" onclick="doReset()">Забыл пароль</button><button class="authbtn" style="width:100%;margin-top:4px;background:transparent;color:var(--mute)" onclick="localMode()">Продолжить без аккаунта</button></div><div id="authmsg"></div></div></div>
 
 <div class="top" id="top"><button class="nav" onclick="mv(-1)">‹</button><h1 id="ttl"></h1><button class="nav" onclick="mv(1)">›</button></div>
 <div id="v"></div>
 <div class="pal" id="pal"></div>
-<div class="tabs"><button id="t1" onclick="tab('s')"><i>📅</i>Смены</button><button id="t2" onclick="tab('m')"><i>💰</i>Выручка</button><button id="t3" onclick="tab('e')"><i>🧾</i>Расходы</button><button id="t4" onclick="tab('r')"><i>📦</i>Ревизия</button></div>
+<div class="tabs"><button id="t1" onclick="tab('s')"><i>📅</i>Смены</button><button id="t2" onclick="tab('m')"><i>💰</i>Выручка</button><button id="t3" onclick="tab('e')"><i>🧾</i>Расходы</button><button id="t4" onclick="tab('r')"><i>📦</i>Ревизия</button><button id="t5" onclick="tab('k')"><i>🗺️</i>Карта</button></div>
 <div class="sheetbg" id="bg" onclick="if(event.target===this)closeS()"><div class="sheet" id="sh"></div></div>
 <div class="toast" id="toast"></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
@@ -125,9 +136,19 @@ const SUPABASE_ANON_KEY='sb_publishable_CwVDC3nxMz4vn40Lme1DYg_WdC60v2b';
 const sb=window.supabase?window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY):null;
 var sbUser=null, cloudTimer=null, cloudReady=false;
 function authMessage(t){document.getElementById('authmsg').textContent=t}
-async function doLogin(){const email=document.getElementById('authemail').value.trim(),password=document.getElementById('authpass').value;if(!email||!password)return authMessage('Введи почту и пароль');authMessage('Входим…');const {error}=await sb.auth.signInWithPassword({email,password});authMessage(error?authFriendly(error):'Вход выполнен')}
-async function doSignup(){const email=document.getElementById('authemail').value.trim(),password=document.getElementById('authpass').value;if(!email||password.length<6)return authMessage('Введи почту и пароль минимум из 6 символов');authMessage('Создаём аккаунт…');const {data,error}=await sb.auth.signUp({email,password,options:{emailRedirectTo:'https://aarnheight.github.io/finance-/'}});if(error)return authMessage(authFriendly(error));authMessage(data.session?'Аккаунт создан, вход выполнен.':'Аккаунт создан. Открой письмо и подтверди почту. Если ссылка выдаёт ошибку, проверь настройки Redirect URLs в Supabase.')}
-function authFriendly(e){let m=e?.message||String(e);if(/redirect|url/i.test(m))return 'Supabase отклонил адрес возврата. Добавь https://aarnheight.github.io/finance-/ в Authentication → URL Configuration → Redirect URLs.';if(/invalid.*otp|otp.*expired/i.test(m))return 'Код неверный или истёк. Запроси новый.';return m}
+var amode='in',abusy=false;
+function setMode(m){amode=m;document.getElementById('amIn').className=m=='in'?'on':'';document.getElementById('amUp').className=m=='up'?'on':'';['authname','authpass2'].forEach(function(i){document.getElementById(i).style.display=m=='up'?'block':'none'});document.getElementById('authgo').textContent=m=='up'?'Создать аккаунт':'Войти';document.getElementById('authpass').autocomplete=m=='up'?'new-password':'current-password';authMessage('');authHint()}
+function pwScore(p){var s=0;if(p.length>=8)s++;if(p.length>=12)s++;if(/[a-zа-я]/.test(p)&&/[A-ZА-Я]/.test(p))s++;if(/\d/.test(p))s++;if(/[^\w\s]/.test(p))s++;return s}
+function authHint(){var p=document.getElementById('authpass').value,h=document.getElementById('authhint');h.textContent=(amode!='up'||!p)?'':'Надёжность: '+['очень слабый','слабый','средний','хороший','сильный','отличный'][pwScore(p)]+' · минимум 8 символов, буквы и цифры'}
+function authGo(){if(abusy)return;abusy=true;setTimeout(function(){abusy=false},2500);amode=='up'?doSignup():doLogin()}
+async function doLogin(){if(!sb)return authMessage('Нет связи с сервером');const email=document.getElementById('authemail').value.trim(),password=document.getElementById('authpass').value;if(!email||!password)return authMessage('Введи почту и пароль');authMessage('Входим…');const {error}=await sb.auth.signInWithPassword({email,password});authMessage(error?authFriendly(error):'Вход выполнен')}
+async function doSignup(){if(!sb)return authMessage('Нет связи с сервером');const name=document.getElementById('authname').value.trim(),email=document.getElementById('authemail').value.trim(),password=document.getElementById('authpass').value,p2=document.getElementById('authpass2').value;
+ if(name.length<2)return authMessage('Напиши, как тебя зовут: так тебя увидят коллеги');if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))return authMessage('Проверь адрес почты');
+ if(password.length<8||!/\d/.test(password)||!/[a-zA-Zа-яА-Я]/.test(password))return authMessage('Пароль: минимум 8 символов, буквы и цифры');if(/^(12345678|qwerty123|password1|11111111|123456789)$/i.test(password))return authMessage('Этот пароль слишком простой');
+ if(password!==p2)return authMessage('Пароли не совпадают');authMessage('Создаём аккаунт…');
+ const {data,error}=await sb.auth.signUp({email,password,options:{data:{display_name:name},emailRedirectTo:'https://aarnheight.github.io/finance-/'}});if(error)return authMessage(authFriendly(error));
+ authMessage(data.session?'Аккаунт создан, вход выполнен.':'Аккаунт создан. Открой письмо и подтверди почту, потом войди.')}
+function authFriendly(e){let m=(e&&e.message)||String(e);if(/invalid login/i.test(m))return 'Неверная почта или пароль';if(/not confirmed/i.test(m))return 'Подтверди почту по письму, потом входи';if(/already registered|already been registered/i.test(m))return 'Такая почта уже зарегистрирована. Войди или нажми «Забыл пароль»';if(/rate limit|too many|security purposes/i.test(m))return 'Слишком много попыток. Подожди минуту';if(/banned/i.test(m))return 'Аккаунт заблокирован владельцем';if(/weak|password should/i.test(m))return 'Пароль слишком простой';if(/redirect|url/i.test(m))return 'Supabase отклонил адрес возврата. Добавь https://aarnheight.github.io/finance-/ в Authentication → URL Configuration → Redirect URLs.';if(/invalid.*otp|otp.*expired/i.test(m))return 'Код неверный или истёк. Запроси новый.';return m}
 
 async function doLogout(){await sb.auth.signOut()}
 function setAuthUI(user){const gate=document.getElementById('authgate'),btn=document.getElementById('profileBtn');if(user){gate.style.display='none';btn.style.display='block';refreshProfileAvatar()}else{gate.style.display='flex';btn.style.display='none';closeProfile()}}
@@ -135,17 +156,7 @@ function refreshProfileAvatar(){const b=document.getElementById('profileBtn');if
 function profileNote(t){const e=document.getElementById('profileMsg');if(e)e.textContent=t}
 async function openProfile(){if(!sbUser)return;document.getElementById('profileShade').style.display='flex';document.getElementById('profileName').value=sbUser.user_metadata?.display_name||'';document.getElementById('profileEmail').value=sbUser.email||'';profileNote('');await profileLoadOrgs()}
 function closeProfile(){const e=document.getElementById('profileShade');if(e)e.style.display='none'}
-async function saveProfile(){
- if(!sbUser)return;
- const name=document.getElementById('profileName').value.trim();
- profileNote('Сохраняю…');
- const p=await sb.from('profiles').update({display_name:name}).eq('id',sbUser.id).select('id').maybeSingle();
- if(p.error)return profileNote('Ошибка сохранения профиля: '+p.error.message);
- if(!p.data)return profileNote('Профиль не обновлён: запись не найдена или нет доступа.');
- const u=await sb.auth.updateUser({data:{...(sbUser.user_metadata||{}),display_name:name}});
- if(u.error){profileNote('Имя в профиле сохранено, но аккаунт не обновлён: '+u.error.message);return}
- sbUser=u.data.user||sbUser;refreshProfileAvatar();profileNote('Имя обновлено');
-}
+async function saveProfile(){if(!sbUser)return;const name=document.getElementById('profileName').value.trim();profileNote('Сохраняю…');const u=await sb.auth.updateUser({data:{...sbUser.user_metadata,display_name:name}});if(u.error)return profileNote('Ошибка: '+u.error.message);const p=await sb.from('profiles').upsert({id:sbUser.id,display_name:name},{onConflict:'id'});if(p.error)return profileNote('Имя сохранено в аккаунте, но профиль не обновлён: '+p.error.message);sbUser=u.data.user||sbUser;refreshProfileAvatar();profileNote('Профиль сохранён')}
 async function profileLoadOrgs(){const sel=document.getElementById('profileOrg');sel.innerHTML='<option value="">Загрузка…</option>';let rows=[];try{const m=await sb.from('organization_members').select('organization_id').eq('user_id',sbUser.id);if(m.error)throw m.error;const ids=(m.data||[]).map(x=>x.organization_id);if(ids.length){const o=await sb.from('organizations').select('id,name,is_active').in('id',ids).order('name');if(o.error)throw o.error;rows=o.data||[]}if(REV.global){const o=await sb.from('organizations').select('id,name,is_active').order('name');if(!o.error)rows=o.data||[]}}catch(e){profileNote('Не удалось загрузить заведения: '+e.message)}REV.orgs=rows;const active=REV.org||sbUser.user_metadata?.active_org_id||'';sel.innerHTML='<option value="">Не выбрано</option>'+rows.map(o=>'<option value="'+o.id+'">'+revEsc(o.name)+(o.is_active?'':' (выключено)')+'</option>').join('');sel.value=rows.some(o=>o.id===active)?active:(rows[0]?.id||'')}
 async function profileChooseOrg(id){REV.org=id||null;REV.session=null;if(sbUser){await sb.auth.updateUser({data:{active_org_id:id||null}})}if(id){try{await revLoadInventory()}catch(e){profileNote('Ошибка заведения: '+e.message)}}profileNote(id?'Текущее заведение изменено.':'Заведение не выбрано.')}
 function profileGoRevision(){closeProfile();tab('r')}
@@ -174,9 +185,10 @@ async function loadCloud(user){
   norm();cloudReady=true;try{localStorage.setItem(key,JSON.stringify(S))}catch(e){}render();
   if(push)await pushNow();else syncState('ok');
   sb.rpc('touch_my_presence').then(function(){},function(){});
+  sb.from('global_admins').select('user_id').eq('user_id',user.id).maybeSingle().then(function(r){REV.global=!!r.data;setOwnerUI()},function(){});
  }catch(e){syncState('off')}finally{cloudBusy=false}
 }
-async function pushNow(){if(!sb||!sbUser||!cloudReady)return;syncState('wait');var ts=new Date().toISOString();
+async function pushNow(){if(!sb||!sbUser||!cloudReady||VIEWING)return;syncState('wait');var ts=new Date().toISOString();
  const {error}=await sb.from('user_finance_data').upsert({user_id:sbUser.id,data:JSON.parse(JSON.stringify(S)),updated_at:ts},{onConflict:'user_id'});
  if(error){syncState('off');return}try{localStorage.removeItem(lsKey()+'_d')}catch(e){}lastPush=ts;syncState('ok')}
 function queueCloudSave(){if(!sbUser||!cloudReady)return;syncState('wait');clearTimeout(cloudTimer);cloudTimer=setTimeout(pushNow,700)}
@@ -184,7 +196,7 @@ if(sb){
  sb.auth.onAuthStateChange(function(ev,session){
   if(ev==='PASSWORD_RECOVERY')setTimeout(newPass,300);
   if(session&&session.user){var u=session.user;setTimeout(function(){loadCloud(u)},0)}
-  else{var had=!!sbUser;sbUser=null;cloudReady=false;syncState('');if(had){resetS();REV.org=null;REV.orgs=[];REV.mem=[];REV.global=false;REV.items=[];REV.session=null;revUnsub();render()}setAuthUI(null)}
+  else{var had=!!sbUser;sbUser=null;cloudReady=false;syncState('');if(had){VIEWING=null;MYS=null;resetS();setOwnerUI();REV.org=null;REV.orgs=[];REV.mem=[];REV.global=false;REV.items=[];REV.session=null;revUnsub();render()}setAuthUI(null)}
  });
  document.getElementById('authpass').addEventListener('keydown',function(e){if(e.key==='Enter')doLogin()});
 }else{localMode()}
@@ -195,7 +207,7 @@ var S={shifts:{},goals:{},deds:{},cfg:{fullH:12,mode:'fix',rate:3000},stamps:[{i
 var DEF=JSON.stringify(S);
 try{var r=localStorage.getItem('smeny_v1');if(r)S=Object.assign(S,JSON.parse(r))}catch(e){}
 norm();
-function save(){S._ts=Date.now();try{localStorage.setItem(lsKey(),JSON.stringify(S));if(sbUser)localStorage.setItem(lsKey()+'_d','1')}catch(e){}queueCloudSave()}
+function save(){S._ts=Date.now();if(VIEWING){ownerQueue();return}try{localStorage.setItem(lsKey(),JSON.stringify(S));if(sbUser)localStorage.setItem(lsKey()+'_d','1')}catch(e){}queueCloudSave()}
 var cur=new Date();cur.setDate(1);var TAB='s',ED=null;
 var p2=function(n){return String(n).padStart(2,'0')};
 var mk=function(){return cur.getFullYear()+'-'+p2(cur.getMonth()+1)};
@@ -203,13 +215,13 @@ var money=function(n){return Math.round(n).toLocaleString('ru-RU')+' ₽'};
 var val=function(s){return s.mode==='fix'?s.rate:s.rate*s.hours};
 function pl(n,a){var m=n%10,h=n%100;return n+' '+(h>10&&h<15?a[2]:m==1?a[0]:m>1&&m<5?a[1]:a[2])}
 function mv(d){cur.setMonth(cur.getMonth()+d);render()}
-function tab(t){TAB=t;render();if(t=='r')revEnter()}
+function tab(t){TAB=t;render();if(t=='r')revEnter();if(t=='k')mapEnter()}
 function toast(t){var e=document.getElementById('toast');e.textContent=t;e.classList.add('show');setTimeout(function(){e.classList.remove('show')},1800)}
 function render(){
  document.getElementById('ttl').textContent=MN[cur.getMonth()]+' '+cur.getFullYear();
- ['s','m','e','r'].forEach(function(t,i){document.getElementById('t'+(i+1)).className=TAB==t?'on':''});
- document.getElementById('top').style.display=TAB=='r'?'none':'';
- document.getElementById('v').innerHTML=TAB=='s'?viewS():TAB=='m'?viewM():TAB=='e'?viewE():revHTML();
+ ['s','m','e','r','k'].forEach(function(t,i){document.getElementById('t'+(i+1)).className=TAB==t?'on':''});
+ document.getElementById('top').style.display=(TAB=='r'||TAB=='k')?'none':'';
+ document.getElementById('v').innerHTML=TAB=='s'?viewS():TAB=='m'?viewM():TAB=='e'?viewE():TAB=='k'?viewMap():revHTML();
  pal();document.body.style.paddingBottom=TAB=='s'?'190px':'120px';
 }
 function viewS(){
@@ -317,8 +329,8 @@ function saveS(){var s=ED.s;if(!s.hours)return toast('Укажи часы');if(!
  if(!s.col||s.type!=ED.t0){s.col=TC[s.type];if(s.type!=ED.t0)delete s.st}
  var a=sl(ED.k).slice();if(ED.isNew)a.push(s);else a[ED.i]=s;S.shifts[ED.k]=a;S.cfg.mode=s.mode;S.cfg.rate=s.rate;save();closeS();render();toast('Смена сохранена ✨')}
 function delS(){var a=sl(ED.k).slice();a.splice(ED.i,1);if(a.length)S.shifts[ED.k]=a;else delete S.shifts[ED.k];save();closeS();render();toast('Смена удалена')}
-function pal(){var e=document.getElementById('pal');if(TAB!='s'){e.style.display='none';return}e.style.display='flex';var sc=e.scrollLeft,nc=S.stamps.filter(function(x){return x.type=='custom'}).length,sh='box-shadow:0 4px 16px #4a3f5533';
- e.innerHTML=S.stamps.map(function(x){var on=ST==x.id;return '<button class="pc" style="'+(on?'background:var(--'+x.col+');box-shadow:0 0 0 2px var(--ink),0 4px 16px #4a3f5533':'box-shadow:inset 0 -4px 0 var(--'+x.col+'),0 4px 16px #4a3f5533')+'" onclick="pick(\''+x.id+'\')"><span>'+x.ico+' '+esc(x.name)+'</span><small>'+x.hours+' ч · '+money(x.rate)+(x.mode=='fix'?'':'/ч')+'</small></button>'}).join('')+(nc<6?'<button class="pc g" style="'+sh+'" onclick="addStamp()">＋</button>':'')+'<button class="pc g" style="'+sh+'" onclick="openT()">⚙️</button>';e.scrollLeft=sc}
+function pal(){var e=document.getElementById('pal');if(TAB!='s'){e.style.display='none';return}e.style.display='flex';var sc=e.scrollLeft,nc=S.stamps.filter(function(x){return x.type=='custom'}).length,sh='box-shadow:0 4px 16px #c2477a33';
+ e.innerHTML=S.stamps.map(function(x){var on=ST==x.id;return '<button class="pc" style="'+(on?'background:var(--'+x.col+');box-shadow:0 0 0 2px var(--ink),0 4px 16px #c2477a33':'box-shadow:inset 0 -4px 0 var(--'+x.col+'),0 4px 16px #c2477a33')+'" onclick="pick(\''+x.id+'\')"><span>'+x.ico+' '+esc(x.name)+'</span><small>'+x.hours+' ч · '+money(x.rate)+(x.mode=='fix'?'':'/ч')+'</small></button>'}).join('')+(nc<6?'<button class="pc g" style="'+sh+'" onclick="addStamp()">＋</button>':'')+'<button class="pc g" style="'+sh+'" onclick="openT()">⚙️</button>';e.scrollLeft=sc}
 function addStamp(){var n=S.stamps.filter(function(x){return x.type=='custom'}).length;if(n>=6)return;var u=S.stamps.map(function(x){return x.col}),c=CL.filter(function(z){return u.indexOf(z)<0})[0]||'lav';
  S.stamps.push({id:'c'+Date.now(),name:'Смена '+(n+1),ico:IC[n],type:'custom',col:c,hours:8,mode:'hour',rate:300});save();render();openT();var e=document.getElementById('sh');e.scrollTop=e.scrollHeight}
 function delT(i){if(ST==S.stamps[i].id)ST=null;S.stamps.splice(i,1);save();render();drawT()}
@@ -335,16 +347,12 @@ function extraCard(){var l=S.extra[mk()]||[],h='<div class="card"><h2>➕ Доп
 function addX(){var n=document.getElementById('xn').value.trim()||'Доп. доход',a=+document.getElementById('xa').value;if(!a)return toast('Введи сумму');(S.extra[mk()]=S.extra[mk()]||[]).push({name:n,amt:a});save();render();toast('Добавлено 💵')}
 function delX(i){S.extra[mk()].splice(i,1);save();render()}
 // Общая ревизия (Supabase): заведения, позиции, живые подсчёты
-var REV={orgs:[],mem:[],org:null,role:'member',global:false,section:'bar',session:null,last:null,items:[],entries:{},prev:{},channel:null,chKey:'',busy:false,err:'',q:{},fl:false,x:false},RI={},revT=0;
+var REV={orgs:[],mem:[],org:null,role:'trainee',global:false,section:'bar',noCat:false,session:null,last:null,items:[],entries:{},prev:{},channel:null,chKey:'',busy:false,err:'',q:{},fl:false,x:false},RI={},revT=0;
 function revEsc(x){return String(x==null?'':x).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
 function revMsg(x){toast(x)}
 function revDt(d){return d?new Date(d).toLocaleDateString('ru-RU'):''}
 function revUnsub(){if(REV.channel&&sb)sb.removeChannel(REV.channel);REV.channel=null;REV.chKey=''}
-function revRole(){if(REV.global)return'главный';var m=REV.mem.filter(function(x){return x.organization_id===REV.org})[0];return m?(m.role||'стажёр'):'стажёр'}
-function revCanManage(){return ['главный','владелец','управляющий','admin'].indexOf(REV.role)>=0}
-function revCanManageStaff(){return ['главный','владелец','управляющий'].indexOf(REV.role)>=0}
-function revCanCount(){return !!REV.org}
-function revRoleLabel(r){return ({owner:'Владелец',manager:'Управляющий',admin:'Администратор',senior_waiter:'Старший официант',waiter:'Официант',trainee:'Стажёр',главный:'Главный'})[r]||r}
+function revRole(){if(REV.global)return'global';var m=REV.mem.filter(function(x){return x.organization_id===REV.org})[0];return m?m.role:'trainee'}
 function revTot(it,e){return((e&&e.full_rows)||0)*it.bottles_per_row+((e&&e.loose_bottles)||0)}
 async function revEnter(){if(!sb||!sbUser||REV.busy)return;REV.busy=true;REV.err='';render();
  try{if(!REV.orgs.length&&!REV.org){const g=await sb.from('global_admins').select('user_id').eq('user_id',sbUser.id).maybeSingle();REV.global=!!g.data}await revLoadOrgs()}catch(e){REV.err=e.message||String(e)}
@@ -359,9 +367,13 @@ async function revLoadOrgs(){
 async function revLoadInventory(){
  REV.items=[];REV.entries={};REV.prev={};REV.session=null;REV.last=null;REV.role=revRole();if(!REV.org){revUnsub();return}
  try{localStorage.setItem('rev_org',REV.org)}catch(e){}
- const r=await Promise.all([sb.from('inventory_items').select('*').eq('organization_id',REV.org).eq('is_active',true).order('sort_order').order('name'),sb.from('inventory_sessions').select('*').eq('organization_id',REV.org).in('status',['open','completed']).order('created_at',{ascending:false}).limit(8)]);
- if(r[0].error)throw r[0].error;if(r[1].error)throw r[1].error;REV.items=(r[0].data||[]).filter(function(x){return (x.category||'bar')===REV.section});if(REV.items[0])REV.x='min_stock' in REV.items[0];
- const ss=(r[1].data||[]).filter(function(x){return (x.category||'bar')===REV.section});REV.session=ss.filter(function(x){return x.status=='open'})[0]||null;REV.last=ss.filter(function(x){return x.status=='completed'})[0]||null;
+ if(REV.section=='kitchen'){revUnsub();return}
+ var qi=function(c){var q=sb.from('inventory_items').select('*').eq('organization_id',REV.org).eq('is_active',true);return(c?q.eq('category',REV.section):q).order('sort_order').order('name')},
+  qs=function(c){var q=sb.from('inventory_sessions').select('*').eq('organization_id',REV.org).in('status',['open','completed']);return(c?q.eq('category',REV.section):q).order('created_at',{ascending:false}).limit(8)};
+ var r=await Promise.all([qi(!REV.noCat),qs(!REV.noCat)]);
+ if(!REV.noCat&&(r[0].error||r[1].error)&&/category/i.test((r[0].error||r[1].error).message||'')){REV.noCat=true;r=await Promise.all([qi(false),qs(false)])}
+ if(r[0].error)throw r[0].error;if(r[1].error)throw r[1].error;REV.items=r[0].data||[];if(REV.items[0])REV.x='min_stock' in REV.items[0];
+ const ss=r[1].data||[];REV.session=ss.filter(function(x){return x.status=='open'})[0]||null;REV.last=ss.filter(function(x){return x.status=='completed'})[0]||null;
  const ids=[REV.session,REV.last].filter(Boolean).map(function(x){return x.id});
  if(ids.length){const e=await sb.from('inventory_entries').select('*').in('session_id',ids);if(e.error)throw e.error;(e.data||[]).forEach(function(x){(REV.session&&x.session_id==REV.session.id?REV.entries:REV.prev)[x.item_id]=x})}
  revSub()}
@@ -373,7 +385,7 @@ function revSub(){var key=REV.org+'|'+(REV.session?REV.session.id:'');if(REV.chK
  REV.channel=ch.subscribe()}
 function revSoft(){clearTimeout(revT);revT=setTimeout(async function(){try{await revLoadInventory()}catch(e){}var a=document.activeElement;if(TAB=='r'&&!(a&&a.classList&&a.classList.contains('si')))render()},400)}
 function revPatch(id){if(TAB!='r'||!id)return;var it=REV.items.filter(function(x){return x.id===id})[0];if(!it)return;var e=REV.entries[id]||{};
- document.querySelectorAll('[data-i="'+id+'"] .si').forEach(function(el){if(el!==document.activeElement)el.value=e[el.dataset.f]||0});
+ document.querySelectorAll('[data-i="'+id+'"] .si[data-f]').forEach(function(el){if(el!==document.activeElement)el.value=e[el.dataset.f]||0});
  var t=document.querySelector('[data-t="'+id+'"]');if(t)t.textContent=revTot(it,e);revSum()}
 function revSum(){var s=0,d=0;REV.items.forEach(function(it){var e=REV.entries[it.id];if(e){d++;s+=revTot(it,e)}});var a=document.getElementById('revsum'),b=document.getElementById('revdone');if(a)a.textContent=s;if(b)b.textContent=d+'/'+REV.items.length}
 function revBump(id,f,d){revSet(id,f,Math.max(0,(+((REV.entries[id]||{})[f])||0)+d))}
@@ -389,68 +401,160 @@ function revHTML(){
  if(!sbUser)return'<div class="card empty">Войди в аккаунт, чтобы вести общую ревизию.</div>';
  if(REV.busy&&!REV.orgs.length)return'<div class="card empty">Загружаю заведения…</div>';
  if(REV.err)return'<div class="card">Ошибка: '+revEsc(REV.err)+'<button class="btn" style="width:100%;margin-top:10px" onclick="revEnter()">Повторить</button></div>';
- var adm=revCanManage(),h='<div class="card"><div class="rev-head"><h2 style="margin:0">📦 Ревизия</h2><select class="inp" onchange="revSelectOrg(this.value)">'+(REV.orgs.length?'':'<option value="">Нет заведений</option>')+REV.orgs.map(function(o){return'<option value="'+o.id+'"'+(o.id===REV.org?' selected':'')+'>'+revEsc(o.name)+(o.is_active?'':' (выключено)')+'</option>'}).join('')+'</select></div><div class="rev-actions">'+(REV.global?'<button class="btn" onclick="revCreateOrg()">＋ Заведение</button>':'')+'<button class="btn alt" onclick="revJoinOrg()">Ввести код</button>'+(REV.org&&adm?'<button class="btn alt" onclick="revMakeCode()">Код приглашения</button>':'')+(REV.org&&revCanManageStaff()?'<button class="btn alt" onclick="revMembers()">Участники</button>':'')+'</div></div>';
- h+='<div class="rev-actions"><button class="btn '+(REV.section==='bar'?'':'alt')+'" onclick="revSection(\'bar\')">🍺 Бар</button><button class="btn '+(REV.section==='supplies'?'':'alt')+'" onclick="revSection(\'supplies\')">📦 Хозтовары / склад</button><button class="btn '+(REV.section==='kitchen'?'':'alt')+'" onclick="revSection(\'kitchen\')">🍳 Кухня</button></div>';
+ var adm=canInv(),stf=canStaff(),run=myRank()>=10,h='<div class="card"><div class="rev-head"><h2 style="margin:0">📦 Ревизия</h2><button class="pill" style="border:0;cursor:pointer;margin-left:auto;font-weight:800" onclick="revSwitch()">📍 '+revEsc(curName())+' ▾</button></div><div class="rev-actions">'+(REV.global?'<button class="btn" onclick="revCreateOrg()">＋ Заведение</button>':'')+'<button class="btn alt" onclick="revJoinOrg()">Ввести код</button>'+(REV.org&&stf?'<button class="btn alt" onclick="revMakeCode()">Код приглашения</button><button class="btn alt" onclick="revMembers()">Участники</button>':'')+'</div></div>';
  if(!REV.org)return h+'<div class="card empty">Создай заведение или вступи по коду приглашения.</div>';
- if(!REV.session){return h+'<div class="card"><h2>Нет активной ревизии · '+({bar:'Бар',supplies:'Хозтовары / склад',kitchen:'Кухня'}[REV.section])+'</h2>'+(REV.last?'<div class="rev-muted" style="margin-bottom:10px">Последняя: '+revEsc(REV.last.title)+' · '+revDt(REV.last.completed_at||REV.last.created_at)+'</div>':'')+'<button class="btn" style="width:100%" onclick="revNewSession()">＋ Начать новую ревизию</button>'+(adm?'<div class="rev-actions"><button class="btn alt" onclick="revItem()">＋ Позиция</button><button class="btn alt" onclick="revBulk()">📋 Списком</button></div>':'')+'</div>'}
+ h+='<div class="seg" style="margin:0 0 12px">'+[['bar','🍺 Бар'],['supplies','🧽 Хозтовары'],['kitchen','🍳 Кухня']].map(function(t){return'<button class="'+(REV.section==t[0]?'on':'')+'" onclick="revSection(\''+t[0]+'\')">'+t[1]+'</button>'}).join('')+'</div>';
+ if(REV.section=='kitchen')return h+'<div class="card empty"><div>'+KITTY+'</div>Кухня появится позже, после закрытия кафе 🍳</div>';
+ if(REV.noCat&&REV.section!='bar')return h+'<div class="card empty">Для «Хозтоваров» выполни SQL-файл supabase_fix_all.sql</div>';
+ if(!REV.session){return h+'<div class="card"><h2>Нет активной ревизии</h2>'+(REV.last?'<div class="rev-muted" style="margin-bottom:10px">Последняя: '+revEsc(REV.last.title)+' · '+revDt(REV.last.completed_at||REV.last.created_at)+'</div>':'')+(run?'<button class="btn" style="width:100%" onclick="revNewSession()">＋ Начать новую ревизию</button>':'<div class="empty">Ревизию начинает официант или выше</div>')+(adm?'<div class="rev-actions"><button class="btn alt" onclick="revItem()">＋ Позиция</button><button class="btn alt" onclick="revBulk()">📋 Списком</button></div>':'')+'</div>'}
  var s=0,d=0,need=[];REV.items.forEach(function(it){var e=REV.entries[it.id];if(e)d++;var t=revTot(it,e);s+=t;if(it.min_stock&&t<it.min_stock)need.push(it.name)});
- h+='<div class="chips"><div class="chip" style="background:var(--sky)"><b id="revsum">'+s+'</b><span>бутылок всего</span></div><div class="chip" style="background:var(--mint)"><b id="revdone">'+d+'/'+REV.items.length+'</b><span>посчитано</span></div></div>';
+ h+='<div class="chips"><div class="chip" style="background:var(--sky)"><b id="revsum">'+s+'</b><span>'+UL().tot+'</span></div><div class="chip" style="background:var(--mint)"><b id="revdone">'+d+'/'+REV.items.length+'</b><span>посчитано</span></div></div>';
  h+='<div class="card"><div class="flex" style="justify-content:space-between"><h2 style="margin:0">'+revEsc(REV.session.title)+'</h2><span class="pill">Открыта</span></div><div class="rev-muted" style="margin-top:4px">Значения видны всем участникам заведения сразу.</div>';
  if(!REV.items.length)h+='<div class="empty">Пока нет позиций.'+(adm?' Добавь их кнопками ниже.':' Попроси администратора добавить.')+'</div>';
  REV.items.forEach(function(it){var e=REV.entries[it.id]||{},t=revTot(it,e),p=REV.prev[it.id],pv=p?revTot(it,p):null;
-  h+='<div class="item" data-i="'+it.id+'"><div class="flex" style="justify-content:space-between;align-items:flex-start"><div style="min-width:0;flex:1"'+(adm?' onclick="revItem(\''+it.id+'\')"':'')+'><div class="in">'+revEsc(it.name)+'</div><div class="is">в ряду '+it.bottles_per_row+(pv!=null?' · было '+pv+' ('+(t-pv>0?'+':'')+(t-pv)+')':'')+(it.min_stock?' · норма '+it.min_stock:'')+'</div></div><div class="itot'+(it.min_stock&&t<it.min_stock?' low':'')+'" data-t="'+it.id+'">'+t+'</div></div><div class="sts">'+stp2(it.id,'full_rows','Полные ряды',e.full_rows)+stp2(it.id,'loose_bottles','Бутылки сверху',e.loose_bottles)+'</div></div>'});
- h+='<div class="rev-actions"><button class="btn alt" onclick="revShare()">📤 Отправить</button><button class="btn del" onclick="revFinish()">Завершить</button>'+(adm?'<button class="btn alt" onclick="revItem()">＋ Позиция</button><button class="btn alt" onclick="revBulk()">📋 Списком</button>':'')+'</div></div>';
+  h+='<div class="item" data-i="'+it.id+'"><div class="flex" style="align-items:flex-start;gap:10px"><div class="ph'+(adm?' adm':'')+'"'+(adm?' onclick="revItem(\''+it.id+'\')"':'')+'>'+(it.photo_url?'<img src="'+revEsc(it.photo_url)+'" alt="" loading="lazy">':'<span>🍾</span>')+'<small>'+revEsc(it.name)+'</small></div><div style="flex:1;min-width:0"><div class="is" style="margin-bottom:6px">'+(adm?UL().row+' <input class="si" style="width:44px;height:24px;display:inline-block;vertical-align:middle" type="number" value="'+it.bottles_per_row+'" onchange="revRow(\''+it.id+'\',this.value)">':UL().row+' '+it.bottles_per_row)+(pv!=null?' · было '+pv+' ('+(t-pv>0?'+':'')+(t-pv)+')':'')+(it.min_stock?' · норма '+it.min_stock:'')+'</div><div class="sts" style="margin:0">'+stp2(it.id,'full_rows',UL().a,e.full_rows)+stp2(it.id,'loose_bottles',UL().b,e.loose_bottles)+'</div></div><div class="itot'+(it.min_stock&&t<it.min_stock?' low':'')+'" data-t="'+it.id+'">'+t+'</div></div></div>'});
+ h+='<div class="rev-actions"><button class="btn alt" onclick="revShare()">📤 Отправить</button>'+(run?'<button class="btn del" onclick="revFinish()">Завершить</button>':'')+(adm?'<button class="btn alt" onclick="revItem()">＋ Позиция</button><button class="btn alt" onclick="revBulk()">📋 Списком</button>':'')+'</div></div>';
  if(need.length)h+='<div class="card"><h2>🛒 Докупить</h2><div class="rev-muted">'+need.map(revEsc).join(', ')+'</div></div>';
  return h}
 function revText(){var t='📦 '+(REV.session?REV.session.title:'Ревизия')+'\n\n',s=0,nd=[];REV.items.forEach(function(it){var e=REV.entries[it.id]||{},n=revTot(it,e),p=[];s+=n;if(e.full_rows)p.push(e.full_rows+'×'+it.bottles_per_row);if(e.loose_bottles)p.push(e.loose_bottles);t+='• '+it.name+' — '+n+(p.length>1?' ('+p.join(' + ')+')':'')+'\n';if(it.min_stock&&n<it.min_stock)nd.push(it.name+' +'+(it.min_stock-n))});return t+'\nИтого: '+s+' шт'+(nd.length?'\n\n🛒 Докупить:\n'+nd.join('\n'):'')}
 function revShare(){var t=revText();if(navigator.share)navigator.share({text:t}).catch(function(){});else if(navigator.clipboard)navigator.clipboard.writeText(t).then(function(){revMsg('Скопировано 📋')});else prompt('Скопируй:',t)}
 async function revSelectOrg(id){REV.org=id||null;try{await revLoadInventory()}catch(e){revMsg(e.message)}render()}
-async function revCreateOrg(){var name=prompt('Название заведения');if(!name||!name.trim())return;const r=await sb.from('organizations').insert({name:name.trim(),created_by:sbUser.id}).select('id').single();if(r.error)return revMsg(r.error.message);
- const m=await sb.from('organization_members').insert({organization_id:r.data.id,user_id:sbUser.id,role:'owner'});if(m.error)return revMsg('Заведение создано, но не назначен администратор: '+m.error.message);
- REV.org=r.data.id;await revLoadOrgs();render();revAudit('organization_created','organization',r.data.id,{name:name.trim()});revMsg('Заведение создано')}
+async function revCreateOrg(){var name=prompt('Название заведения');if(!name||!name.trim())return;const r=await sb.rpc('create_organization',{p_name:name.trim()});if(r.error)return revMsg(r.error.message+' (выполни supabase_fix_all.sql)');
+ REV.org=r.data;try{await revLoadOrgs()}catch(e){}render();revAudit('organization_created','organization',r.data,{name:name.trim()});revMsg('Заведение создано')}
 async function revJoinOrg(){var code=prompt('Введи код приглашения');if(!code||!code.trim())return;code=code.trim().replace(/[\s-]/g,'').toUpperCase();const r=await sb.rpc('join_organization_by_code',{join_code:code});
  if(r.error){console.error(r.error);return revMsg('Не удалось вступить: '+(r.error.message||'ошибка'))}REV.org=r.data;try{await revLoadOrgs()}catch(e){revMsg(e.message)}render();revMsg('Ты добавлен(а) в заведение')}
-async function revMakeCode(){if(!REV.org||!revCanManage())return revMsg('Создавать приглашения может администратор заведения');var b=new Uint8Array(8);crypto.getRandomValues(b);var code=Array.from(b).map(function(x){return x.toString(16).padStart(2,'0')}).join('').toUpperCase();
+async function revMakeCode(){if(!REV.org||!canStaff())return revMsg('Приглашать может управляющий, владелец или главный администратор');var n=parseInt(prompt('Сколько человек сможет вступить по этому коду? Код действует 7 дней.','10'));if(!(n>0))return;var b=new Uint8Array(8);crypto.getRandomValues(b);var code=Array.from(b).map(function(x){return x.toString(16).padStart(2,'0')}).join('').toUpperCase();
  var hash=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(code)),hex=Array.from(new Uint8Array(hash)).map(function(x){return x.toString(16).padStart(2,'0')}).join('');
- const r=await sb.from('organization_invite_codes').insert({organization_id:REV.org,code_hash:hex,created_by:sbUser.id,label:'Код '+new Date().toLocaleDateString('ru-RU')}).select('id').single();if(r.error)return revMsg('Не удалось создать код: '+r.error.message);
+ const r=await sb.from('organization_invite_codes').insert({organization_id:REV.org,code_hash:hex,created_by:sbUser.id,label:'Код '+new Date().toLocaleDateString('ru-RU'),max_uses:n,expires_at:new Date(Date.now()+7*864e5).toISOString()}).select('id').single();if(r.error)return revMsg('Не удалось создать код: '+r.error.message);
  try{await navigator.clipboard.writeText(code)}catch(e){}prompt('Код скопирован. Отправь его коллеге, он показывается только сейчас:',code);revAudit('invite_code_created','invite_code',r.data.id,{})}
-
-async function revSection(section){REV.section=section;REV.session=null;REV.last=null;REV.entries={};REV.prev={};try{await revLoadInventory()}catch(e){revMsg(e.message)}render()}
-async function revSetMemberRole(userId,role){
- if(!revCanManageStaff())return revMsg('Недостаточно прав');
- const allowed=REV.role==='главный'?['owner','manager','admin','senior_waiter','waiter','trainee']:REV.role==='владелец'?['manager','admin','senior_waiter','waiter','trainee']:['admin','senior_waiter','waiter','trainee'];
- if(!allowed.includes(role))return revMsg('Эту роль нельзя назначить с вашим уровнем доступа');
- const r=await sb.rpc('set_organization_member_role',{p_organization_id:REV.org,p_user_id:userId,p_role:role});
- if(r.error)return revMsg(r.error.message);await revLoadOrgs();render();revMsg('Роль обновлена')
-}
-async function revMembers(){
- if(!revCanManageStaff())return revMsg('Недостаточно прав');
- const r=await sb.from('organization_members').select('user_id,role').eq('organization_id',REV.org);if(r.error)return revMsg(r.error.message);
- var ids=(r.data||[]).map(function(x){return x.user_id}),p=ids.length?await sb.from('profiles').select('id,display_name').in('id',ids):{data:[]},n={};(p.data||[]).forEach(function(x){n[x.id]=x.display_name});
- var rows=r.data||[],lines=rows.map(function(x,i){return(i+1)+'. '+(n[x.user_id]||x.user_id.slice(0,8))+' — '+revRoleLabel(x.role)});
- var pick=prompt('Участники и роли:\n'+lines.join('\n')+'\n\nВведи номер участника для смены роли:');
- if(!pick||!rows[+pick-1])return;
- var target=rows[+pick-1];if(target.user_id===sbUser.id)return revMsg('Свою роль здесь изменить нельзя');
- var opts=REV.role==='главный'?['owner','manager','admin','senior_waiter','waiter','trainee']:REV.role==='владелец'?['manager','admin','senior_waiter','waiter','trainee']:['admin','senior_waiter','waiter','trainee'];
- if(target.role==='owner'&&REV.role!=='главный')return revMsg('Назначать и менять владельцев может только главный администратор');
- var val=prompt('Доступные роли: '+opts.join(', '),target.role);if(opts.indexOf(val)>=0)await revSetMemberRole(target.user_id,val)
-}
-async function revNewSession(){if(!REV.org)return;var title=prompt('Название ревизии',({bar:'Бар',supplies:'Хозтовары',kitchen:'Кухня'}[REV.section])+' · '+new Date().toLocaleDateString('ru-RU'));if(title===null)return;title=title.trim()||'Ревизия';
- const r=await sb.from('inventory_sessions').insert({organization_id:REV.org,title:title,created_by:sbUser.id,category:REV.section}).select('*').single();if(r.error)return revMsg(r.error.message);
+async function revNewSession(){if(!REV.org)return;var title=prompt('Название ревизии',UL().name+' · '+new Date().toLocaleDateString('ru-RU'));if(title===null)return;title=title.trim()||'Ревизия';
+ const r=await sb.from('inventory_sessions').insert(Object.assign({organization_id:REV.org,title:title,created_by:sbUser.id},REV.noCat?{}:{category:REV.section})).select('*').single();if(r.error)return revMsg(r.error.message);
  try{await revLoadInventory()}catch(e){}render();revAudit('inventory_session_created','inventory_session',r.data.id,{title:title})}
 async function revFinish(){if(!REV.session||!confirm('Завершить ревизию? После этого значения изменить нельзя.'))return;await revFlush();const r=await sb.from('inventory_sessions').update({status:'completed',completed_at:new Date().toISOString()}).eq('id',REV.session.id);if(r.error)return revMsg(r.error.message);
  revAudit('inventory_session_completed','inventory_session',REV.session.id,{});try{await revLoadInventory()}catch(e){}render();revMsg('Ревизия завершена ✨')}
 async function revAudit(a,t,id,d){try{await sb.from('audit_logs').insert({organization_id:REV.org,actor_user_id:sbUser.id,action:a,entity_type:t,entity_id:id?String(id):null,details:d})}catch(e){}}
 function revItem(id){var it=id?REV.items.filter(function(x){return x.id===id})[0]:null;RI=it?{id:id,name:it.name,n:it.bottles_per_row,m:it.min_stock||0}:{id:'',name:'',n:10,m:0};
- document.getElementById('sh').innerHTML='<h2 style="font-size:19px">'+(id?'Позиция':'Новая позиция')+'</h2><div class="lbl">Название</div><input class="inp" placeholder="Например, Харбин премиум" value="'+revEsc(RI.name)+'" oninput="RI.name=this.value"><div class="flex"><div style="flex:1;min-width:0"><div class="lbl">Бутылок в полном ряду</div><input class="inp" type="number" inputmode="numeric" value="'+RI.n+'" oninput="RI.n=+this.value"></div>'+(REV.x?'<div style="flex:1;min-width:0"><div class="lbl">Норма (минимум)</div><input class="inp" type="number" inputmode="numeric" value="'+RI.m+'" oninput="RI.m=+this.value"></div>':'')+'</div><div class="flex" style="margin-top:14px">'+(id?'<button class="btn del" onclick="revItemDel()">Убрать</button>':'')+'<button class="btn alt" onclick="closeS()" style="flex:1">Отмена</button><button class="btn" onclick="revItemSave()" style="flex:1.4">Сохранить</button></div>';
+ document.getElementById('sh').innerHTML='<h2 style="font-size:19px">'+(id?'Позиция':'Новая позиция')+'</h2><div class="lbl">Название</div><input class="inp" placeholder="Например, Харбин премиум" value="'+revEsc(RI.name)+'" oninput="RI.name=this.value"><div class="flex"><div style="flex:1;min-width:0"><div class="lbl">'+UL().full+'</div><input class="inp" type="number" inputmode="numeric" value="'+RI.n+'" oninput="RI.n=+this.value"></div>'+(REV.x?'<div style="flex:1;min-width:0"><div class="lbl">Норма (минимум)</div><input class="inp" type="number" inputmode="numeric" value="'+RI.m+'" oninput="RI.m=+this.value"></div>':'')+'</div>'+(id?'<label class="btn alt" style="display:block;text-align:center;margin-top:10px">📷 Фото напитка<input type="file" accept="image/*" hidden onchange="revPhoto(this)"></label>':'')+'<div class="flex" style="margin-top:14px">'+(id?'<button class="btn del" onclick="revItemDel()">Убрать</button>':'')+'<button class="btn alt" onclick="closeS()" style="flex:1">Отмена</button><button class="btn" onclick="revItemSave()" style="flex:1.4">Сохранить</button></div>';
  document.getElementById('bg').classList.add('open')}
-async function revItemSave(){var name=(RI.name||'').trim(),n=Math.floor(RI.n);if(!name)return revMsg('Введи название');if(!(n>=1))return revMsg('Укажи бутылок в ряду');var row={name:name,bottles_per_row:n,category:REV.section};if(REV.x)row.min_stock=Math.max(0,Math.floor(RI.m)||0);
+async function revItemSave(){var name=(RI.name||'').trim(),n=Math.floor(RI.n);if(!name)return revMsg('Введи название');if(!(n>=1))return revMsg('Укажи бутылок в ряду');var row={name:name,bottles_per_row:n};if(!REV.noCat)row.category=REV.section;if(REV.x)row.min_stock=Math.max(0,Math.floor(RI.m)||0);
  const r=RI.id?await sb.from('inventory_items').update(row).eq('id',RI.id):await sb.from('inventory_items').insert(Object.assign({organization_id:REV.org,sort_order:REV.items.length},row));if(r.error)return revMsg(r.error.message);
  closeS();try{await revLoadInventory()}catch(e){}render();revAudit(RI.id?'inventory_item_updated':'inventory_item_created','inventory_item',RI.id||null,{name:name,bottles_per_row:n})}
 async function revItemDel(){if(!confirm('Убрать позицию из ревизии?'))return;const r=await sb.from('inventory_items').update({is_active:false}).eq('id',RI.id);if(r.error)return revMsg(r.error.message);closeS();try{await revLoadInventory()}catch(e){}render()}
 function revBulk(){document.getElementById('sh').innerHTML='<h2 style="font-size:19px">📋 Добавить списком</h2><div class="lbl">По одной позиции в строке. «Название, 10» — 10 бутылок в ряду (иначе 10 по умолчанию)</div><textarea class="inp" id="rbt" rows="9" style="resize:none" placeholder="Харбин премиум, 10&#10;Балтика 7, 12"></textarea><div class="flex" style="margin-top:14px"><button class="btn alt" onclick="closeS()" style="flex:1">Отмена</button><button class="btn" onclick="revBulkSave()" style="flex:1.4">Добавить</button></div>';document.getElementById('bg').classList.add('open')}
-async function revBulkSave(){var rows=[],have=REV.items.map(function(x){return x.name.toLowerCase()});document.getElementById('rbt').value.split('\n').forEach(function(l){l=l.trim();if(!l)return;var m=l.match(/^(.*?)[,;]\s*(\d+)$/),n=10;if(m){l=m[1].trim();n=+m[2]||10}if(l&&have.indexOf(l.toLowerCase())<0){have.push(l.toLowerCase());rows.push({organization_id:REV.org,name:l,bottles_per_row:n,category:REV.section,sort_order:REV.items.length+rows.length})}});
+async function revBulkSave(){var rows=[],have=REV.items.map(function(x){return x.name.toLowerCase()});document.getElementById('rbt').value.split('\n').forEach(function(l){l=l.trim();if(!l)return;var m=l.match(/^(.*?)[,;]\s*(\d+)$/),n=10;if(m){l=m[1].trim();n=+m[2]||10}if(l&&have.indexOf(l.toLowerCase())<0){have.push(l.toLowerCase());rows.push(Object.assign({organization_id:REV.org,name:l,bottles_per_row:n,sort_order:REV.items.length+rows.length},REV.noCat?{}:{category:REV.section}))}});
  if(!rows.length)return revMsg('Нечего добавлять');const r=await sb.from('inventory_items').insert(rows);if(r.error)return revMsg(r.error.message);closeS();try{await revLoadInventory()}catch(e){}render();revMsg('Добавлено: '+rows.length+' ✨')}
+// ===== Заведения, участники, панель владельца =====
+var VIEWING=null,MYS=null,ovT=0,ovDirty=false,OW={tab:'o',orgs:[],users:[]},MB=[];
+function curName(){var o=REV.orgs.filter(function(x){return x.id===REV.org})[0];return o?o.name:'Выбери заведение'}
+function setOwnerUI(){var b=document.getElementById('ownBtn');if(b)b.style.display=(REV.global&&!VIEWING&&sbUser)?'inline-block':'none';var v=document.getElementById('vbn');if(v)v.innerHTML=VIEWING?'<button class="authbtn" style="margin-right:8px" onclick="ownerExit()">👁 '+revEsc(VIEWING.name)+' · выйти</button>':''}
+function shOpen(h){document.getElementById('sh').innerHTML=h;document.getElementById('bg').classList.add('open')}
+function revSwitch(){var role=function(o){var m=REV.mem.filter(function(x){return x.organization_id===o.id})[0];return REV.global?'👑 главный администратор':(m?roleName(m.role):'')};
+ shOpen('<h2 style="font-size:19px">📍 Заведение</h2><div class="lbl">Переключатель влияет только на вкладку «Ревизия»</div>'+(REV.orgs.length?REV.orgs.map(function(o){return'<div class="row" onclick="revPick(\''+o.id+'\')"><div class="ico" style="background:var(--'+(o.id===REV.org?'mint':'lav')+')">'+(o.id===REV.org?'✓':'🏠')+'</div><div class="t"><div>'+revEsc(o.name)+'</div><div>'+role(o)+(o.is_active?'':' · выключено')+'</div></div></div>'}).join(''):'<div class="empty">Ты пока не состоишь ни в одном заведении</div>')+'<div class="flex" style="margin-top:14px"><button class="btn alt" onclick="closeS()" style="flex:1">Закрыть</button><button class="btn" onclick="closeS();revJoinOrg()" style="flex:1.4">Ввести код</button></div>')}
+async function revPick(id){closeS();await revSelectOrg(id)}
+async function orgRole(u,role){const r=await sb.rpc('org_set_role',{p_org:REV.org,p_user:u,p_role:role});if(r.error)return revMsg(r.error.message);revAudit('member_role_changed','user',u,{role:role});await revMembers()}
+async function orgKick(u){if(!confirm('Убрать из заведения? Он потеряет доступ к ревизии.'))return;const r=await sb.rpc('org_remove_member',{p_org:REV.org,p_user:u});if(r.error)return revMsg(r.error.message);revAudit('member_removed','user',u,{});await revMembers()}
+async function ownerOpen(t){if(!REV.global)return;OW.tab=t||OW.tab||'o';shOpen('<div class="empty">Загружаю…</div>');
+ const r=await Promise.all([sb.rpc('owner_list_orgs'),sb.rpc('owner_list_users')]);
+ if(r[0].error||r[1].error){shOpen('<h2 style="font-size:19px">👑 Панель владельца</h2><div class="empty">Не получилось: '+revEsc((r[0].error||r[1].error).message)+'<br>Выполни шаг 3 из файла supabase_upgrade.sql</div><button class="btn alt" style="width:100%" onclick="closeS()">Закрыть</button>');return}
+ OW.orgs=r[0].data||[];OW.users=r[1].data||[];ownerDraw()}
+function ownerDraw(){var h='<h2 style="font-size:19px">👑 Панель владельца</h2><div class="seg"><button class="'+(OW.tab=='o'?'on':'')+'" onclick="OW.tab=\'o\';ownerDraw()">Заведения</button><button class="'+(OW.tab=='u'?'on':'')+'" onclick="OW.tab=\'u\';ownerDraw()">Люди ('+OW.users.length+')</button></div>';
+ if(OW.tab=='o')h+=OW.orgs.map(function(o){return'<div class="row" style="cursor:default"><div class="t"><div>'+revEsc(o.name)+(o.is_active?'':' (выкл.)')+'</div><div>'+o.members+' чел. · руководителей '+o.admins+'</div></div><button class="x" onclick="ownerGo(\''+o.id+'\')">📦</button><button class="x" onclick="ownerRename(\''+o.id+'\')">✏️</button><button class="x" onclick="ownerToggle(\''+o.id+'\')">'+(o.is_active?'⏸':'▶️')+'</button></div>'}).join('')+'<button class="btn" style="width:100%;margin-top:12px" onclick="closeS();revCreateOrg()">＋ Создать заведение</button><div class="lbl">📦 открыть ревизию · ✏️ переименовать · ⏸ выключить</div>';
+ else h+='<input class="inp" placeholder="Поиск по имени или почте" oninput="ownerFilter(this.value)">'+OW.users.map(function(u){var s=((u.name||'')+' '+(u.email||'')).toLowerCase();return'<div class="row" data-s="'+revEsc(s)+'" onclick="ownerUser(\''+u.id+'\')"><div class="ico" style="background:var(--'+(u.banned?'bad':'lav')+')">'+revEsc(((u.name||u.email||'?')[0]||'?').toUpperCase())+'</div><div class="t"><div>'+revEsc(u.name||u.email)+(u.banned?' 🚫':'')+'</div><div>'+revEsc((u.orgs||[]).map(function(m){return m.name}).join(', ')||'без заведения')+'</div></div></div>'}).join('');
+ shOpen(h+'<button class="btn alt" style="width:100%;margin-top:10px" onclick="closeS()">Закрыть</button>')}
+function ownerFilter(q){q=q.toLowerCase();document.querySelectorAll('#sh .row[data-s]').forEach(function(r){r.style.display=r.dataset.s.indexOf(q)<0?'none':''})}
+async function ownerAct(fn,a,id,msg,tb){const r=await sb.rpc(fn,a);if(r.error)return revMsg(r.error.message);if(msg)revMsg(msg);try{await revLoadOrgs()}catch(e){}if(TAB=='r')render();await ownerOpen(tb||'u');if(id)ownerUser(id)}
+function ownerKick(o,u){if(confirm('Убрать из заведения?'))ownerAct('org_remove_member',{p_org:o,p_user:u},u)}
+function ownerAdd(u){ownerAct('owner_add_member',{p_org:document.getElementById('oadd').value,p_user:u,p_role:document.getElementById('orole').value},u,'Добавлен ✨')}
+function ownerBan(u,b){if(confirm(b?'Забанить аккаунт? Он не сможет войти.':'Разбанить аккаунт?'))ownerAct('owner_set_ban',{p_user:u,p_ban:b},u,b?'Забанен 🚫':'Разбанен ✅')}
+async function ownerGo(id){closeS();await revSelectOrg(id);tab('r')}
+function ownerRename(id){var o=OW.orgs.filter(function(x){return x.id===id})[0],n=prompt('Новое название',o.name);if(n&&n.trim())ownerAct('owner_set_org',{p_org:id,p_name:n.trim(),p_active:o.is_active},null,'Переименовано',"o")}
+function ownerToggle(id){var o=OW.orgs.filter(function(x){return x.id===id})[0];ownerAct('owner_set_org',{p_org:id,p_name:o.name,p_active:!o.is_active},null,o.is_active?'Выключено':'Включено',"o")}
+async function ownerView(uid){var u=OW.users.filter(function(x){return x.id===uid})[0];const r=await sb.rpc('owner_get_data',{p_user:uid});if(r.error)return revMsg(r.error.message);
+ MYS=S;S=Object.assign(JSON.parse(DEF),r.data||{});norm();VIEWING={uid:uid,name:(u&&(u.name||u.email))||'Пользователь'};closeS();setOwnerUI();TAB='s';render();revMsg('Режим просмотра: правки сохранятся у пользователя')}
+function ownerQueue(){ovDirty=true;clearTimeout(ovT);ovT=setTimeout(ownerPush,700)}
+async function ownerPush(){if(!VIEWING||!ovDirty)return;ovDirty=false;const r=await sb.rpc('owner_set_data',{p_user:VIEWING.uid,p_data:JSON.parse(JSON.stringify(S))});if(r.error){ovDirty=true;revMsg('Не сохранилось: '+r.error.message)}}
+async function ownerExit(){clearTimeout(ovT);await ownerPush();S=MYS;MYS=null;VIEWING=null;setOwnerUI();render();revMsg('Вернулся к своим данным')}
+// ===== Карта заведений (мультяшная) =====
+var MAP={orgs:[],sel:null,place:null,err:''},MAPBG='',PLOTS=[[.5,.2],[.28,.3],[.72,.3],[.5,.4],[.22,.52],[.78,.52],[.38,.64],[.64,.66],[.5,.8],[.24,.8],[.76,.8],[.5,.1]];
+function hsh(s){var h=2166136261;for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)}return h>>>0}
+function rnd(seed){var s=seed>>>0||1;return function(){s=(Math.imul(s,1664525)+1013904223)>>>0;return s/4294967296}}
+function IR(a){return .86+.08*Math.sin(3*a)+.05*Math.sin(5*a+1)}
+function inIsl(x,y,k){var dx=(x-350)/300,dy=(y-450)/400;return Math.hypot(dx,dy)<IR(Math.atan2(dy,dx))*k}
+function isOn(t){return t&&Date.now()-new Date(t).getTime()<300000}
+function orgOf(id){return MAP.orgs.filter(function(o){return o.id===id})[0]||{name:'',members:0,online:0}}
+function mapBg(){if(MAPBG)return MAPBG;var r=rnd(7),h='<defs><linearGradient id="sea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a3d3ef"/><stop offset="1" stop-color="#86bde4"/></linearGradient></defs><rect width="700" height="900" fill="url(#sea)"/>',i,x,y;
+ for(i=0;i<80;i++){x=r()*670;y=r()*880;if(!inIsl(x,y,1.1))h+='<path d="M'+x.toFixed(0)+' '+y.toFixed(0)+'q6-6 12 0q6 6 12 0" fill="none" stroke="#cbe8f8" stroke-width="2" opacity=".6"/>'}
+ var P=[];for(i=0;i<72;i++){var a=i/72*Math.PI*2,k=IR(a);P.push([350+300*k*Math.cos(a),450+400*k*Math.sin(a)])}
+ var m=function(p,q){return((p[0]+q[0])/2).toFixed(1)+' '+((p[1]+q[1])/2).toFixed(1)},d='M'+m(P[71],P[0]);for(i=0;i<72;i++)d+='Q'+P[i][0].toFixed(1)+' '+P[i][1].toFixed(1)+' '+m(P[i],P[(i+1)%72]);d+='Z';
+ h+='<path d="'+d+'" fill="#f4e6b4" stroke="#f4e6b4" stroke-width="28" stroke-linejoin="round" opacity=".9"/><path d="'+d+'" fill="#cbe392" stroke="#86ab63" stroke-width="4" stroke-linejoin="round"/><g transform="translate(350 450) scale(.88) translate(-350 -450)"><path d="'+d+'" fill="#dcedac" opacity=".7"/></g>';
+ var far=function(x,y,n){return PLOTS.every(function(p){return Math.hypot(x-p[0]*700,y-p[1]*900)>n})};
+ for(i=0;i<7;i++){x=r()*500+100;y=r()*640+130;if(inIsl(x,y,.8)&&far(x,y,60))h+='<path d="M'+x.toFixed(0)+' '+y.toFixed(0)+'q22-30 44 0z" fill="#b4d37e" stroke="#86ab63" stroke-width="2"/>'}
+ [[300,125],[350,112],[410,128]].forEach(function(p){h+='<path d="M'+(p[0]-26)+' '+(p[1]+22)+'L'+p[0]+' '+(p[1]-18)+'L'+(p[0]+26)+' '+(p[1]+22)+'Z" fill="#c9c2b2" stroke="#9b947f" stroke-width="2" stroke-linejoin="round"/><path d="M'+(p[0]-8)+' '+(p[1]-3)+'L'+p[0]+' '+(p[1]-18)+'L'+(p[0]+8)+' '+(p[1]-3)+'L'+p[0]+' '+(p[1]+1)+'Z" fill="#fff"/>'});
+ h+='<ellipse cx="236" cy="396" rx="40" ry="24" fill="#aad7f0" stroke="#86bde4" stroke-width="3"/>';
+ for(i=0;i<420;i++){x=r()*560+70;y=r()*740+80;if(i%3==0&&inIsl(x,y,.86)&&far(x,y,38)){h+='<circle cx="'+x.toFixed(0)+'" cy="'+y.toFixed(0)+'" r="2.3" fill="'+['#f2a6b8','#fff1a8','#ffffff','#c9b6ef'][i%4]+'"/>';continue}if(inIsl(x,y,.84)&&far(x,y,44)&&Math.hypot(x-236,y-396)>52)h+='<g transform="translate('+x.toFixed(0)+' '+y.toFixed(0)+')"><rect x="-1.5" y="0" width="3" height="7" fill="#8f6e4c"/><circle cy="-3" r="7.5" fill="#72b05d"/><circle cx="-4.5" cy="1" r="5" fill="#82c06b"/><circle cx="4.5" cy="1" r="5" fill="#82c06b"/></g>'}
+ [[84,640,34],[640,440,28],[560,880,26]].forEach(function(p){h+='<ellipse cx="'+p[0]+'" cy="'+p[1]+'" rx="'+p[2]+'" ry="'+(p[2]*.55)+'" fill="#f4e6b4" stroke="#e8d596" stroke-width="2"/><ellipse cx="'+p[0]+'" cy="'+(p[1]-3)+'" rx="'+(p[2]*.72)+'" ry="'+(p[2]*.36)+'" fill="#cbe392"/><g transform="translate('+p[0]+' '+(p[1]-8)+')"><rect x="-1.5" y="0" width="3" height="8" fill="#8f6e4c"/><circle cy="-3" r="8" fill="#72b05d"/></g>'});
+ [[90,90],[600,170],[120,820],[590,800]].forEach(function(p){h+='<g transform="translate('+p[0]+' '+p[1]+')" opacity=".78" fill="#fff"><ellipse rx="34" ry="12"/><circle cx="-12" cy="-8" r="12"/><circle cx="8" cy="-11" r="15"/></g>'});
+ h+='<g transform="translate(615 720)"><path d="M-22 0L22 0L14 12L-14 12Z" fill="#d98c6a" stroke="#8a5a40" stroke-width="2"/><path d="M0 -26L0 0L18 0Z" fill="#fff" stroke="#c9b9a0" stroke-width="1.5"/></g>';
+ return MAPBG=h}
+function mapPaths(P){var h='',done=[0],rest=P.map(function(_,i){return i}).slice(1);
+ while(rest.length){var b=null;rest.forEach(function(i){done.forEach(function(j){var d=Math.hypot(P[i][0]-P[j][0],P[i][1]-P[j][1]);if(!b||d<b.d)b={d:d,i:i,j:j}})});
+  var a=P[b.j],c=P[b.i],q=((a[0]+c[0])/2+(c[1]-a[1])*.12).toFixed(0)+' '+((a[1]+c[1])/2-(c[0]-a[0])*.12).toFixed(0),pth='M'+a[0].toFixed(0)+' '+a[1].toFixed(0)+'Q'+q+' '+c[0].toFixed(0)+' '+c[1].toFixed(0);
+  h+='<path d="'+pth+'" fill="none" stroke="#ecdca4" stroke-width="10" stroke-linecap="round" opacity=".7"/><path d="'+pth+'" fill="none" stroke="#b79c62" stroke-width="2.5" stroke-dasharray="1 8" stroke-linecap="round"/>';
+  done.push(b.i);rest=rest.filter(function(x){return x!=b.i})}return h}
+function bld(o,p){var hu=hsh(o.id)%360,mine=o.is_member||REV.global;
+ return'<g transform="translate('+p[0].toFixed(0)+' '+p[1].toFixed(0)+')" onclick="event.stopPropagation();mapTap(\''+o.id+'\')" style="cursor:pointer;'+(mine?'':'filter:saturate(.5)')+'">'+(MAP.sel===o.id?'<circle r="36" fill="#fff" opacity=".4"/>':'')
+ +'<ellipse cy="15" rx="25" ry="6" fill="#000" opacity=".13"/><rect x="-17" y="-8" width="34" height="22" rx="5" fill="hsl('+hu+' 65% 80%)" stroke="#6b5a4a" stroke-width="1.5"/><path d="M-22 -6L0 -27L22 -6Z" fill="hsl('+hu+' 55% 60%)" stroke="#6b5a4a" stroke-width="1.5" stroke-linejoin="round"/><rect x="-4" y="2" width="8" height="12" rx="3" fill="#7a5a3c"/><rect x="-14" y="-3" width="7" height="7" rx="2" fill="#fff6c9"/><rect x="7" y="-3" width="7" height="7" rx="2" fill="#fff6c9"/>'
+ +'<text y="31" text-anchor="middle" font-size="12" font-weight="800" fill="#4a3f55" stroke="#fff" stroke-width="3" paint-order="stroke" style="font-family:inherit">'+revEsc(o.name)+'</text>'
+ +(o.online>0?'<g transform="translate(19 -25)"><circle r="8" fill="#5cc27a" stroke="#fff" stroke-width="2"/><text y="3.5" text-anchor="middle" font-size="9" font-weight="900" fill="#fff">'+o.online+'</text></g>':'')+(o.pending?'<text x="14" y="-20" font-size="14">⏳</text>':'')+'</g>'}
+function viewMap(){var P=MAP.orgs.map(function(o,i){var q=(o.x!=null&&o.y!=null)?[+o.x,+o.y]:PLOTS[i%PLOTS.length];return[q[0]*700,q[1]*900]});
+ return'<div class="top" style="margin:6px 0 10px"><h1>🗺 Карта заведений</h1></div><div class="mapbox" id="mapbox"><svg viewBox="0 0 700 900" width="620" height="797" onclick="mapClick(event)">'+mapBg()+mapPaths(P)+MAP.orgs.map(function(o,i){return bld(o,P[i])}).join('')+'</svg></div><div class="rev-muted" style="text-align:center;margin-top:8px">'+(MAP.err?revEsc(MAP.err):MAP.place?'Тапни по карте, куда поставить «'+revEsc(orgOf(MAP.place).name)+'»':MAP.orgs.length?'Двигай карту пальцем · тапни по заведению':'Пока нет заведений')+'</div>'}
+function keepMap(){var b=document.getElementById('mapbox'),l=b?b.scrollLeft:0,t=b?b.scrollTop:0;render();b=document.getElementById('mapbox');if(b){b.scrollLeft=l;b.scrollTop=t}}
+function mapCenter(){var b=document.getElementById('mapbox');if(b){b.scrollLeft=(620-b.clientWidth)/2;b.scrollTop=30}}
+async function mapEnter(){if(!sb||!sbUser){render();return}MAP.err='';const r=await sb.rpc('map_orgs');
+ if(r.error){MAP.err='Для общей карты выполни шаг 4 из SQL-файла';MAP.orgs=REV.orgs.map(function(o){return{id:o.id,name:o.name,is_member:true,members:0,online:0}})}else MAP.orgs=r.data||[];
+ if(TAB=='k'){render();setTimeout(mapCenter,50)}}
+async function mapTap(id){var o=orgOf(id),mine=o.is_member||REV.global;MAP.sel=id;
+ shOpen('<h2 style="font-size:19px">🏠 '+revEsc(o.name)+'</h2><div class="rev-muted">'+o.members+' чел. · в сети '+o.online+'</div>'+(mine?'<button class="btn" style="width:100%;margin-top:12px" onclick="mapGo(\''+id+'\')">📦 Открыть ревизию</button><div id="mapwho" class="rev-muted" style="margin-top:10px">Загружаю…</div>':'<div class="empty">Ты не состоишь в этом заведении</div><button class="btn" style="width:100%" onclick="closeS();revJoinOrg()">🔑 Ввести код</button>'+(o.pending?'<div class="empty">⏳ Заявка отправлена, жди ответа админа</div>':'<button class="btn alt" style="width:100%;margin-top:8px" onclick="mapAsk(\''+id+'\')">🙋 Попросить доступ</button>'))+(REV.global?'<button class="btn alt" style="width:100%;margin-top:8px" onclick="mapPlace(\''+id+'\')">📍 Переставить на карте</button>':'')+'<button class="btn alt" style="width:100%;margin-top:8px" onclick="closeS()">Закрыть</button>');
+ keepMap();
+ if(mine){const r=await sb.rpc('org_room',{p_org:id});var w=document.getElementById('mapwho');if(w)w.innerHTML=r.error?'':(r.data||[]).map(function(m){return(isOn(m.last_seen)?'🟢 ':'⚪ ')+revEsc(m.name)}).join(' · ')}}
+function mapGo(id){closeS();REV.org=id;tab('r')}
+async function mapAsk(id){const r=await sb.rpc('request_join',{p_org:id});if(r.error)return revMsg(r.error.message);closeS();revMsg('Заявка отправлена 🙋');mapEnter()}
+function mapPlace(id){MAP.place=id;closeS();keepMap()}
+async function mapClick(e){if(!MAP.place)return;var s=e.currentTarget.getBoundingClientRect(),x=(e.clientX-s.left)/s.width,y=(e.clientY-s.top)/s.height;const r=await sb.rpc('owner_set_org_pos',{p_org:MAP.place,p_x:x,p_y:y});MAP.place=null;if(r.error)revMsg(r.error.message);else revMsg('Заведение переставлено 📍');mapEnter()}
+// ===== Заявки в заведение, фото напитков =====
+var RQ=[];
+async function revMembers(){const r=await Promise.all([sb.rpc('org_members',{p_org:REV.org}),sb.rpc('join_requests_list',{p_org:REV.org})]);if(r[0].error)return revMsg('Нужен шаг 3 из SQL-файла: '+r[0].error.message);MB=r[0].data||[];RQ=r[1].data||[];mbDraw()}
+async function revReq(u,ok){const r=await sb.rpc('answer_request',{p_org:REV.org,p_user:u,p_ok:ok});if(r.error)return revMsg(r.error.message);revAudit(ok?'join_request_approved':'join_request_declined','user',u,{});revMembers()}
+async function revRow(id,v){v=Math.floor(+v);if(!(v>=1))return revMsg('Минимум 1');const r=await sb.from('inventory_items').update({bottles_per_row:v}).eq('id',id);if(r.error)return revMsg(r.error.message);var it=REV.items.filter(function(x){return x.id===id})[0];if(it)it.bottles_per_row=v;revPatch(id);revMsg('Сохранено')}
+async function revPhoto(inp){var f=inp.files&&inp.files[0];if(!f||!RI.id)return;revMsg('Загружаю фото…');
+ try{const bmp=await createImageBitmap(f),c=document.createElement('canvas');c.width=c.height=360;var s=Math.min(bmp.width,bmp.height);c.getContext('2d').drawImage(bmp,(bmp.width-s)/2,(bmp.height-s)/2,s,s,0,0,360,360);
+  const blob=await new Promise(function(r){c.toBlob(r,'image/jpeg',.82)}),path=REV.org+'/'+RI.id+'.jpg',u=await sb.storage.from('drink-photos').upload(path,blob,{upsert:true,contentType:'image/jpeg'});if(u.error)throw u.error;
+  const url=sb.storage.from('drink-photos').getPublicUrl(path).data.publicUrl+'?v='+Date.now(),r=await sb.from('inventory_items').update({photo_url:url}).eq('id',RI.id);if(r.error)throw r.error;
+  closeS();await revLoadInventory();render();revMsg('Фото сохранено 📷')}catch(e){revMsg('Фото: '+(e.message||e)+' (шаг 4 SQL выполнен?)')}}
+var ROLES={owner:'Владелец',manager:'Управляющий',admin:'Администратор',senior_waiter:'Старший официант',waiter:'Официант',trainee:'Стажёр'},RANK={owner:50,manager:40,admin:30,senior_waiter:20,waiter:10,trainee:0},KITTY='<svg viewBox="0 0 120 108" width="92" height="83" aria-hidden="true"><path d="M24 40L30 8L54 26Z" fill="#fff" stroke="#6b3a55" stroke-width="3" stroke-linejoin="round"/><path d="M96 40L90 8L66 26Z" fill="#fff" stroke="#6b3a55" stroke-width="3" stroke-linejoin="round"/><path d="M33 30L35 17L45 25Z" fill="#ffb8c9"/><path d="M87 30L85 17L75 25Z" fill="#ffb8c9"/><ellipse cx="60" cy="66" rx="47" ry="38" fill="#fff" stroke="#6b3a55" stroke-width="3"/><ellipse cx="41" cy="64" rx="4.5" ry="6.5" fill="#6b3a55"/><ellipse cx="79" cy="64" rx="4.5" ry="6.5" fill="#6b3a55"/><circle cx="39.5" cy="61.5" r="1.6" fill="#fff"/><circle cx="77.5" cy="61.5" r="1.6" fill="#fff"/><ellipse cx="28" cy="77" rx="8" ry="5" fill="#ffb8c9" opacity=".85"/><ellipse cx="92" cy="77" rx="8" ry="5" fill="#ffb8c9" opacity=".85"/><path d="M55 74Q60 80 65 74" fill="none" stroke="#6b3a55" stroke-width="3" stroke-linecap="round"/><ellipse cx="60" cy="71" rx="4" ry="2.8" fill="#ff8fb0"/><path d="M12 66L26 69M12 76L26 75M108 66L94 69M108 76L94 75" stroke="#6b3a55" stroke-width="2.4" stroke-linecap="round"/><g transform="translate(60 27)"><path d="M0 0L-19 -11L-19 11Z" fill="#ff8fb0" stroke="#6b3a55" stroke-width="2.5" stroke-linejoin="round"/><path d="M0 0L19 -11L19 11Z" fill="#ff8fb0" stroke="#6b3a55" stroke-width="2.5" stroke-linejoin="round"/><circle r="5" fill="#ffd0df" stroke="#6b3a55" stroke-width="2.5"/></g></svg>';
+function roleName(r){return r=='global'?'Главный администратор':ROLES[r]||(r=='member'?'Официант':r)}
+function myRank(){return REV.global?100:(RANK[REV.role]!=null?RANK[REV.role]:(REV.role=='member'?10:-1))}
+function canStaff(){return myRank()>=40}
+function canInv(){return myRank()>=30}
+function UL(){return REV.section=='supplies'?{row:'в упаковке',a:'Упаковки',b:'Штуки',full:'Штук в упаковке',tot:'штук всего',name:'Хозтовары'}:{row:'в ряду',a:'Ряды',b:'Остаток',full:'Бутылок в полном ряду',tot:'бутылок всего',name:'Бар'}}
+function roleSel(o,u,cur,me,cb){var cr=myRank(),tr=RANK[cur]!=null?RANK[cur]:10;if(me||(cr<100&&tr>=cr))return'<span class="pill">'+revEsc(roleName(cur))+'</span>';
+ return'<select class="inp" style="width:auto;padding:6px 8px;font-size:12px" onchange="setRole(\''+o+'\',\''+u+'\',this.value,\''+cb+'\')">'+Object.keys(RANK).filter(function(r){return cr>=100||RANK[r]<cr}).map(function(r){return'<option value="'+r+'"'+(r==cur?' selected':'')+'>'+ROLES[r]+'</option>'}).join('')+'</select>'}
+async function setRole(o,u,role,cb){const r=await sb.rpc('org_set_role',{p_org:o,p_user:u,p_role:role});if(r.error)return revMsg(r.error.message);revAudit('member_role_changed','user',u,{role:role});revMsg('Должность изменена ✨');if(cb=='owner'){await ownerOpen('u');ownerUser(u)}else revMembers()}
+async function revSection(sec){REV.section=sec;try{await revLoadInventory()}catch(e){revMsg(e.message)}render()}
+var IP=null;function isStd(){return !!((window.matchMedia&&matchMedia('(display-mode: standalone)').matches)||navigator.standalone)}
+window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();IP=e;var b=document.getElementById('instBtn');if(b&&!isStd())b.style.display='inline-block'});
+window.addEventListener('appinstalled',function(){IP=null;var b=document.getElementById('instBtn');if(b)b.style.display='none'});
+async function doInstall(){if(IP){IP.prompt();try{await IP.userChoice}catch(e){}IP=null;document.getElementById('instBtn').style.display='none'}else shOpen('<h2 style="font-size:19px">⬇️ Установка приложения</h2><div class="row" style="cursor:default"><div class="t"><div>iPhone (Safari)</div><div>«Поделиться» → «На экран Домой»</div></div></div><div class="row" style="cursor:default"><div class="t"><div>Android (Chrome)</div><div>Меню ⋮ → «Установить приложение»</div></div></div><button class="btn alt" style="width:100%;margin-top:12px" onclick="closeS()">Понятно</button>')}
+if(/iphone|ipad/i.test(navigator.userAgent||'')&&!isStd()){var ib=document.getElementById('instBtn');if(ib)ib.style.display='inline-block'}
+function mbDraw(){shOpen('<h2 style="font-size:19px">👥 '+revEsc(curName())+'</h2>'
+ +(RQ.length?'<div class="lbl">🙋 Хотят вступить</div>'+RQ.map(function(q){return'<div class="row" style="cursor:default"><div class="t"><div>'+revEsc(q.name)+'</div><div>заявка</div></div><button class="x" onclick="revReq(\''+q.user_id+'\',true)">✓</button><button class="x" onclick="revReq(\''+q.user_id+'\',false)">✕</button></div>'}).join('')+'<div class="lbl" style="margin-top:10px">Сотрудники</div>':'')
+ +MB.map(function(m){var me=m.user_id===sbUser.id,low=myRank()<100&&(RANK[m.role]!=null?RANK[m.role]:10)>=myRank();return'<div class="row" style="cursor:default"><div class="ico" style="background:var(--'+(RANK[m.role]>=30?'butter':'lav')+')">'+(RANK[m.role]>=40?'👑':'🎀')+'</div><div class="t"><div>'+revEsc(m.name||m.email||String(m.user_id).slice(0,8))+(me?' (ты)':'')+'</div><div>'+revEsc(roleName(m.role))+(m.email&&m.name?' · '+revEsc(m.email):'')+'</div></div>'+roleSel(REV.org,m.user_id,m.role,me,'members')+(me||low?'':'<button class="x" onclick="orgKick(\''+m.user_id+'\')">✕</button>')+'</div>'}).join('')
+ +'<div class="lbl" style="margin-top:10px">Должность меняется списком справа · ✕ убирает из заведения</div><button class="btn alt" style="width:100%;margin-top:6px" onclick="closeS()">Закрыть</button>')}
+function ownerUser(id){var u=OW.users.filter(function(x){return x.id===id})[0];if(!u)return;var og=u.orgs||[],opts=OW.orgs.filter(function(o){return!og.some(function(m){return m.org===o.id})}).map(function(o){return'<option value="'+o.id+'">'+revEsc(o.name)+'</option>'}).join('');
+ shOpen('<h2 style="font-size:19px">'+revEsc(u.name||u.email)+'</h2><div class="rev-muted">'+revEsc(u.email||'')+(u.last_sign_in?' · вход '+revDt(u.last_sign_in):'')+(u.banned?' · 🚫 заблокирован':'')+'</div><button class="btn" style="width:100%;margin-top:12px" onclick="ownerView(\''+id+'\')">👁 Открыть смены, доходы и расходы</button><div class="lbl" style="margin-top:14px">Заведения и должности</div>'
+ +(og.length?og.map(function(m){return'<div class="row" style="cursor:default"><div class="t"><div>'+revEsc(m.name)+'</div><div>'+revEsc(roleName(m.role))+'</div></div>'+roleSel(m.org,id,m.role,false,'owner')+'<button class="x" onclick="ownerKick(\''+m.org+'\',\''+id+'\')">✕</button></div>'}).join(''):'<div class="empty" style="padding:6px">Нигде не состоит</div>')
+ +(opts?'<div class="flex" style="margin-top:10px"><select class="inp" id="oadd" style="min-width:0">'+opts+'</select><select class="inp" id="orole" style="width:auto">'+Object.keys(RANK).map(function(r){return'<option value="'+r+'"'+(r=='waiter'?' selected':'')+'>'+ROLES[r]+'</option>'}).join('')+'</select><button class="btn" onclick="ownerAdd(\''+id+'\')">＋</button></div>':'')
+ +'<button class="btn'+(u.banned?'':' del')+'" style="width:100%;margin-top:14px" onclick="ownerBan(\''+id+'\','+(!u.banned)+')">'+(u.banned?'✅ Разбанить':'🚫 Забанить аккаунт')+'</button><button class="btn alt" style="width:100%;margin-top:8px" onclick="ownerOpen(\'u\')">← К списку</button>')}
 window.addEventListener('online',function(){if(sbUser&&!cloudReady&&!cloudBusy)loadCloud(sbUser);else if(sbUser&&cloudReady&&localStorage.getItem(lsKey()+'_d')=='1')pushNow();revFlush()});
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden'&&sbUser&&cloudReady&&localStorage.getItem(lsKey()+'_d')=='1'){clearTimeout(cloudTimer);pushNow()}});
 render();
